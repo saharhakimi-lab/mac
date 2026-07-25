@@ -16,650 +16,593 @@
     <style>
         body {
             font-family: 'Heebo', sans-serif;
-            background-color: #f1f5f9; /* Light background */
-            color: #0f172a; /* Dark slate text */
+            background-color: #0f172a; /* Dark background for cool vibe */
+            color: #f8fafc;
         }
         .code-font {
             font-family: 'JetBrains Mono', monospace;
+            direction: ltr;
+            text-align: left;
+            display: inline-block;
         }
-        ::-webkit-scrollbar {
-            width: 6px;
+        .cmd-font {
+            font-family: 'Consolas', 'Courier New', monospace;
         }
-        ::-webkit-scrollbar-track {
-            background: #e2e8f0;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 3px;
-        }
-        @keyframes flood-wave {
-            0% { transform: scale(1); opacity: 0.8; }
-            100% { transform: scale(3); opacity: 0; }
-        }
-        .wave-effect {
-            animation: flood-wave 1.2s ease-out infinite;
+        
+        /* Enforce LTR strictly for any English code or input */
+        .ltr-text {
+            direction: ltr !important;
+            text-align: left !important;
+            unicode-bidi: isolate;
         }
 
-        /* Floating Help Bot Widget */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1e293b;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #06b6d4;
+            border-radius: 4px;
+        }
+
+        /* Avatar styling with 30deg tilt */
+        .avatar-tilted {
+            transform: rotate(30deg);
+            transition: transform 0.3s ease;
+        }
+        .avatar-tilted:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+
+        /* Crazy Floating Help Bot */
         #bot-fab {
             position: fixed;
             bottom: 24px;
             left: 24px;
             z-index: 200;
-            width: 68px;
-            height: 68px;
-            border-radius: 9999px;
-            background: linear-gradient(135deg, #2563eb, #3b82f6, #06b6d4);
-            animation: bot-glow 3s ease infinite;
+            width: 76px;
+            height: 76px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff007f, #7928ca, #00dfd8);
+            animation: crazy-bounce 2s infinite alternate ease-in-out, crazy-spin 8s linear infinite;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 0 20px rgba(255, 0, 128, 0.6);
             cursor: pointer;
-            border: 3px solid #ffffff;
-            transition: transform 0.2s;
-            padding: 0;
+            border: 4px solid #00f0ff;
             overflow: hidden;
         }
-        #bot-fab:hover { transform: scale(1.08); }
+        @keyframes crazy-bounce {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-12px) scale(1.05); }
+        }
         #bot-panel {
             position: fixed;
-            bottom: 105px;
+            bottom: 110px;
             left: 24px;
             z-index: 200;
-            width: 320px;
+            width: 340px;
             display: none;
         }
         #bot-panel.open { display: block; }
-        .bot-ping {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            width: 14px;
-            height: 14px;
-            border-radius: 9999px;
-            background: #ef4444;
-            z-index: 10;
-            border: 2px solid #ffffff;
+
+        /* Packet Animation */
+        .packet-node {
+            transition: all 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Tab Visibility Control */
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Windows CMD Styling */
+        .cmd-window {
+            background-color: #0c0c0c;
+            color: #cccccc;
+            border: 2px solid #666666;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+        .cmd-header {
+            background: linear-gradient(90deg, #ffffff, #e1e1e1);
+            color: #000000;
+            padding: 4px 8px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: sans-serif;
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between overflow-x-hidden">
 
-    <!-- TOP BAR (LIGHT THEME) -->
-    <header class="border-b border-slate-200 bg-white/90 backdrop-blur sticky top-0 z-50 px-4 py-3 shadow-sm">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-blue-50 p-2 rounded-xl border border-blue-200 text-blue-600">
-                    <i data-lucide="toggle-left" class="w-6 h-6"></i>
+    <!-- TOP BAR / HEADER -->
+    <header class="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-50 px-4 py-4 shadow-2xl">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            
+            <!-- CRAZY TITLE & AVATAR -->
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" 
+                         alt="Avatar" 
+                         class="w-16 h-16 rounded-2xl object-cover border-2 border-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.5)] avatar-tilted">
                 </div>
                 <div>
-                    <h1 class="font-black text-lg tracking-wide text-slate-900">NET_ACADEMY // <span class="text-blue-600">CLASS_03</span></h1>
-                    <p class="text-xs text-slate-500">כתובות MAC, פעולת ה-Switch ומסע חבילת המידע ברשת</p>
+                    <div class="flex items-center gap-2">
+                        <h1 class="font-black text-xl md:text-2xl tracking-wide text-white">NET_ACADEMY //</h1>
+                        <span class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-xs px-2.5 py-0.5 rounded-full font-bold ltr-text">CLASS_03</span>
+                    </div>
+                    <div class="text-xs text-slate-400 flex items-center gap-2 mt-1">
+                        <span>כרטיס רשת:</span>
+                        <span class="code-font text-cyan-300 font-bold bg-slate-800 px-2 py-0.5 rounded border border-slate-700">00:1A:2B:3F:4A:8C</span>
+                    </div>
                 </div>
             </div>
             
             <!-- Gamification Status -->
             <div class="flex items-center gap-4 md:gap-6">
-                <div class="hidden md:flex items-center gap-2 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
-                    <span class="text-xs text-slate-500">רמה:</span>
-                    <span class="text-xs font-bold text-blue-600" id="user-level">שוליית נתבים</span>
-                    <div class="w-16 bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                        <div id="level-bar" class="bg-blue-600 h-full w-2/5 transition-all duration-500"></div>
+                <div class="flex items-center gap-2 bg-slate-800/80 px-4 py-2 rounded-xl border border-slate-700">
+                    <span class="text-xs text-slate-400">רמה:</span>
+                    <span class="text-xs font-bold text-cyan-400" id="user-level">שוליית נתבים</span>
+                    <div class="w-20 bg-slate-700 h-2 rounded-full overflow-hidden mr-2">
+                        <div id="level-bar" class="bg-gradient-to-r from-cyan-500 to-blue-500 h-full w-2/5 transition-all duration-500"></div>
                     </div>
                 </div>
                 
-                <div class="flex items-center gap-2 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg text-amber-700">
-                    <i data-lucide="zap" class="w-4 h-4 text-amber-500 animate-pulse"></i>
+                <div class="flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-xl text-amber-400">
+                    <i data-lucide="zap" class="w-4 h-4 text-amber-400 animate-pulse"></i>
                     <span class="text-xs font-bold">XP:</span>
-                    <span class="text-sm font-black code-font" id="xp-counter">0</span>
+                    <span class="text-sm font-black ltr-text" id="xp-counter">0</span>
                 </div>
             </div>
         </div>
     </header>
 
     <!-- MAIN BODY -->
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-12 gap-6">
         
-        <!-- SIDEBAR -->
+        <!-- NAVIGATION TABS (SIDEBAR) -->
         <aside class="lg:col-span-3 flex flex-col gap-4">
-            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm">
-                <h3 class="text-xs font-black text-slate-400 mb-4 tracking-wider uppercase border-b border-slate-100 pb-2">מפת המשימה</h3>
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
+                <h3 class="text-xs font-black text-cyan-400 mb-3 tracking-wider uppercase border-b border-slate-800 pb-2">חלקי השיעור (טאבים)</h3>
                 <nav class="flex flex-col gap-2">
-                    <!-- Step 1 -->
-                    <button id="btn-step-1" onclick="switchStep(1)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 transition-all font-bold">
+                    <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-cyan-600 text-white font-bold transition-all shadow-lg">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">01.</span>
+                            <span class="ltr-text text-xs opacity-70">01.</span>
                             <span>משבר השמועה בכיתה</span>
                         </div>
-                        <i data-lucide="help-circle" class="w-4 h-4 text-blue-600"></i>
+                        <i data-lucide="message-square" class="w-4 h-4"></i>
                     </button>
-                    <!-- Step 2 -->
-                    <button id="btn-step-2" onclick="switchStep(2)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all">
+                    
+                    <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/50 text-slate-300 hover:bg-slate-800 transition-all">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">02.</span>
-                            <span>תעודת הזהות של החומרה</span>
+                            <span class="ltr-text text-xs opacity-70">02.</span>
+                            <span>תעודת הזהות (MAC)</span>
                         </div>
-                        <i data-lucide="fingerprint" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="fingerprint" class="w-4 h-4 opacity-70"></i>
                     </button>
-                    <!-- Step 3 (NEW) -->
-                    <button id="btn-step-3" onclick="switchStep(3)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all">
+                    
+                    <button id="tab-btn-3" onclick="switchTab(3)" class="tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/50 text-slate-300 hover:bg-slate-800 transition-all">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">03.</span>
+                            <span class="ltr-text text-xs opacity-70">03.</span>
                             <span>IP קבוע מול MAC משתנה</span>
                         </div>
-                        <i data-lucide="route" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="route" class="w-4 h-4 opacity-70"></i>
                     </button>
-                    <!-- Step 4 -->
-                    <button id="btn-step-4" onclick="switchStep(4)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all">
+                    
+                    <button id="tab-btn-4" onclick="switchTab(4)" class="tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/50 text-slate-300 hover:bg-slate-800 transition-all">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">04.</span>
-                            <span>סימולטור למידת מתג</span>
+                            <span class="ltr-text text-xs opacity-70">04.</span>
+                            <span>סימולטור למידת Switch + ARP</span>
                         </div>
-                        <i data-lucide="cpu" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="cpu" class="w-4 h-4 opacity-70"></i>
                     </button>
-                    <!-- Step 5 -->
-                    <button id="btn-step-5" onclick="switchStep(5)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all">
+                    
+                    <button id="tab-btn-5" onclick="switchTab(5)" class="tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/50 text-slate-300 hover:bg-slate-800 transition-all">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">05.</span>
-                            <span>סדנת בניית פרומפטים</span>
+                            <span class="ltr-text text-xs opacity-70">05.</span>
+                            <span>סדנת פרומפטים AI</span>
                         </div>
-                        <i data-lucide="terminal" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="terminal" class="w-4 h-4 opacity-70"></i>
                     </button>
-                    <!-- Step 6 -->
-                    <button id="btn-step-6" onclick="switchStep(6)" class="w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all">
+                    
+                    <button id="tab-btn-6" onclick="switchTab(6)" class="tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/50 text-slate-300 hover:bg-slate-800 transition-all">
                         <div class="flex items-center gap-3">
-                            <span class="code-font text-xs opacity-60">06.</span>
-                            <span>לוח פתרונות וסיום</span>
+                            <span class="ltr-text text-xs opacity-70">06.</span>
+                            <span>דוח סיום ורפלקציה</span>
                         </div>
-                        <i data-lucide="award" class="w-4 h-4 opacity-50"></i>
+                        <i data-lucide="award" class="w-4 h-4 opacity-70"></i>
                     </button>
                 </nav>
             </div>
 
-            <!-- SYSTEM LOG -->
-            <div class="bg-white border border-slate-200 rounded-2xl p-5 shadow-sm flex-grow flex flex-col justify-between">
-                <div>
-                    <h4 class="text-xs font-bold text-slate-500 tracking-wider mb-3 uppercase">יומן התקשרות מתג</h4>
-                    <div id="system-log" class="text-xs code-font text-slate-600 space-y-2 h-44 overflow-y-auto bg-slate-50 p-3 rounded-xl border border-slate-200">
-                        <p>[10:11:01] מתג Switch_Cisco_2960 הופעל.</p>
-                        <p>[10:11:02] טבלת MAC ריקה כרגע.</p>
-                    </div>
-                </div>
-                <div class="mt-4 pt-4 border-t border-slate-100">
-                    <button onclick="resetProgress()" class="text-xs text-red-500 hover:text-red-600 flex items-center gap-1.5 transition-colors font-medium">
-                        <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
-                        <span>אפס התקדמות שיעור</span>
-                    </button>
-                </div>
+            <!-- RESET BUTTON -->
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
+                <button onclick="resetProgress()" class="w-full text-xs text-red-400 hover:text-red-300 flex items-center justify-center gap-2 transition-colors font-medium p-2 bg-red-500/10 rounded-xl border border-red-500/20">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+                    <span>אפס התקדמות שיעור</span>
+                </button>
             </div>
         </aside>
 
         <!-- CONTENT DISPLAY AREA -->
         <section class="lg:col-span-9 flex flex-col gap-6">
 
-            <!-- STEP 1: SHOUTING VS WHISPERING -->
-            <div id="step-1" class="step-container space-y-6">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm relative overflow-hidden">
-                    <span class="bg-blue-100 border border-blue-200 text-blue-700 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תרחיש פתיחה כיתתי</span>
+            <!-- TAB 1: SHOUTING VS WHISPERING -->
+            <div id="tab-1" class="tab-content active space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                    <span class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תרחיש פתיחה</span>
                     
-                    <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-4 mb-3">איך לחלוק סוד מבלי שכולם ישמעו?</h2>
-                    <p class="text-slate-600 leading-relaxed text-base">
+                    <h2 class="text-2xl md:text-3xl font-black text-white mt-4 mb-3">איך לחלוק סוד מבלי שכולם ישמעו?</h2>
+                    <p class="text-slate-300 leading-relaxed text-base">
                         תאר לעצמך שאתה רוצה להגיד משהו סודי לחבר שיושב בצד השני של הכיתה. אין לך מושג איפה הוא יושב היום, ואתה לא יודע איך הוא נראה. מה האפשרויות שלך?
                     </p>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
-                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl">
-                            <h3 class="text-amber-600 font-bold mb-2 flex items-center gap-2">
+                        <div class="bg-slate-800/50 border border-slate-700/60 p-5 rounded-xl">
+                            <h3 class="text-amber-400 font-bold mb-2 flex items-center gap-2">
                                 <i data-lucide="megaphone" class="w-5 h-5"></i>
                                 שיטת הצעקה (Broadcast / Flooding)
                             </h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                אתה צועק בקול רם: "דניאל! איפה אתה?". כל תלמיד בכיתה שומע את זה. חלקם מתעצבנים, אבל דניאל מרים את היד ומסמן לך איפה הוא. מעכשיו כולם יודעים שאתה מחפש אותו.
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                אתה צועק בקול רם: "דניאל! איפה אתה?". כל תלמיד בכיתה שומע את זה. חלקם מתעצבנים, אבל דניאל מרים את היד ומסמן לך איפה הוא.
                             </p>
                         </div>
-                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl">
-                            <h3 class="text-emerald-600 font-bold mb-2 flex items-center gap-2">
+                        <div class="bg-slate-800/50 border border-slate-700/60 p-5 rounded-xl">
+                            <h3 class="text-emerald-400 font-bold mb-2 flex items-center gap-2">
                                 <i data-lucide="mic" class="w-5 h-5"></i>
                                 שיטת הלחישה הישירה (Unicast)
                             </h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                בגלל שאתה כבר יודע שדניאל יושב בטור ג' שולחן 2, אתה הולך ישירות אליו ולוחש לו באוזן. אף תלמיד אחר לא מופרע והסודיות נשמרת באופן מלא.
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                בגלל שאתה כבר יודע שדניאל יושב בטור ג' שולחן 2, אתה הולך ישירות אליו ולוחש לו באוזן. אף תלמיד אחר לא מופרע!
                             </p>
                         </div>
                     </div>
 
-                    <div class="mt-6 bg-blue-50/50 p-5 rounded-xl border border-blue-100">
-                        <p class="text-xs text-slate-800 font-bold mb-3">שאלה אסטרטגית: למה שמתג רשת (Switch) יעדיף להשתמש בלחישה ישירה על פני צעקה בכל פעם מחדש?</p>
+                    <div class="mt-6 bg-slate-800 p-5 rounded-xl border border-slate-700">
+                        <p class="text-xs text-slate-200 font-bold mb-3">שאלה אסטרטגית: למה שמתג רשת (Switch) יעדיף בלחישה ישירה על פני צעקה?</p>
                         <div class="flex flex-col gap-2">
-                            <button onclick="answerScenario(1)" class="bg-white hover:bg-slate-100 text-right border border-slate-200 text-slate-700 text-xs px-4 py-2.5 rounded-lg transition-all shadow-sm">מכיוון שצעקה (Flooding) מייצרת עומס מטורף ברשת ומאיטה את המחשבים האחרים סתם.</button>
-                            <button onclick="answerScenario(2)" class="bg-white hover:bg-slate-100 text-right border border-slate-200 text-slate-700 text-xs px-4 py-2.5 rounded-lg transition-all shadow-sm">מכיוון שצעקה פשוט שורפת את החיווט הפיזי של כרטיסי הרשת.</button>
+                            <button onclick="answerScenario(1)" class="bg-slate-900 hover:bg-slate-700 text-right border border-slate-700 text-slate-200 text-xs px-4 py-3 rounded-lg transition-all">מכיוון שצעקה (Flooding) מייצרת עומס מטורף ברשת ומאיטה את המחשבים האחרים.</button>
+                            <button onclick="answerScenario(2)" class="bg-slate-900 hover:bg-slate-700 text-right border border-slate-700 text-slate-200 text-xs px-4 py-3 rounded-lg transition-all">מכיוון שצעקה פשוט שורפת את החיווט הפיזי של כרטיסי הרשת.</button>
                         </div>
                         <div id="scenario-feedback" class="mt-4 hidden p-3 rounded-lg text-xs font-semibold"></div>
                     </div>
                 </div>
-                
-                <div class="flex justify-end">
-                    <button onclick="switchStep(2)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-md">
-                        <span>גלה את תעודת הזהות החומרתית</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
-                </div>
             </div>
 
-            <!-- STEP 2: WHAT IS A MAC ADDRESS -->
-            <div id="step-2" class="step-container space-y-6 hidden">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
-                    <span class="text-blue-600 text-xs font-bold uppercase tracking-wider">תיאוריה חיונית</span>
-                    <h2 class="text-2xl font-black text-slate-900 mt-2 mb-4">כתובת MAC: טביעת האצבע הפיזית של הרשת</h2>
+            <!-- TAB 2: MAC ADDRESS DETAILS -->
+            <div id="tab-2" class="tab-content space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                    <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider">תיאוריה חיונית</span>
+                    <h2 class="text-2xl font-black text-white mt-2 mb-4">כתובת MAC: טביעת האצבע הפיזית של החומרה</h2>
                     
-                    <p class="text-slate-600 leading-relaxed mb-6">
-                        בניגוד לכתובת IP שיכולה להשתנות כשאתם עוברים מבית קפה אחד לאחר, כתובת <span class="text-blue-600 font-bold">MAC (Media Access Control)</span> נצרבת פיזית על כרטיס הרשת שלכם עוד במפעל. היא ייחודית בעולם ולא תשתנה לעולם!
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        בניגוד לכתובת IP שמשתנה ברשתות שונות, כתובת <span class="text-cyan-400 font-bold ltr-text">MAC (Media Access Control)</span> נצרבת פיזית על כרטיס הרשת עוד במפעל.
                     </p>
 
                     <!-- MAC format breakdown -->
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-200 max-w-xl mx-auto space-y-4">
-                        <div class="text-center text-xs text-slate-500 font-bold">מבנה כתובת MAC טיפוסית (בייצוג הקסדצימלי):</div>
+                    <div class="bg-slate-950 p-6 rounded-xl border border-slate-800 max-w-xl mx-auto space-y-4">
+                        <div class="text-center text-xs text-slate-400 font-bold">מבנה כתובת MAC (ייצוג הקסדצימלי):</div>
                         
-                        <div class="flex justify-center items-center gap-2 text-lg md:text-2xl font-mono tracking-widest text-slate-800" style="direction: ltr;">
-                            <span class="bg-amber-100 border border-amber-300 px-3 py-1 rounded-lg text-amber-800" title="מזהה היצרן (OUI)">00:1A:2B</span>
-                            <span class="text-slate-400">:</span>
-                            <span class="bg-blue-100 border border-blue-300 px-3 py-1 rounded-lg text-blue-800" title="מזהה כרטיס ספציפי">3F:4A:8C</span>
+                        <div class="flex justify-center items-center gap-2 text-xl md:text-2xl ltr-text font-bold tracking-widest">
+                            <span class="bg-amber-500/20 border border-amber-500/40 px-3 py-1 rounded-lg text-amber-300">00:1A:2B</span>
+                            <span class="text-slate-500">:</span>
+                            <span class="bg-cyan-500/20 border border-cyan-500/40 px-3 py-1 rounded-lg text-cyan-300">3F:4A:8C</span>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-slate-200" style="direction: ltr;">
-                            <div class="text-right" style="direction: rtl;">
-                                <span class="block text-amber-700 font-bold">חצי ראשון (OUI):</span>
-                                <span class="text-slate-500">מזהה באופן חד חד-ערכי את החברה שייצרה את המכשיר (Intel, Apple, Cisco).</span>
+                        <div class="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-slate-800">
+                            <div class="text-right">
+                                <span class="block text-amber-400 font-bold">חצי ראשון (OUI):</span>
+                                <span class="text-slate-400">מזהה את החברה שייצרה את המכשיר (Intel, Cisco...).</span>
                             </div>
-                            <div class="text-right" style="direction: rtl;">
-                                <span class="block text-blue-700 font-bold">חצי שני (NIC):</span>
-                                <span class="text-slate-500">מספר סידורי ייחודי שהיצרן נותן לאותו רכיב חומרה ספציפי בכרטיס.</span>
+                            <div class="text-right">
+                                <span class="block text-cyan-400 font-bold">חצי שני (NIC):</span>
+                                <span class="text-slate-400">מספר סידורי ייחודי של הרכיב הספציפי.</span>
                             </div>
                         </div>
                     </div>
-
-                    <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl mt-6">
-                        <h4 class="text-slate-800 font-bold text-sm mb-1">איך המתג (Switch) משתמש בזה?</h4>
-                        <p class="text-xs text-slate-600 leading-relaxed">
-                            המתג הוא השומר של השכונה המקומית (Layer 2). הוא מתחזק טבלה דינמית שממפה: <b>באיזה פורט פיזי שלי מחוברת איזו כתובת MAC?</b> כך הוא יודע בדיוק לאן להעביר כל פריים מידע ללא שגיאות.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="flex justify-between">
-                    <button onclick="switchStep(1)" class="bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        <span>חזרה למפגש הכיתתי</span>
-                    </button>
-                    <button onclick="switchStep(3)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-md">
-                        <span>עבור לעקרון מסע החבילה</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
                 </div>
             </div>
 
-            <!-- STEP 3 (NEW): PACKET JOURNEY (IP STAYS, MAC CHANGES) -->
-            <div id="step-3" class="step-container space-y-6 hidden">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
-                    <span class="bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">עקרון ברזל בתקשורת</span>
-                    <h2 class="text-2xl font-black text-slate-900 mt-3 mb-2">מסע חבילת המידע: IP קבוע vs כתובת MAC משתנה</h2>
-                    <p class="text-slate-600 text-sm leading-relaxed mb-6">
-                        אחד העקרונות החשובים ביותר להבנת רשתות: כאשר חבילת מידע נוסעת ממחשב במקור למחשב יעד מרוחק ברשת אחרת, **כתובות ה-IP נשארות קבועות לאורך כל המסע**, אבל **כתובות ה-MAC משתנות בכל מעבר דרך ראוטר (Router)!**
+            <!-- TAB 3: PACKET JOURNEY (IP vs MAC) -->
+            <div id="tab-3" class="tab-content space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                    <span class="bg-indigo-500/20 text-indigo-400 border border-indigo-500/30 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">עקרון ברזל בתקשורת</span>
+                    <h2 class="text-2xl font-black text-white mt-3 mb-2">מסע חבילת המידע: IP קבוע vs כתובת MAC משתנה</h2>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">
+                        כאשר חבילה נוסעת ליעד מרוחק: <b class="text-cyan-400">כתובת ה-IP נשארת קבועה מתחילת הדרך ועד סופה</b>, אך <b class="text-amber-400">כתובת ה-MAC משתנה בכל מעבר דרך ראוטר!</b>
                     </p>
 
-                    <!-- Analogy Box -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl">
-                            <h3 class="text-blue-600 font-bold text-sm mb-2 flex items-center gap-2">
+                        <div class="bg-slate-800/50 border border-slate-700/60 p-5 rounded-xl">
+                            <h3 class="text-cyan-400 font-bold text-sm mb-2 flex items-center gap-2">
                                 <i data-lucide="globe" class="w-5 h-5"></i>
                                 כתובת IP (שכבה 3 - End to End)
                             </h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                מדמה את **כתובת המגורים הסופית** המודפסת על מכתב (מאיזו עיר ומאיזה רחוב נשלח, ולאיזו עיר ורחוב הוא מיועד). הכתובות הללו לא משתנות לאורך כל הדרך!
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                מדמה את **כתובת המגורים הסופית** המודפסת על המכתב. לא משתנה לעולם לאורך כל במסלול!
                             </p>
                         </div>
-                        <div class="bg-slate-50 border border-slate-200 p-5 rounded-xl">
-                            <h3 class="text-emerald-600 font-bold text-sm mb-2 flex items-center gap-2">
+                        <div class="bg-slate-800/50 border border-slate-700/60 p-5 rounded-xl">
+                            <h3 class="text-amber-400 font-bold text-sm mb-2 flex items-center gap-2">
                                 <i data-lucide="truck" class="w-5 h-5"></i>
                                 כתובת MAC (שכבה 2 - Hop to Hop)
                             </h3>
-                            <p class="text-xs text-slate-600 leading-relaxed">
-                                מדמה את **אמצעי התחבורה הספציפי** שמעביר את המכתב מתחנה לתחנה (למשל: משאית דואר א' -> מטוס -> משאית דואר ב'). בכל מקטע פיזי, כתובות ה-MAC נמחקות ונכתבות מחדש!
+                            <p class="text-xs text-slate-300 leading-relaxed">
+                                מדמה את **כלי התחבורה** המעביר מתחנה לתחנה. בכל מקטע פיזי, מעטפת ה-MAC נמחקת ונכתבת מחדש!
                             </p>
                         </div>
                     </div>
-
-                    <!-- Flow Diagram Visualizer -->
-                    <div class="bg-slate-900 text-white p-6 rounded-xl space-y-4 font-mono text-xs">
-                        <div class="text-amber-400 font-bold text-center text-sm mb-2">תרשים זרימת מעבר דרך ראוטר (Hop-by-Hop)</div>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-center items-center">
-                            <!-- Host A -->
-                            <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
-                                <div class="text-blue-400 font-bold mb-1">מחשב מקור (Host A)</div>
-                                <div class="text-[10px] text-slate-300">IP: 192.168.1.10</div>
-                                <div class="text-[10px] text-slate-400">MAC: AA:AA:AA:AA:AA:AA</div>
-                            </div>
-
-                            <!-- Router -->
-                            <div class="bg-slate-800 p-3 rounded-lg border border-indigo-500/50">
-                                <div class="text-indigo-400 font-bold mb-1">ראוטר (Router)</div>
-                                <div class="text-[10px] text-slate-300">משנה מעטפת Layer 2!</div>
-                                <div class="text-[10px] text-amber-400 font-bold">מוריד MAC ישן ➔ מעדכן MAC חדש</div>
-                            </div>
-
-                            <!-- Host B -->
-                            <div class="bg-slate-800 p-3 rounded-lg border border-slate-700">
-                                <div class="text-emerald-400 font-bold mb-1">מחשב יעד (Host B)</div>
-                                <div class="text-[10px] text-slate-300">IP: 10.0.0.50</div>
-                                <div class="text-[10px] text-slate-400">MAC: BB:BB:BB:BB:BB:BB</div>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-950 p-4 rounded border border-slate-800 text-[11px] leading-relaxed text-slate-300">
-                            📌 <b>מה קורה בתוך הראוטר?</b><br>
-                            כאשר הראוטר מקבל פריים, הוא מפרק את מעטפת ה-Layer 2 (מוחק את כתובות ה-MAC שהביאו את המידע אליו), בודק בתוך מעטפת ה-IP (Layer 3) לאן החבילה צריכה להגיע, ואז **עוטף את החבילה מחדש** בכתובות MAC חדשות המתאימות למקטע הבא!
-                        </div>
-                    </div>
-
-                    <!-- PROMINENT SIMULATOR LINK CALL-OUT -->
-                    <div class="mt-8 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg relative overflow-hidden">
-                        <div class="flex flex-col md:flex-row justify-between items-center gap-6 relative z-10">
-                            <div class="space-y-2 text-center md:text-right">
-                                <span class="bg-white/20 text-white text-[10px] px-2.5 py-1 rounded-full font-bold uppercase tracking-wider">סימולטור מעשי חיצוני</span>
-                                <h3 class="text-xl font-black">רוצים לראות איך Switch לומד בזמן אמת?</h3>
-                                <p class="text-xs text-blue-100 max-w-xl">
-                                    כנסו לסימולטור הלמידה המפוקס של Switch כדי לראות מעבר פריימים, טבלאות CAM ותהליך Flooding בלייב!
-                                </p>
-                            </div>
-                            <a href="https://saharhakimi-lab.github.io/simswitch/" target="_blank" rel="noopener noreferrer" class="bg-white hover:bg-slate-100 text-blue-700 font-black px-6 py-3 rounded-xl transition-all shadow-md flex items-center gap-2 whitespace-nowrap text-sm shrink-0">
-                                <span>הפעל סימולטור Switch</span>
-                                <i data-lucide="external-link" class="w-4 h-4"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="flex justify-between">
-                    <button onclick="switchStep(2)" class="bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        <span>חזרה למבנה MAC</span>
-                    </button>
-                    <button onclick="switchStep(4)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-md">
-                        <span>לסימולטור למידת מתג פנימי</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
                 </div>
             </div>
 
-            <!-- STEP 4: INTERACTIVE SWITCH LEARNING SIMULATOR -->
-            <div id="step-4" class="step-container space-y-6 hidden">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
-                    <span class="bg-blue-100 border border-blue-200 text-blue-700 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">תחנת למידה מעשית</span>
-                    <h2 class="text-2xl font-black text-slate-900 mt-3">סימולטור פעולת ה-Switch הדינמי</h2>
-                    <p class="text-slate-600 text-sm mt-1">שלח חבילת מידע מ-PC A ל-PC B וצפה כיצד טבלת ה-MAC של המתג מתעדכנת בזמן אמת דרך תהליך הלמידה וה-Flooding!</p>
+            <!-- TAB 4: ADVANCED SWITCH & ARP SIMULATOR -->
+            <div id="tab-4" class="tab-content space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                    <span class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">סימולטור למידה בלייב</span>
+                    <h2 class="text-2xl font-black text-white mt-2">סימולטור המתג וטבלאות ה-ARP</h2>
+                    <p class="text-slate-300 text-sm mt-1 mb-4">בחר מקור ויעד לשליחת החבילה. מעבר החבילה מתבצע באיטיות כדי לאפשר מעקב מדויק אחרי המעטפת!</p>
 
-                    <!-- Visual Simulator Grid -->
-                    <div class="mt-8 bg-slate-50 rounded-xl p-6 border border-slate-200 relative min-h-[320px] flex flex-col justify-between overflow-hidden">
+                    <!-- CONTROLS FOR SIMULATION -->
+                    <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 flex flex-wrap gap-4 items-center justify-between mb-6">
+                        <div class="flex gap-3 items-center">
+                            <label class="text-xs text-slate-300 font-bold">מקור:</label>
+                            <select id="sim-source" class="bg-slate-900 text-cyan-400 text-xs font-bold border border-slate-700 rounded-lg p-2 ltr-text">
+                                <option value="A">Host A (192.168.1.10)</option>
+                                <option value="B">Host B (192.168.1.20)</option>
+                                <option value="C">Host C (192.168.1.30)</option>
+                            </select>
+
+                            <label class="text-xs text-slate-300 font-bold mr-2">יעד:</label>
+                            <select id="sim-target" class="bg-slate-900 text-cyan-400 text-xs font-bold border border-slate-700 rounded-lg p-2 ltr-text">
+                                <option value="B">Host B (192.168.1.20)</option>
+                                <option value="A">Host A (192.168.1.10)</option>
+                                <option value="C">Host C (192.168.1.30)</option>
+                            </select>
+                        </div>
+
+                        <button id="btn-start-sim" onclick="runPacketSimulation()" class="bg-cyan-600 hover:bg-cyan-500 text-white font-bold px-5 py-2.5 rounded-xl text-xs transition-all flex items-center gap-2 shadow-lg">
+                            <i data-lucide="play" class="w-4 h-4"></i>
+                            <span>שלח חבילת מידע</span>
+                        </button>
+                    </div>
+
+                    <!-- VISUAL TOPOLOGY -->
+                    <div id="sim-stage" class="bg-slate-950 rounded-2xl p-6 border border-slate-800 relative min-h-[380px] flex flex-col justify-between overflow-hidden">
                         
-                        <!-- Topology Layout -->
+                        <!-- PACKET ENVELOPE OVERLAY -->
+                        <div id="animated-packet" class="absolute hidden z-30 bg-gradient-to-r from-amber-500 to-cyan-500 text-slate-950 p-2.5 rounded-xl shadow-[0_0_20px_rgba(6,182,212,0.8)] border-2 border-white packet-node text-[10px] font-bold">
+                            <div class="ltr-text border-b border-slate-900/30 pb-1 mb-1 font-extrabold flex justify-between gap-2">
+                                <span>TYPE: <span id="pkt-type">ARP REQ</span></span>
+                            </div>
+                            <div class="ltr-text">SRC IP: <span id="pkt-src-ip">192.168.1.10</span></div>
+                            <div class="ltr-text">DST IP: <span id="pkt-dst-ip">192.168.1.20</span></div>
+                            <div class="ltr-text">SRC MAC: <span id="pkt-src-mac">AA:AA:AA:AA:11</span></div>
+                            <div class="ltr-text">DST MAC: <span id="pkt-dst-mac">FF:FF:FF:FF:FF</span></div>
+                        </div>
+
+                        <!-- TOPOLOGY NODES -->
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 my-auto items-center text-center">
                             
-                            <!-- Left: Host A -->
-                            <div class="flex flex-col items-center gap-2">
-                                <div id="node-pc-a" class="w-20 h-20 bg-white border-2 border-blue-500 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md">
-                                    <i data-lucide="monitor" class="w-8 h-8 text-blue-600"></i>
-                                    <span class="text-[10px] font-bold mt-1 text-slate-800">PC A</span>
+                            <!-- Host A -->
+                            <div id="node-container-A" class="flex flex-col items-center gap-1 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                <div id="node-A" class="w-16 h-16 bg-slate-800 border-2 border-cyan-500 rounded-2xl flex flex-col items-center justify-center shadow-lg">
+                                    <i data-lucide="monitor" class="w-7 h-7 text-cyan-400"></i>
+                                    <span class="text-[10px] font-bold text-white">Host A</span>
                                 </div>
-                                <span class="text-[10px] text-slate-500 font-mono">MAC: AA:AA:AA:AA:AA:11</span>
-                                <span class="bg-white px-2 py-0.5 rounded text-[10px] text-blue-700 font-bold border border-slate-200">פורט 1</span>
+                                <span class="text-[10px] text-cyan-300 ltr-text font-bold">IP: 192.168.1.10</span>
+                                <span class="text-[10px] text-slate-400 ltr-text">MAC: AA:AA:AA:AA:11</span>
+                                <span class="text-[9px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Port 1</span>
                             </div>
 
-                            <!-- Center: The Switch -->
-                            <div class="flex flex-col items-center justify-center relative">
-                                <div id="node-switch" class="w-24 h-24 bg-white border-2 border-slate-400 rounded-full flex flex-col items-center justify-center shadow-md relative">
-                                    <div id="broadcast-pulse" class="absolute inset-0 rounded-full border-2 border-blue-500 scale-100 opacity-0 pointer-events-none"></div>
-                                    <i data-lucide="git-commit" class="w-10 h-10 text-slate-700 animate-pulse"></i>
-                                    <span class="text-[10px] font-bold mt-1 text-slate-800">Switch_Cisco</span>
+                            <!-- Switch -->
+                            <div class="flex flex-col items-center justify-center">
+                                <div id="node-SW" class="w-20 h-20 bg-slate-800 border-2 border-amber-500 rounded-full flex flex-col items-center justify-center shadow-xl">
+                                    <i data-lucide="git-commit" class="w-8 h-8 text-amber-400 animate-pulse"></i>
+                                    <span class="text-[10px] font-bold text-white">Switch</span>
                                 </div>
-                                <span class="text-[10px] text-slate-500 font-mono mt-2">Layer 2 Device</span>
+                                <span class="text-[10px] text-slate-400 ltr-text mt-1">Layer 2 Switch</span>
                             </div>
 
-                            <!-- Right Side: Host B & Host C -->
-                            <div class="flex md:flex-col justify-center items-center gap-6">
-                                <!-- Host B -->
-                                <div class="flex flex-col items-center gap-1">
-                                    <div id="node-pc-b" class="w-20 h-20 bg-white border-2 border-slate-300 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md">
-                                        <i data-lucide="monitor" class="w-8 h-8 text-slate-600"></i>
-                                        <span class="text-[10px] font-bold mt-1 text-slate-800">PC B</span>
+                            <!-- Host B & C -->
+                            <div class="flex md:flex-col justify-center items-center gap-4">
+                                <div id="node-container-B" class="flex flex-col items-center gap-1 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                    <div id="node-B" class="w-16 h-16 bg-slate-800 border-2 border-slate-600 rounded-2xl flex flex-col items-center justify-center shadow-lg">
+                                        <i data-lucide="monitor" class="w-7 h-7 text-slate-400"></i>
+                                        <span class="text-[10px] font-bold text-white">Host B</span>
                                     </div>
-                                    <span class="text-[10px] text-slate-500 font-mono">MAC: BB:BB:BB:BB:BB:22</span>
-                                    <span class="bg-white px-2 py-0.5 rounded text-[10px] text-slate-600 font-bold border border-slate-200">פורט 2</span>
+                                    <span class="text-[10px] text-cyan-300 ltr-text font-bold">IP: 192.168.1.20</span>
+                                    <span class="text-[10px] text-slate-400 ltr-text">MAC: BB:BB:BB:BB:22</span>
+                                    <span class="text-[9px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Port 2</span>
                                 </div>
 
-                                <!-- Host C -->
-                                <div class="flex flex-col items-center gap-1">
-                                    <div id="node-pc-c" class="w-20 h-20 bg-white border-2 border-slate-300 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-md">
-                                        <i data-lucide="monitor" class="w-8 h-8 text-slate-600"></i>
-                                        <span class="text-[10px] font-bold mt-1 text-slate-800">PC C</span>
+                                <div id="node-container-C" class="flex flex-col items-center gap-1 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
+                                    <div id="node-C" class="w-16 h-16 bg-slate-800 border-2 border-slate-600 rounded-2xl flex flex-col items-center justify-center shadow-lg">
+                                        <i data-lucide="monitor" class="w-7 h-7 text-slate-400"></i>
+                                        <span class="text-[10px] font-bold text-white">Host C</span>
                                     </div>
-                                    <span class="text-[10px] text-slate-500 font-mono">MAC: CC:CC:CC:CC:CC:33</span>
-                                    <span class="bg-white px-2 py-0.5 rounded text-[10px] text-slate-600 font-bold border border-slate-200">פורט 3</span>
+                                    <span class="text-[10px] text-cyan-300 ltr-text font-bold">IP: 192.168.1.30</span>
+                                    <span class="text-[10px] text-slate-400 ltr-text">MAC: CC:CC:CC:CC:33</span>
+                                    <span class="text-[9px] bg-slate-800 text-slate-300 px-2 py-0.5 rounded border border-slate-700">Port 3</span>
                                 </div>
                             </div>
 
                         </div>
+                    </div>
 
-                        <!-- Active Packets Visualizer -->
-                        <div id="packet-sim-a-to-sw" class="absolute w-4 h-4 bg-blue-600 rounded-full hidden z-20 shadow"></div>
-                        <div id="packet-sim-sw-to-b" class="absolute w-4 h-4 bg-blue-600 rounded-full hidden z-20 shadow"></div>
-                        <div id="packet-sim-sw-to-c" class="absolute w-4 h-4 bg-blue-600 rounded-full hidden z-20 shadow"></div>
-
-                        <!-- Control Actions -->
-                        <div class="border-t border-slate-200 pt-4 mt-6 flex flex-col sm:flex-row justify-between items-center gap-4 relative z-10 bg-white/80 backdrop-blur rounded-xl p-3 border border-slate-200">
-                            <div class="text-xs text-slate-700 text-center sm:text-right">
-                                <p class="font-bold">פקודת הפעלת פינג:</p>
-                                <p class="text-slate-500">לחץ על הכפתור כדי לשלוח בקשת Ping מ-PC A אל עבר PC B. שים לב מה קורה בטבלה למטה!</p>
+                    <!-- TABLES: SWITCH MAC TABLE & ARP TABLES -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        
+                        <!-- SWITCH MAC TABLE -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+                            <h3 class="text-xs font-bold text-amber-400 mb-3 flex items-center gap-2">
+                                <i data-lucide="table" class="w-4 h-4"></i>
+                                Switch MAC Address Table (CAM)
+                            </h3>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-right text-xs">
+                                    <thead>
+                                        <tr class="border-b border-slate-800 text-slate-400">
+                                            <th class="pb-2">Port</th>
+                                            <th class="pb-2">MAC Address</th>
+                                            <th class="pb-2">Type</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="mac-table-body" class="ltr-text text-slate-300 font-mono">
+                                        <tr id="empty-mac-row"><td colspan="3" class="py-3 text-center text-slate-600 italic">הטבלה ריקה</td></tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="flex gap-2">
-                                <button id="btn-ping-sim" onclick="startPingSimulation()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-all flex items-center gap-1.5 shadow-md">
-                                    <i data-lucide="send" class="w-4 h-4"></i>
-                                    <span>בצע פינג (PC A ➔ PC B)</span>
-                                </button>
+                        </div>
+
+                        <!-- ARP TABLES PER HOST -->
+                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3">
+                            <h3 class="text-xs font-bold text-cyan-400 flex items-center gap-2">
+                                <i data-lucide="layers" class="w-4 h-4"></i>
+                                טבלאות ARP דינמיות של המארחים
+                            </h3>
+                            
+                            <div class="space-y-2 text-[11px] font-mono">
+                                <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                                    <span class="text-cyan-400 font-bold block mb-1">Host A ARP Table:</span>
+                                    <div id="arp-table-A" class="text-slate-400 italic">Empty</div>
+                                </div>
+                                <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                                    <span class="text-cyan-400 font-bold block mb-1">Host B ARP Table:</span>
+                                    <div id="arp-table-B" class="text-slate-400 italic">Empty</div>
+                                </div>
+                                <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                                    <span class="text-cyan-400 font-bold block mb-1">Host C ARP Table:</span>
+                                    <div id="arp-table-C" class="text-slate-400 italic">Empty</div>
+                                </div>
                             </div>
                         </div>
 
                     </div>
-
-                    <!-- Dynamic CAM / MAC Table Display -->
-                    <div class="mt-6 bg-slate-50 rounded-xl p-4 border border-slate-200">
-                        <h3 class="text-sm font-bold text-slate-800 mb-3 flex items-center gap-2">
-                            <i data-lucide="table" class="w-4 h-4 text-blue-600"></i>
-                            MAC Address Table (CAM Table)
-                        </h3>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-right text-xs">
-                                <thead>
-                                    <tr class="border-b border-slate-200 text-slate-500">
-                                        <th class="pb-2">פורט מתג (Port)</th>
-                                        <th class="pb-2">כתובת חומרה (MAC Address)</th>
-                                        <th class="pb-2">סוג למידה (Type)</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="mac-table-body" class="font-mono text-slate-700">
-                                    <tr id="empty-table-row">
-                                        <td colspan="3" class="py-4 text-center text-slate-400 italic">הטבלה ריקה כרגע. המתג לא מכיר אף מכשיר ברשת המקומית.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div id="sim-feedback" class="mt-4 hidden p-4 rounded-xl text-xs font-bold"></div>
-                </div>
-
-                <div class="flex justify-between">
-                    <button onclick="switchStep(3)" class="bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        <span>חזרה למסע החבילה</span>
-                    </button>
-                    <button id="btn-to-step-5" onclick="switchStep(5)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-md disabled:opacity-40 disabled:pointer-events-none" disabled>
-                        <span>המשך לסדנת פרומפט AI</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
                 </div>
             </div>
 
-            <!-- STEP 5: PROMPT ENGINEERING STUDIO (AI STEP) -->
-            <div id="step-5" class="step-container space-y-6 hidden">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
-                    <div class="flex justify-between items-start flex-wrap gap-4 border-b border-slate-100 pb-4">
-                        <div>
-                            <span class="bg-blue-100 border border-blue-200 text-blue-700 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">סדנת ה-AI המקצועית</span>
-                            <h2 class="text-2xl font-black text-slate-900 mt-3">סדנת בניית פרומפט (Prompt Studio)</h2>
-                            <p class="text-slate-500 text-sm mt-1">במקום סתם לשאול, אתה הולך להרכיב פרומפט מקצועי ולראות איך דיוק בפרטים משנה לחלוטין את רמת התשובה של ה-AI!</p>
-                        </div>
-                    </div>
+            <!-- TAB 5: PROMPT ENGINEERING STUDIO -->
+            <div id="tab-5" class="tab-content space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                    <span class="bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 text-xs px-3 py-1 rounded-full font-bold uppercase tracking-widest">סדנת AI</span>
+                    <h2 class="text-2xl font-black text-white mt-3">סדנת בניית פרומפט (Prompt Studio)</h2>
 
                     <div class="grid grid-cols-1 md:grid-cols-12 gap-6 mt-6">
-                        <!-- Left Side: Prompt Block Builder -->
-                        <div class="md:col-span-5 bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
-                            <h3 class="text-xs font-bold text-slate-700 tracking-wide uppercase border-b border-slate-200 pb-2">בנה את הפרומפט שלך:</h3>
-                            
-                            <!-- Block 1: Role -->
+                        <!-- Left Side Controls -->
+                        <div class="md:col-span-5 bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-4">
                             <div>
-                                <label class="block text-xs text-blue-700 font-bold mb-1">1. הגדר תפקיד ל-AI (Persona):</label>
-                                <select id="prompt-role" onchange="updatePromptPreview()" class="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500">
+                                <label class="block text-xs text-cyan-400 font-bold mb-1">1. תפקיד ל-AI:</label>
+                                <select id="prompt-role" onchange="updatePromptPreview()" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded-lg border border-slate-800">
                                     <option value="none">-- בחר תפקיד --</option>
-                                    <option value="engineer">מהנדס רשתות מומחה של סיסקו (Cisco Expert)</option>
-                                    <option value="attacker">האקר כובע אדום המתמחה במתקפות סייבר (Red Team)</option>
-                                    <option value="teacher">מורה מומחה שמסביר מושגים לתלמידי תיכון בגובה העיניים</option>
+                                    <option value="engineer">מהנדס רשתות מומחה Cisco</option>
+                                    <option value="attacker">האקר כובע אדום (Red Team)</option>
+                                    <option value="teacher">מורה מומחה לתקשורת</option>
                                 </select>
                             </div>
 
-                            <!-- Block 2: Topic -->
                             <div>
-                                <label class="block text-xs text-blue-700 font-bold mb-1">2. בחר נושא לניתוח (Topic):</label>
-                                <select id="prompt-topic" onchange="updatePromptPreview()" class="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500">
-                                    <option value="none">-- בחר נושא לחקירה --</option>
-                                    <option value="mac_flooding">מתקפת הצפת מתג (MAC Flooding Attack)</option>
-                                    <option value="mac_spoofing">זיוף כתובת MAC וחטיפת תקשורת (MAC Spoofing)</option>
-                                    <option value="cam_overflow">השלכות קריסת טבלת ה-CAM במתג ארגוני</option>
+                                <label class="block text-xs text-cyan-400 font-bold mb-1">2. נושא לחקירה:</label>
+                                <select id="prompt-topic" onchange="updatePromptPreview()" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded-lg border border-slate-800">
+                                    <option value="none">-- בחר נושא --</option>
+                                    <option value="mac_flooding">מתקפת הצפת מתג (MAC Flooding)</option>
+                                    <option value="mac_spoofing">זיוף כתובת MAC</option>
                                 </select>
                             </div>
 
-                            <!-- Block 3: Format -->
                             <div>
-                                <label class="block text-xs text-blue-700 font-bold mb-1">3. הגדר פורמט פלט (Format):</label>
-                                <select id="prompt-format" onchange="updatePromptPreview()" class="w-full bg-white text-xs text-slate-800 p-2.5 rounded-lg border border-slate-200 focus:outline-none focus:border-blue-500">
-                                    <option value="none">-- בחר פורמט תשובה --</option>
-                                    <option value="analogy">הסבר המבוסס על אנלוגיה משעשעת מהחיים</option>
-                                    <option value="technical">ניתוח טכני שלב אחר שלב כולל פקודות הגנה של מתגים</option>
-                                    <option value="bullet">רשימת נקודות ממוקדות עם סיכום קצר בסופן</option>
+                                <label class="block text-xs text-cyan-400 font-bold mb-1">3. פורמט פלט:</label>
+                                <select id="prompt-format" onchange="updatePromptPreview()" class="w-full bg-slate-900 text-xs text-slate-200 p-2.5 rounded-lg border border-slate-800">
+                                    <option value="none">-- בחר פורמט --</option>
+                                    <option value="analogy">אנלוגיה משעשעת</option>
+                                    <option value="technical">ניתוח טכני מעמיק</option>
                                 </select>
                             </div>
 
-                            <!-- Live Prompt Preview Panel -->
-                            <div class="bg-white p-3 rounded-lg border border-slate-200">
-                                <span class="text-[9px] text-slate-400 block font-bold">תצוגה מקדימה של הפרומפט שיישלח:</span>
-                                <p id="prompt-preview" class="text-[11px] font-mono text-slate-600 mt-1 whitespace-pre-wrap">הגדר מרכיבים למעלה...</p>
+                            <div class="bg-slate-900 p-3 rounded-lg border border-slate-800">
+                                <span class="text-[10px] text-slate-500 block font-bold">תצוגה מקדימה:</span>
+                                <p id="prompt-preview" class="text-[11px] ltr-text text-slate-400 mt-1 whitespace-pre-wrap">Select components...</p>
                             </div>
                         </div>
 
-                        <!-- Right Side: AI Execution Output -->
-                        <div class="md:col-span-7 bg-slate-50 border border-slate-200 p-5 rounded-xl flex flex-col justify-between min-h-[400px]">
+                        <!-- Right Side Console Output -->
+                        <div class="md:col-span-7 bg-slate-950 border border-slate-800 p-4 rounded-xl flex flex-col justify-between min-h-[350px]">
                             <div>
-                                <div class="flex justify-between items-center mb-4">
-                                    <h3 class="text-xs font-bold text-slate-800 uppercase">תוצר מנוע ה-AI הסימולטיבי:</h3>
-                                    <div id="prompt-score-tag" class="hidden px-2 py-0.5 rounded text-[10px] font-bold"></div>
-                                </div>
-                                <div id="ai-response-box" class="text-xs text-slate-700 leading-relaxed bg-white p-4 rounded-xl border border-slate-200 h-[280px] overflow-y-auto font-sans shadow-sm">
-                                    לחץ על כפתור "שלח פרומפט ל-AI" משמאל לאחר בחירת כל המרכיבים...
+                                <h3 class="text-xs font-bold text-slate-400 uppercase mb-3">תשובת מנוע ה-AI:</h3>
+                                <div id="ai-response-box" class="text-xs text-slate-300 leading-relaxed bg-slate-900 p-4 rounded-xl border border-slate-800 h-[240px] overflow-y-auto">
+                                    בחר פרמטרים ולחץ על הכפתור למטה למענה...
                                 </div>
                             </div>
 
-                            <button onclick="runPromptSimulator()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2 mt-4 shadow-md">
+                            <button onclick="runPromptSimulator()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2 mt-4 shadow-lg">
                                 <i data-lucide="play" class="w-4 h-4"></i>
-                                <span>שלח פרומפט לניתוח ה-AI</span>
+                                <span>הפעל פרומפט</span>
                             </button>
                         </div>
                     </div>
-
-                    <!-- Achievement Unlock Alert -->
-                    <div id="prompt-achievement" class="mt-4 hidden bg-amber-50 border border-amber-200 text-amber-900 p-4 rounded-xl flex items-center justify-between">
-                        <div class="flex items-center gap-3">
-                            <span class="text-xl">🏆</span>
-                            <div>
-                                <p class="font-bold">הישג נפתח! מהנדס פרומפטים מיומן</p>
-                                <p class="text-xs opacity-80">חיברת בהצלחה פרומפט שלם הכולל תפקיד, הקשר ופורמט ברור.</p>
-                            </div>
-                        </div>
-                        <span class="font-mono text-xs text-amber-700 font-bold">+70 XP</span>
-                    </div>
-
-                </div>
-                <div class="flex justify-between">
-                    <button onclick="switchStep(4)" class="bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-700 font-bold px-5 py-3 rounded-xl flex items-center gap-2 transition-all">
-                        <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                        <span>חזרה לסימולטור</span>
-                    </button>
-                    <button id="btn-to-step-6" onclick="switchStep(6)" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-6 py-3 rounded-xl flex items-center gap-2 transition-all shadow-md disabled:opacity-40 disabled:pointer-events-none" disabled>
-                        <span>עבור לדוח סיום המשימה</span>
-                        <i data-lucide="arrow-left" class="w-5 h-5"></i>
-                    </button>
                 </div>
             </div>
 
-            <!-- STEP 6: REFLECTION & ACTION REPORT -->
-            <div id="step-6" class="step-container space-y-6 hidden">
-                <div class="bg-white border border-slate-200 rounded-2xl p-6 md:p-8 shadow-sm">
-                    <span class="text-blue-600 text-xs font-bold uppercase tracking-wider">משוב עמיתים וסגירת דוח</span>
-                    <h2 class="text-2xl font-black text-slate-900 mt-2 mb-4">תעודת ההאקר שלך לשכבה 2 מעודכנת!</h2>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <!-- Reflection Form -->
-                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 space-y-4">
-                            <h3 class="font-bold text-slate-800 text-base">רפלקציה עצמית למורה</h3>
-                            <p class="text-xs text-slate-500">השלם את המחשבות שלך על השיעור והמידע הזה יישלח למורה שלך בקליק.</p>
-                            
-                            <div class="space-y-3">
-                                <div>
-                                    <label class="block text-xs text-slate-700 mb-1 font-bold">1. מה קורה למתג (Switch) כשהוא מקבל פריים המיועד לכתובת MAC שעדיין לא רשומה בטבלה שלו?</label>
-                                    <textarea id="reflection-q1" class="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs text-slate-800 focus:outline-none focus:border-blue-500" rows="2" placeholder="למשל: הוא מבצע Flooding לכל הפורטים חוץ מהפורט שממנו החבילה הגיעה..."></textarea>
-                                </div>
-                                <div>
-                                    <label class="block text-xs text-slate-700 mb-1 font-bold">2. למה כתובת IP נשארת קבועה לאורך מסע החבילה בעוד כתובת ה-MAC משתנה בראוטר?</label>
-                                    <textarea id="reflection-q2" class="w-full bg-white border border-slate-200 rounded-lg p-2.5 text-xs text-slate-800 focus:outline-none focus:border-blue-500" rows="2" placeholder="למשל: IP מייצגת יעד סופי מקצה לקצה, בעוד MAC מייצגת את כרטיס הרשת במקטע המקומי הנוכחי..."></textarea>
-                                </div>
+            <!-- TAB 6: WINDOWS CMD & FINAL REFLECTION -->
+            <div id="tab-6" class="tab-content space-y-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 md:p-8 shadow-xl">
+                    <span class="text-cyan-400 text-xs font-bold uppercase tracking-wider">סגירת שיעור ורפלקציה</span>
+                    <h2 class="text-2xl font-black text-white mt-2 mb-4">מסוף פקודות WINDOWS CMD וסיכום</h2>
+
+                    <!-- WINDOWS CMD EXACT REPLICA -->
+                    <div class="cmd-window rounded-lg overflow-hidden my-6">
+                        <div class="cmd-header">
+                            <div class="flex items-center gap-2">
+                                <i data-lucide="terminal" class="w-3.5 h-3.5 text-black"></i>
+                                <span class="font-bold text-xs">Command Prompt - arp -a</span>
+                            </div>
+                            <div class="flex gap-1.5 text-black font-bold text-xs">
+                                <span class="px-1.5 hover:bg-gray-300 cursor-pointer">—</span>
+                                <span class="px-1.5 hover:bg-gray-300 cursor-pointer">☐</span>
+                                <span class="px-1.5 hover:bg-red-500 hover:text-white cursor-pointer">✕</span>
                             </div>
                         </div>
-
-                        <!-- Share card and report exports -->
-                        <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 flex flex-col justify-between">
-                            <div>
-                                <h3 class="font-bold text-slate-800 text-base mb-2">שתף הצלחה עם הכיתה</h3>
-                                <p class="text-xs text-slate-500 mb-4">העתק את קוד ההישג שלך ושתף אותו עם חברים כדי להשוות תוצאות ניתוב!</p>
-                                
-                                <div class="bg-white p-3 rounded-lg border border-slate-200 code-font text-xs flex justify-between items-center text-blue-600 font-bold">
-                                    <span id="share-code">NET-ACAD-CLASS3-PENDING</span>
-                                    <button onclick="copyShareCode()" class="text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1 text-[11px]">
-                                        <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-                                        <span>העתק</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="mt-6 pt-6 border-t border-slate-200 space-y-3">
-                                <button onclick="exportTeacherReport()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-sm transition-all flex items-center justify-center gap-2 shadow-md">
-                                    <i data-lucide="download" class="w-4 h-4"></i>
-                                    <span>ייצא דוח מסכם למורה</span>
-                                </button>
-                                <p class="text-[10px] text-slate-400 text-center">בלחיצה כאן יורד קובץ טקסט פשוט שמכיל את התשובות שלך, שאותו תוכל לשלוח למורה.</p>
-                            </div>
+                        <div class="p-4 text-xs cmd-font ltr-text text-green-400 leading-relaxed">
+                            <p class="text-gray-400">Microsoft Windows [Version 10.0.19045.3803]</p>
+                            <p class="text-gray-400 mb-4">(c) Microsoft Corporation. All rights reserved.</p>
+                            
+                            <p class="text-white">C:\Users\Student> <span class="text-yellow-300">arp -a</span></p>
+                            <br>
+                            <p class="text-white">Interface: 192.168.1.10 --- 0x3</p>
+                            <p class="text-gray-400">  Internet Address      Physical Address      Type</p>
+                            <p>  192.168.1.20          bb-bb-bb-bb-bb-22     dynamic</p>
+                            <p>  192.168.1.30          cc-cc-cc-cc-cc-33     dynamic</p>
+                            <p>  192.168.1.255         ff-ff-ff-ff-ff-ff     static</p>
+                            <br>
+                            <p class="text-white">C:\Users\Student> <span class="animate-pulse">_</span></p>
                         </div>
                     </div>
+
+                    <!-- REFLECTION FORM -->
+                    <div class="bg-slate-950 p-5 rounded-xl border border-slate-800 space-y-4">
+                        <h3 class="font-bold text-white text-base">שאלות רפלקציה למורה</h3>
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1 font-bold">1. מה קורה למתג כאשר מתקבל פריים לכתובת MAC שאינה קיימת בטבלה?</label>
+                            <textarea id="reflection-q1" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs text-slate-200 focus:outline-none focus:border-cyan-500" rows="2" placeholder="הקלד את תשובתך..."></textarea>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-slate-300 mb-1 font-bold">2. למה כתובת ה-IP נשארת קבועה לאורך מסע החבילה בעוד כתובת ה-MAC משתנה בראוטר?</label>
+                            <textarea id="reflection-q2" class="w-full bg-slate-900 border border-slate-800 rounded-lg p-3 text-xs text-slate-200 focus:outline-none focus:border-cyan-500" rows="2" placeholder="הקלד את תשובתך..."></textarea>
+                        </div>
+                        <button onclick="exportTeacherReport()" class="w-full bg-cyan-600 hover:bg-cyan-500 text-white font-bold py-3 rounded-xl text-xs transition-all flex items-center justify-center gap-2 shadow-lg">
+                            <i data-lucide="download" class="w-4 h-4"></i>
+                            <span>הורד דוח סיכום למורה</span>
+                        </button>
+                    </div>
+
                 </div>
             </div>
 
@@ -667,555 +610,214 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="border-t border-slate-200 bg-white py-4 px-4 text-center">
-        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
-            <p>© 2026 NET_ACADEMY - הדרך שלך לרשתות ותקשורת מחשבים</p>
-            <div class="flex gap-4">
-                <span>שיעור 3 מתוך 10</span>
-                <span>•</span>
-                <span class="text-blue-600 font-bold">RTL תומך באופן מלא</span>
-            </div>
-        </div>
+    <footer class="border-t border-slate-800 bg-slate-900 py-4 px-4 text-center mt-6">
+        <p class="text-xs text-slate-500">© 2026 NET_ACADEMY - הדרך שלך לרשתות ותקשורת מחשבים</p>
     </footer>
 
-    <!-- Notification system toast -->
-    <div id="toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-2xl z-50 transform translate-y-20 opacity-0 transition-all duration-300 flex items-center gap-3">
-        <i data-lucide="info" class="w-5 h-5 text-blue-400" id="toast-icon"></i>
-        <span id="toast-message" class="text-sm font-medium"></span>
-    </div>
-
-    <!-- HELP BOT CHAT WIDGET -->
-    <div id="bot-panel" dir="rtl">
-        <div style="background-color: #ffffff; border-radius: 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.15); border: 1px solid #e2e8f0; overflow: hidden; font-family: 'Heebo', sans-serif;">
-            <!-- Header with Avatar -->
-            <div style="background: linear-gradient(135deg, #2563eb, #3b82f6); padding: 12px 16px; color: white; display: flex; align-items: center; gap: 12px;">
-                <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" 
-                     onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/bottts/svg?seed=CrazyAvatar';"
-                     alt="אוואטר" 
-                     style="width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); flex-shrink: 0; background-color: #ffffff;">
-                <div>
-                    <strong style="font-size: 15px; display: block; line-height: 1.2;">סייען הלמידה הדיגיטלי</strong>
-                    <span style="font-size: 11px; opacity: 0.9;">זמין לשאלות 24/7</span>
+    <!-- CRAZY FLOATING BOT PANEL -->
+    <div id="bot-panel">
+        <div class="bg-slate-900 border-2 border-cyan-400 rounded-2xl shadow-[0_0_30px_rgba(6,182,212,0.4)] overflow-hidden">
+            <div class="bg-gradient-to-r from-pink-600 via-purple-600 to-cyan-500 p-3 text-white flex justify-between items-center">
+                <div class="flex items-center gap-2">
+                    <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" class="w-8 h-8 rounded-full border border-white avatar-tilted">
+                    <span class="font-black text-xs">בוט הרשתות המטורלל 🤖</span>
                 </div>
-                <button onclick="toggleBotPanel()" style="margin-right: auto; background: none; border: none; color: white; font-size: 22px; line-height: 1; cursor: pointer; opacity: 0.8;">&times;</button>
+                <button onclick="toggleBotPanel()" class="text-white text-lg font-bold">&times;</button>
             </div>
-            <!-- Body -->
-            <div style="padding: 18px; display: flex; flex-direction: column; gap: 14px;">
-                <p style="font-size: 13px; color: #475569; line-height: 1.6; margin: 0;">
-                    תקועים בתרגיל? צריכים הסבר נוסף על כתובות MAC, מסע החבילה או פעולת ה-Switch? הבוט כאן כדי לעזור!
+            <div class="p-4 space-y-3">
+                <p class="text-xs text-slate-300 leading-relaxed">
+                    ייפייי! תקוע בתרגיל? צריך עזרה להבין איך Switch לומד או מה זה ARP? לחץ למטה ונעוף על זה! 🚀
                 </p>
-                <a href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #2563eb, #3b82f6); color: white; font-weight: 700; padding: 12px 16px; border-radius: 10px; text-decoration: none; font-size: 13px; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); transition: transform 0.2s;">
-                    <span>לפתיחת הבוט לחצו כאן</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" style="width: 16px; height: 16px;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
+                <a href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" class="block text-center bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-black text-xs py-2.5 rounded-xl transition-all shadow-md">
+                    פתח צ'אט עזרה בלייב 🔥
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Floating Trigger Button -->
+    <!-- CRAZY BOT TRIGGER BUTTON -->
     <button id="bot-fab" onclick="toggleBotPanel()" aria-label="פתיחת בוט עזרה">
-        <span class="bot-ping"></span>
-        <img src="https://lh3.googleusercontent.com/d/1fzqv93VKIW_VT8-e1HdJxBmbU2sFnwlb" 
-             onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/bottts/svg?seed=CrazyAvatar';"
-             alt="אוואטר" 
-             style="width: 68px; height: 68px; border-radius: 50%; object-fit: cover;">
+        <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" 
+             alt="Avatar" 
+             class="w-full h-full object-cover">
     </button>
 
-    <!-- MAIN JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT LOGIC -->
     <script>
-        // State management
-        let xp = 0;
-        let activeStep = 1;
-        let currentLevel = "שוליית נתבים";
-        let hasPassedSim = false;
-        let hasPassedPrompt = false;
-
-        // Table elements
-        const xpCounter = document.getElementById('xp-counter');
-        const userLevel = document.getElementById('user-level');
-        const levelBar = document.getElementById('level-bar');
-        const systemLog = document.getElementById('system-log');
-        const toastEl = document.getElementById('toast');
-        const toastMsg = document.getElementById('toast-message');
+        let xp = 110;
+        let hostArpTables = {
+            A: {},
+            B: {},
+            C: {}
+        };
+        let switchMacTable = {};
 
         lucide.createIcons();
 
-        // Onmount load
-        window.onload = function() {
-            loadSavedProgress();
-        };
+        function switchTab(tabNum) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.className = "tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-800/60 border border-slate-700/50 text-slate-300 hover:bg-slate-800 transition-all";
+            });
+
+            document.getElementById(`tab-${tabNum}`).classList.add('active');
+            const activeBtn = document.getElementById(`tab-btn-${tabNum}`);
+            if (activeBtn) {
+                activeBtn.className = "tab-btn w-full text-right flex items-center justify-between p-3 rounded-xl bg-cyan-600 text-white font-bold transition-all shadow-lg";
+            }
+        }
 
         function toggleBotPanel() {
             document.getElementById('bot-panel').classList.toggle('open');
         }
 
-        function loadSavedProgress() {
-            const savedXp = localStorage.getItem('net_academy_l3_xp');
-            const savedStep = localStorage.getItem('net_academy_l3_step');
-            const savedLevel = localStorage.getItem('net_academy_l3_level');
-            const savedQ1 = localStorage.getItem('net_academy_l3_q1');
-            const savedQ2 = localStorage.getItem('net_academy_l3_q2');
-
-            if (savedXp) {
-                xp = parseInt(savedXp);
-                xpCounter.innerText = xp;
+        function answerScenario(choice) {
+            const feedback = document.getElementById('scenario-feedback');
+            feedback.classList.remove('hidden');
+            if (choice === 1) {
+                feedback.className = 'mt-4 p-3 rounded-lg text-xs font-bold bg-emerald-500/20 border border-emerald-500/40 text-emerald-300';
+                feedback.innerHTML = '🌟 <b>תשובה נכונה!</b> הצפה (Flooding) מיותרת מייצרת עומס כבד ברשת שנקרא Broadcast Storm.';
+                addXP(25);
             } else {
-                xp = 110;
-                xpCounter.innerText = xp;
+                feedback.className = 'mt-4 p-3 rounded-lg text-xs font-bold bg-red-500/20 border border-red-500/40 text-red-300';
+                feedback.innerHTML = '❌ לא מדויק, הבעיה היא עומס תקשורתי בלוגיקה ולא נזק פיזי לכבלים.';
             }
-
-            if (savedLevel) {
-                currentLevel = savedLevel;
-                userLevel.innerText = currentLevel;
-                updateLevelUI();
-            }
-
-            if (savedQ1) document.getElementById('reflection-q1').value = savedQ1;
-            if (savedQ2) document.getElementById('reflection-q2').value = savedQ2;
-
-            if (savedStep) {
-                switchStep(parseInt(savedStep));
-            } else {
-                switchStep(1);
-            }
-            addLog("התקדמות קודמת לשיעור 3 נטענה מהדפדפן.");
-        }
-
-        function saveProgress() {
-            localStorage.setItem('net_academy_l3_xp', xp);
-            localStorage.setItem('net_academy_l3_step', activeStep);
-            localStorage.setItem('net_academy_l3_level', currentLevel);
-            localStorage.setItem('net_academy_l3_q1', document.getElementById('reflection-q1').value);
-            localStorage.setItem('net_academy_l3_q2', document.getElementById('reflection-q2').value);
-        }
-
-        function resetProgress() {
-            if (confirm("האם ברצונך לאפס את התקדמות שיעור 3? כל הניקוד שהושג בשיעור יימחק.")) {
-                localStorage.removeItem('net_academy_l3_xp');
-                localStorage.removeItem('net_academy_l3_step');
-                localStorage.removeItem('net_academy_l3_level');
-                localStorage.removeItem('net_academy_l3_q1');
-                localStorage.removeItem('net_academy_l3_q2');
-                
-                xp = 110;
-                activeStep = 1;
-                hasPassedSim = false;
-                hasPassedPrompt = false;
-                currentLevel = "שוליית נתבים";
-
-                xpCounter.innerText = xp;
-                userLevel.innerText = currentLevel;
-                levelBar.style.width = "40%";
-                
-                document.getElementById('reflection-q1').value = "";
-                document.getElementById('reflection-q2').value = "";
-                
-                document.getElementById('btn-to-step-5').disabled = true;
-                document.getElementById('btn-to-step-6').disabled = true;
-                document.getElementById('sim-feedback').classList.add('hidden');
-                document.getElementById('prompt-achievement').classList.add('hidden');
-                
-                const tableBody = document.getElementById('mac-table-body');
-                tableBody.innerHTML = `
-                    <tr id="empty-table-row">
-                        <td colspan="3" class="py-4 text-center text-slate-400 italic">הטבלה ריקה כרגע. המתג לא מכיר אף מכשיר ברשת המקומית.</td>
-                    </tr>
-                `;
-
-                switchStep(1);
-                showToast("ההתקדמות בשיעור 3 אופסה.");
-                addLog("ההתקדמות בשיעור 3 אופסה.");
-            }
-        }
-
-        function switchStep(stepNum) {
-            for (let i = 1; i <= 6; i++) {
-                const el = document.getElementById(`step-${i}`);
-                if (el) el.classList.add('hidden');
-                
-                const btn = document.getElementById(`btn-step-${i}`);
-                if (btn) {
-                    btn.className = "w-full text-right flex items-center justify-between p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all";
-                }
-            }
-
-            const currentStepEl = document.getElementById(`step-${stepNum}`);
-            if (currentStepEl) currentStepEl.classList.remove('hidden');
-            
-            const activeBtn = document.getElementById(`btn-step-${stepNum}`);
-            if (activeBtn) {
-                activeBtn.className = "w-full text-right flex items-center justify-between p-3 rounded-xl bg-blue-50 border border-blue-200 text-blue-700 transition-all font-bold shadow-sm";
-            }
-
-            activeStep = stepNum;
-            saveProgress();
-            addLog(`מעבר לשלב ${stepNum}.`);
-        }
-
-        function addLog(text) {
-            const time = new Date().toLocaleTimeString('he-IL', { hour12: false });
-            systemLog.innerHTML += `<p>[${time}] ${text}</p>`;
-            systemLog.scrollTop = systemLog.scrollHeight;
-        }
-
-        function showToast(message) {
-            toastMsg.innerText = message;
-            toastEl.classList.remove('translate-y-20', 'opacity-0');
-            toastEl.classList.add('translate-y-0', 'opacity-100');
-            setTimeout(() => {
-                toastEl.classList.remove('translate-y-0', 'opacity-100');
-                toastEl.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
         }
 
         function addXP(amount) {
             xp += amount;
-            xpCounter.innerText = xp;
-            
-            if (xp >= 300) {
-                currentLevel = "מנתח מתגים מומחה";
-                levelBar.style.width = "100%";
-            } else if (xp >= 200) {
-                currentLevel = "טכנאי רשתות מתקדם";
-                levelBar.style.width = "75%";
-            } else {
-                currentLevel = "שוליית נתבים";
-                levelBar.style.width = "40%";
+            document.getElementById('xp-counter').innerText = xp;
+        }
+
+        function runPacketSimulation() {
+            const src = document.getElementById('sim-source').value;
+            const dst = document.getElementById('sim-target').value;
+
+            if (src === dst) {
+                alert("בחר מקור ויעד שונים!");
+                return;
             }
-            
-            userLevel.innerText = currentLevel;
-            updateLevelUI();
-            saveProgress();
-            showToast(`נוספו +${amount} נקודות XP!`);
-        }
 
-        function updateLevelUI() {
-            document.getElementById('share-code').innerText = `NET-ACAD-L3-XP${xp}-${currentLevel.replace(/ /g, '_')}`;
-        }
+            const hosts = {
+                A: { ip: '192.168.1.10', mac: 'AA:AA:AA:AA:11', port: '1' },
+                B: { ip: '192.168.1.20', mac: 'BB:BB:BB:BB:22', port: '2' },
+                C: { ip: '192.168.1.30', mac: 'CC:CC:CC:CC:33', port: '3' }
+            };
 
-        function answerScenario(choice) {
-            const feedback = document.getElementById('scenario-feedback');
-            feedback.classList.remove('hidden', 'bg-red-50', 'text-red-700', 'bg-emerald-50', 'text-emerald-800');
+            const pkt = document.getElementById('animated-packet');
+            const btn = document.getElementById('btn-start-sim');
+            btn.disabled = true;
 
-            if (choice === 1) {
-                feedback.className += ' bg-emerald-50 text-emerald-800 border border-emerald-200 p-3 rounded-lg text-xs';
-                feedback.innerHTML = `🌟 <b>תשובה מצוינת!</b> אם מתג רשת היה צועק את כל ההודעות לכולם (Broadcast), הרשת הייתה מוצפת במיליוני הודעות חסרות תועלת. זה נקרא 'Broadcast Storm' (סופת שידור) והוא עשוי להקריס לחלוטין מחשבים ומתגים.`;
-                addXP(25);
-                addLog("מענה נכון על חידון הצעקות והלחישות.");
-            } else {
-                feedback.className += ' bg-red-50 text-red-700 border border-red-200 p-3 rounded-lg text-xs';
-                feedback.innerHTML = `❌ <b>לא בדיוק.</b> כרטיסי רשת וחוטים מתוכננים לעבוד בזרם חשמלי רגיל ואין סכנה פיזית. הבעיה היא "לוגית" - הרשת פשוט תיחנק מעומס של הודעות שלא מיועדות לאף אחד.`;
-                addXP(5);
-            }
-        }
+            const hasArp = hostArpTables[src][hosts[dst].ip];
+            const pktType = hasArp ? "UNICAST DATA" : "ARP REQ (BROADCAST)";
+            const targetMac = hasArp ? hosts[dst].mac : "FF:FF:FF:FF:FF";
 
-        function startPingSimulation() {
-            document.getElementById('btn-ping-sim').disabled = true;
-            addLog("יוזם בקשת פינג מ-PC A ל-PC B...");
+            document.getElementById('pkt-type').innerText = pktType;
+            document.getElementById('pkt-src-ip').innerText = hosts[src].ip;
+            document.getElementById('pkt-dst-ip').innerText = hosts[dst].ip;
+            document.getElementById('pkt-src-mac').innerText = hosts[src].mac;
+            document.getElementById('pkt-dst-mac').innerText = targetMac;
 
-            const pA = document.getElementById('node-pc-a');
-            const pB = document.getElementById('node-pc-b');
-            const pC = document.getElementById('node-pc-c');
-            const sw = document.getElementById('node-switch');
+            const nodeSrc = document.getElementById(`node-${src}`).getBoundingClientRect();
+            const nodeSw = document.getElementById('node-SW').getBoundingClientRect();
+            const stage = document.getElementById('sim-stage').getBoundingClientRect();
 
-            const parentRect = pA.parentElement.parentElement.getBoundingClientRect();
-            
-            const rectA = pA.getBoundingClientRect();
-            const rectB = pB.getBoundingClientRect();
-            const rectC = pC.getBoundingClientRect();
-            const rectSW = sw.getBoundingClientRect();
+            pkt.style.top = `${nodeSrc.top - stage.top}px`;
+            pkt.style.left = `${nodeSrc.left - stage.left}px`;
+            pkt.classList.remove('hidden');
 
-            const packet1 = document.getElementById('packet-sim-a-to-sw');
-            const packet2 = document.getElementById('packet-sim-sw-to-b');
-            const packet3 = document.getElementById('packet-sim-sw-to-c');
-
-            packet1.style.top = `${rectA.top - parentRect.top + 30}px`;
-            packet1.style.left = `${rectA.left - parentRect.left + 30}px`;
-            packet1.classList.remove('hidden');
-
+            // Step 1: Move to Switch slowly
             setTimeout(() => {
-                packet1.style.transition = "all 1s ease-in-out";
-                packet1.style.top = `${rectSW.top - parentRect.top + 40}px`;
-                packet1.style.left = `${rectSW.left - parentRect.left + 40}px`;
-                
+                pkt.style.top = `${nodeSw.top - stage.top}px`;
+                pkt.style.left = `${nodeSw.left - stage.left}px`;
+
+                // Update Switch Table
+                switchMacTable[hosts[src].port] = hosts[src].mac;
+                renderMacTable();
+
+                // Step 2: Move to Target
                 setTimeout(() => {
-                    packet1.classList.add('hidden');
-                    addLog("[Switch] קיבלתי פריים בפורט 1. רושם: פורט 1 = MAC AA:AA:AA:AA:AA:11");
-                    
-                    updateMacTable('1', 'AA:AA:AA:AA:AA:11', 'DYNAMIC (Learned)');
-                    
-                    const pulse = document.getElementById('broadcast-pulse');
-                    pulse.classList.add('wave-effect');
-                    addLog("[Switch] מחפש את יעד BB:BB:BB:BB:BB:22 בטבלה שלי... לא נמצא! מבצע הצפה (Flooding) לכל הפורטים!");
+                    const nodeDst = document.getElementById(`node-${dst}`).getBoundingClientRect();
+                    pkt.style.top = `${nodeDst.top - stage.top}px`;
+                    pkt.style.left = `${nodeDst.left - stage.left}px`;
 
-                    packet2.style.top = `${rectSW.top - parentRect.top + 40}px`;
-                    packet2.style.left = `${rectSW.left - parentRect.left + 40}px`;
-                    packet2.classList.remove('hidden');
-
-                    packet3.style.top = `${rectSW.top - parentRect.top + 40}px`;
-                    packet3.style.left = `${rectSW.left - parentRect.left + 40}px`;
-                    packet3.classList.remove('hidden');
+                    // Update ARP Tables
+                    hostArpTables[src][hosts[dst].ip] = hosts[dst].mac;
+                    hostArpTables[dst][hosts[src].ip] = hosts[src].mac;
+                    renderArpTables();
 
                     setTimeout(() => {
-                        packet2.style.transition = "all 1s ease-in-out";
-                        packet2.style.top = `${rectB.top - parentRect.top + 30}px`;
-                        packet2.style.left = `${rectB.left - parentRect.left + 30}px`;
+                        pkt.classList.add('hidden');
+                        btn.disabled = false;
+                        addXP(30);
+                    }, 1800);
 
-                        packet3.style.transition = "all 1s ease-in-out";
-                        packet3.style.top = `${rectC.top - parentRect.top + 30}px`;
-                        packet3.style.left = `${rectC.left - parentRect.left + 30}px`;
+                }, 2000);
 
-                        setTimeout(() => {
-                            packet3.classList.add('hidden');
-                            pulse.classList.remove('wave-effect');
-                            addLog("[PC C] קיבלתי פריים אבל כתובת היעד אינה שלי. מתעלם!");
-
-                            addLog("[PC B] קיבלתי פריים! כתובת היעד מתאימה ל-MAC שלי. מכין מענה...");
-                            
-                            setTimeout(() => {
-                                packet2.style.top = `${rectSW.top - parentRect.top + 40}px`;
-                                packet2.style.left = `${rectSW.left - parentRect.left + 40}px`;
-
-                                setTimeout(() => {
-                                    packet2.classList.add('hidden');
-                                    addLog("[Switch] קיבלתי מענה בפורט 2. רושם: פורט 2 = MAC BB:BB:BB:BB:BB:22");
-                                    updateMacTable('2', 'BB:BB:BB:BB:BB:22', 'DYNAMIC (Learned)');
-
-                                    addLog("[Switch] מחפש את יעד AA:AA:AA:AA:AA:11... נמצא בפורט 1! מעביר פריים ישיר (Unicast)!");
-                                    
-                                    packet1.style.top = `${rectSW.top - parentRect.top + 40}px`;
-                                    packet1.style.left = `${rectSW.left - parentRect.left + 40}px`;
-                                    packet1.classList.remove('hidden');
-
-                                    setTimeout(() => {
-                                        packet1.style.transition = "all 1s ease-in-out";
-                                        packet1.style.top = `${rectA.top - parentRect.top + 30}px`;
-                                        packet1.style.left = `${rectA.left - parentRect.left + 30}px`;
-
-                                        setTimeout(() => {
-                                            packet1.classList.add('hidden');
-                                            addLog("[PC A] ה-Ping הושלם בהצלחה! חיבור רשת מלא ותקין.");
-                                            showFinalFeedback();
-                                            document.getElementById('btn-ping-sim').disabled = false;
-                                        }, 1000);
-                                    }, 100);
-
-                                }, 1000);
-                            }, 1000);
-
-                        }, 1000);
-
-                    }, 100);
-
-                }, 1000);
             }, 100);
         }
 
-        function updateMacTable(port, mac, type) {
-            const tableBody = document.getElementById('mac-table-body');
-            const emptyRow = document.getElementById('empty-table-row');
-            if (emptyRow) emptyRow.remove();
-
-            const existingRow = document.getElementById(`row-port-${port}`);
-            if (existingRow) existingRow.remove();
-
-            tableBody.innerHTML += `
-                <tr id="row-port-${port}" class="border-b border-slate-200 text-slate-800 font-mono hover:bg-slate-100 transition-colors">
-                    <td class="py-2.5 font-bold text-blue-600">FA0/${port}</td>
-                    <td class="py-2.5">${mac}</td>
-                    <td class="py-2.5 text-xs text-emerald-600 font-bold">${type}</td>
-                </tr>
-            `;
+        function renderMacTable() {
+            const body = document.getElementById('mac-table-body');
+            body.innerHTML = '';
+            for (let port in switchMacTable) {
+                body.innerHTML += `
+                    <tr class="border-b border-slate-800">
+                        <td class="py-1 text-amber-400 font-bold">Port ${port}</td>
+                        <td class="py-1">${switchMacTable[port]}</td>
+                        <td class="py-1 text-emerald-400">DYNAMIC</td>
+                    </tr>
+                `;
+            }
         }
 
-        function showFinalFeedback() {
-            const feedback = document.getElementById('sim-feedback');
-            feedback.classList.remove('hidden');
-            feedback.className = "mt-4 p-4 rounded-xl text-xs font-bold bg-emerald-50 border border-emerald-200 text-emerald-800";
-            
-            feedback.innerHTML = `
-                <div class="flex items-center gap-3">
-                    <span class="text-xl">🎓</span>
-                    <div>
-                        <p class="font-bold">למידת מתג הושלמה בהצלחה (Switch Learning Completed)!</p>
-                        <p class="text-[11px] opacity-90 font-normal mt-0.5">ראית את זה בעיניים: המתג שלך למד את שתי הכתובות של PC A ו-PC B. בפעם הבאה שמידע יעבור ביניהם, המתג לא יצטרך לבצע הצפה (Flooding) אלא יעביר אותו ישירות ב-Unicast!</p>
-                    </div>
-                </div>
-            `;
-            
-            if (!hasPassedSim) {
-                addXP(45);
-                hasPassedSim = true;
-            }
-            document.getElementById('btn-to-step-5').disabled = false;
+        function renderArpTables() {
+            ['A', 'B', 'C'].forEach(h => {
+                const el = document.getElementById(`arp-table-${h}`);
+                let html = '';
+                for (let ip in hostArpTables[h]) {
+                    html += `<div>${ip} ➔ ${hostArpTables[h][ip]}</div>`;
+                }
+                el.innerHTML = html || '<span class="text-slate-600">Empty</span>';
+            });
         }
 
         function updatePromptPreview() {
-            const role = document.getElementById('prompt-role').value;
-            const topic = document.getElementById('prompt-topic').value;
-            const format = document.getElementById('prompt-format').value;
-            const preview = document.getElementById('prompt-preview');
-
-            if (role === 'none' && topic === 'none' && format === 'none') {
-                preview.innerText = "בחר מרכיבים משמאל כדי לבנות פרומפט רשתות מקצועי...";
-                return;
-            }
-
-            let roleStr = role === 'none' ? "[בחר תפקיד]" : getRoleText(role);
-            let topicStr = topic === 'none' ? "[בחר נושא לחקירה]" : getTopicText(topic);
-            let formatStr = format === 'none' ? "[בחר פורמט תשובה]" : getFormatText(format);
-
-            preview.innerText = `הנחיה ל-AI:
-התנהג כ: ${roleStr}.
-הסבר לי לעומק את הנושא: ${topicStr}.
-הצג לי את התשובה בפורמט הבא: ${formatStr}.`;
-        }
-
-        function getRoleText(role) {
-            if (role === 'engineer') return "מהנדס רשתות מומחה של Cisco עם 15 שנות ניסיון";
-            if (role === 'attacker') return "מומחה סייבר התקפי שמדגים חדירות לרשתות LAN";
-            return "מורה פדגוגי מנוסה שמנגיש נושאים טכניים מסובכים בדרך פשוטה";
-        }
-
-        function getTopicText(topic) {
-            if (topic === 'mac_flooding') return "מתקפת הצפת טבלת ה-MAC במתגים";
-            if (topic === 'mac_spoofing') return "גניבת זהות וזיוף MAC Address ברשת";
-            return "ההשלכות של הצפת טבלת ה-CAM (קריסת הרשת והפיכתה ל-Hub)";
-        }
-
-        function getFormatText(format) {
-            if (format === 'analogy') return "אנלוגיה משעשעת וחכמה מעולם החיים האמיתיים";
-            if (format === 'technical') return "הסבר טכני מפורט כולל פקודות הגנה (כמו Port Security)";
-            return "רשימת נקודות קצרות, מדויקות וסיכום מנהלים בסופן";
+            const r = document.getElementById('prompt-role').value;
+            const t = document.getElementById('prompt-topic').value;
+            const f = document.getElementById('prompt-format').value;
+            document.getElementById('prompt-preview').innerText = `Role: ${r}\nTopic: ${t}\nFormat: ${f}`;
         }
 
         function runPromptSimulator() {
-            const role = document.getElementById('prompt-role').value;
-            const topic = document.getElementById('prompt-topic').value;
-            const format = document.getElementById('prompt-format').value;
-            const responseBox = document.getElementById('ai-response-box');
-            const scoreTag = document.getElementById('prompt-score-tag');
-
-            if (role === 'none' || topic === 'none' || format === 'none') {
-                responseBox.innerHTML = "<p class='text-red-600 font-bold'>⚠️ שגיאה: עליך לבחור את כל שלושת מרכיבי הפרומפט (תפקיד, נושא ופורמט) כדי שה-AI יוכל לייצר ניתוח איכותי!</p>";
-                return;
-            }
-
-            addLog("שולח פרומפט למנוע הניתוח המקומי...");
-            responseBox.innerHTML = "<p class='text-slate-400 italic animate-pulse'>ה-AI מנתח את הפרומפט שלך ומחולל תשובה ייחודית...</p>";
-
-            setTimeout(() => {
-                scoreTag.classList.remove('hidden');
-                scoreTag.className = 'px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300';
-                scoreTag.innerText = "ציון פרומפט: 100% מעולה!";
-
-                let content = "";
-
-                if (topic === 'mac_flooding') {
-                    if (format === 'analogy') {
-                        content = `
-                            <h4 class="font-bold text-blue-700 mb-2">הסבר הצפת MAC (בזווית של ${getRoleText(role)}):</h4>
-                            <p class="mb-2">תחשוב על קופת חולים עם שלט אלקטרוני שמראה איזה רופא יושב באיזה חדר. ההאקר נכנס ומציף את המערכת ב-10,000 שמות של חולים פיקטיביים בשנייה!</p>
-                            <p class="mb-2">המערכת קורסת ולא מצליחה לזכור איפה הרופא האמיתי יושב. כתוצאה מכך, הפקיד נאלץ לצעוק את השם של כל חולה אמיתי שמגיע בקול רם בכל המסדרון. זה בדיוק מה שקורה למתג במתקפת MAC Flooding - הוא פשוט הופך ל-Hub "טיפש" ומשדר את כל הפריימים לכל המחשבים ברשת!</p>
-                        `;
-                    } else if (format === 'technical') {
-                        content = `
-                            <h4 class="font-bold text-blue-700 mb-2">ניתוח טכני מעמיק מאת ${getRoleText(role)}:</h4>
-                            <p class="mb-2">במתקפת MAC Flooding, תוקף משתמש בכלים כמו <code>macof</code> כדי לייצר אלפי פריימים עם כתובות MAC מקור מזויפות ואקראיות לחלוטין.</p>
-                            <p class="mb-2">טבלת ה-CAM (Content Addressable Memory) מוגבלת בגודלה. ברגע שהיא מתמלאת, המתג עובר למצב הידוע כ-<b>Fail-Open</b>. פתרון מומלץ על ידי Cisco:</p>
-                            <pre class="bg-slate-900 text-emerald-400 p-3 rounded-lg font-mono text-[10px] mb-2">
-Switch(config-if)# switchport port-security
-Switch(config-if)# switchport port-security maximum 2
-Switch(config-if)# switchport port-security violation shutdown</pre>
-                        `;
-                    } else {
-                        content = `
-                            <h4 class="font-bold text-blue-700 mb-2">סיכום נקודות מפתח - ${getRoleText(role)}:</h4>
-                            <ul class="list-disc pr-4 space-y-1">
-                                <li><b>יעד המתקפה:</b> מילוי וקריסת טבלת ה-CAM של המתג המקומי.</li>
-                                <li><b>התוצאה:</b> מעבר ממתג חכם (Switch) למפצל טיפש (Hub).</li>
-                                <li><b>סיכון סייבר:</b> תוקף יכול לבצע "הרחת רשת" (Sniffing) ולהאזין למידע רגיש.</li>
-                            </ul>
-                        `;
-                    }
-                } else {
-                    content = `
-                        <h4 class="font-bold text-blue-700 mb-2">ניתוח נושא: ${getTopicText(topic)}</h4>
-                        <p class="mb-2"><b>פורמט נבחר:</b> ${getFormatText(format)}</p>
-                        <p class="mb-2">כאשר התוקף מזייף את כתובת ה-MAC שלו, הוא בעצם משלהה את המתג לחשוב שהוא מחזיק בזהות של מכשיר קצה אחר (כמו השרת הארגוני או שער ברירת המחדל).</p>
-                        <p class="text-xs text-slate-500">הנחיה זו בוצעה בצורה חלקה ומקצועית תחת ההגדרות והקונטקסט שהרכבת בפרומפט.</p>
-                    `;
-                }
-
-                responseBox.innerHTML = content;
-
-                if (!hasPassedPrompt) {
-                    hasPassedPrompt = true;
-                    addXP(70);
-                    document.getElementById('prompt-achievement').classList.remove('hidden');
-                    document.getElementById('btn-to-step-6').disabled = false;
-                    addLog("משימת כתיבת פרומפט AI הושלמה בהצלחה מרובה!");
-                }
-
-            }, 1200);
-        }
-
-        function copyShareCode() {
-            const code = document.getElementById('share-code').innerText;
-            const tempInput = document.createElement("input");
-            tempInput.value = code;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-
-            showToast("קוד ההישג הועתק בהצלחה! שלח לחבר.");
-            addLog("קוד שיתוף הועתק ללוח.");
+            document.getElementById('ai-response-box').innerHTML = `
+                <div class="text-cyan-400 font-bold mb-2">תשובת מנוע ה-AI:</div>
+                <p>ניתוח מצוין! כאשר תוקף מציף את ה-Switch בכתובות MAC מזויפות, הטבלה מתמלאת והמתג עובר למצב Flooding חופשי, מה שמאפשר הידהוד והסניפינג ברשת.</p>
+            `;
+            addXP(40);
         }
 
         function exportTeacherReport() {
             const q1 = document.getElementById('reflection-q1').value;
             const q2 = document.getElementById('reflection-q2').value;
-            
-            if (!q1 || !q2) {
-                alert("נא למלא את שתי שאלות הרפלקציה לפני שמייצאים דוח למורה!");
-                return;
+            const text = `דוח תלמיד - שיעור 3\nXP: ${xp}\nQ1: ${q1}\nQ2: ${q2}`;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'Report_Lesson3.txt';
+            a.click();
+        }
+
+        function resetProgress() {
+            if (confirm("האם לאפס את השיעור?")) {
+                xp = 0;
+                switchMacTable = {};
+                hostArpTables = { A: {}, B: {}, C: {} };
+                document.getElementById('xp-counter').innerText = '0';
+                renderMacTable();
+                renderArpTables();
+                switchTab(1);
             }
-
-            const reportText = `
-=============================================
-דוח מסכם - שיעור 3: כתובות MAC, מסע החבילה ומתגים
-=============================================
-שם התלמיד: [נא להקליד שם מלא כאן]
-דירוג XP סופי: ${xp} XP
-דרגה נוכחית: ${currentLevel}
-
-תשובות לרפלקציה:
----------------------------------------------
-1. מה קורה למתג כשהוא מקבל פריים לכתובת MAC שאינה רשומה?
-תשובה: ${q1}
-
-2. למה כתובת IP נשארת קבועה לאורך מסע החבילה בעוד כתובת ה-MAC משתנה בראוטר?
-תשובה: ${q2}
-
----------------------------------------------
-מיוצר עבור מורה תקשורת ורשתות - NET_ACADEMY
-=============================================
-            `;
-
-            const blob = new Blob([reportText], { type: 'text/plain;charset=utf-8' });
-            const url = URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `NET_ACADEMY_Lesson3_Report.txt`;
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showToast("דוח פעילות הורד! העבר אותו למורה שלך.");
-            addLog("דוח פעילות הופק והורד למחשב המשתמש.");
         }
     </script>
 </body>
