@@ -277,40 +277,41 @@
                     </div>
                 </div>
             </div>
-<!-- TAB 2: MAC ADDRESS DETAILS -->
-<div id="tab-2" class="tab-content space-y-6">
-    <div class="bg-white border border-stone-200 rounded-2xl p-6 md:p-8 shadow-sm">
-        <span class="text-sky-600 text-xs font-bold uppercase tracking-wider">תיאוריה חיונית</span>
-        <h2 class="text-2xl font-black text-slate-800 mt-2 mb-4">כתובת MAC: טביעת האצבע הפיזית של החומרה</h2>
-        
-        <p class="text-slate-600 leading-relaxed mb-6">
-            בניגוד לכתובת IP שמשתנה ברשתות שונות, כתובת <span class="text-sky-700 font-bold ltr-text">MAC (Media Access Control)</span> נצרבת פיזית על כרטיס הרשת עוד במפעל.
-        </p>
 
-        <!-- MAC format breakdown -->
-        <div class="bg-stone-50 p-6 rounded-xl border border-stone-200 max-w-xl mx-auto space-y-4">
-            <div class="text-center text-xs text-slate-500 font-bold">מבנה כתובת MAC (ייצוג הקסדצימלי):</div>
-            
-            <div class="flex justify-center items-center gap-2 text-xl md:text-2xl ltr-text font-bold tracking-widest">
-                <span class="bg-amber-100 border border-amber-300 px-3 py-1 rounded-lg text-amber-800">00:1A:2B</span>
-                <span class="text-slate-400">:</span>
-                <span class="bg-sky-100 border border-sky-300 px-3 py-1 rounded-lg text-sky-800">3F:4A:8C</span>
-            </div>
+            <!-- TAB 2: MAC ADDRESS DETAILS -->
+            <div id="tab-2" class="tab-content space-y-6">
+                <div class="bg-white border border-stone-200 rounded-2xl p-6 md:p-8 shadow-sm">
+                    <span class="text-sky-600 text-xs font-bold uppercase tracking-wider">תיאוריה חיונית</span>
+                    <h2 class="text-2xl font-black text-slate-800 mt-2 mb-4">כתובת MAC: טביעת האצבע הפיזית של החומרה</h2>
+                    
+                    <p class="text-slate-600 leading-relaxed mb-6">
+                        בניגוד לכתובת IP שמשתנה ברשתות שונות, כתובת <span class="text-sky-700 font-bold ltr-text">MAC (Media Access Control)</span> נצרבת פיזית על כרטיס הרשת עוד במפעל.
+                    </p>
 
-            <!-- enforce LTR grid so element 1 goes to the LEFT below 00:1A:2B -->
-            <div class="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-stone-200 ltr-text">
-                <div class="text-right" dir="rtl">
-                    <span class="block text-amber-700 font-bold">חצי ראשון (OUI):</span>
-                    <span class="text-slate-500">מזהה את החברה שייצרה את המכשיר (Intel, Cisco...).</span>
-                </div>
-                <div class="text-right" dir="rtl">
-                    <span class="block text-sky-700 font-bold">חצי שני (NIC):</span>
-                    <span class="text-slate-500">מספר סידורי ייחודי של הרכיב הספציפי.</span>
+                    <!-- MAC format breakdown -->
+                    <div class="bg-stone-50 p-6 rounded-xl border border-stone-200 max-w-xl mx-auto space-y-4">
+                        <div class="text-center text-xs text-slate-500 font-bold">מבנה כתובת MAC (ייצוג הקסדצימלי):</div>
+                        
+                        <div class="flex justify-center items-center gap-2 text-xl md:text-2xl ltr-text font-bold tracking-widest">
+                            <span class="bg-amber-100 border border-amber-300 px-3 py-1 rounded-lg text-amber-800">00:1A:2B</span>
+                            <span class="text-slate-400">:</span>
+                            <span class="bg-sky-100 border border-sky-300 px-3 py-1 rounded-lg text-sky-800">3F:4A:8C</span>
+                        </div>
+
+                        <!-- enforce LTR grid so element 1 goes to the LEFT below 00:1A:2B -->
+                        <div class="grid grid-cols-2 gap-4 text-xs pt-4 border-t border-stone-200 ltr-text">
+                            <div class="text-right" dir="rtl">
+                                <span class="block text-amber-700 font-bold">חצי ראשון (OUI):</span>
+                                <span class="text-slate-500">מזהה את החברה שייצרה את המכשיר (Intel, Cisco...).</span>
+                            </div>
+                            <div class="text-right" dir="rtl">
+                                <span class="block text-sky-700 font-bold">חצי שני (NIC):</span>
+                                <span class="text-slate-500">מספר סידורי ייחודי של הרכיב הספציפי.</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
 
             <!-- TAB 3: PACKET JOURNEY (IP vs MAC) -->
             <div id="tab-3" class="tab-content space-y-6">
@@ -702,7 +703,7 @@
             document.getElementById('xp-counter').innerText = xp;
         }
 
-        /* --- ADVANCED SIMULATOR WITH ARP REPLY --- */
+        /* --- ADVANCED SIMULATOR WITH ARP REPLY & BROADCAST FLOODING --- */
 
         function updatePacketBox(type, srcIp, dstIp, srcMac, dstMac) {
             document.getElementById('pkt-type').innerText = type;
@@ -778,12 +779,12 @@
             }
 
             // IF DESTINATION MAC IS UNKNOWN -> FULL 3-STEP PROCESS:
-            // 1) ARP REQUEST (SRC -> SW -> DST)
+            // 1) ARP REQUEST (SRC -> SW -> FLOOD TO ALL)
             // 2) ARP REPLY (DST -> SW -> SRC)
             // 3) UNICAST DATA (SRC -> SW -> DST)
 
             // --- STEP 1: ARP REQUEST ---
-            updateStatusBanner("שלב 1/3: ARP Request (Broadcast מופץ מהמקור אל היעד)");
+            updateStatusBanner("שלב 1/3: ARP Request (Broadcast מופץ מהמתג לכל המחשבים ברשת)");
             updatePacketBox("ARP REQUEST (BROADCAST)", hosts[src].ip, hosts[dst].ip, hosts[src].mac, "FF:FF:FF:FF:FF");
 
             pkt.style.top = `${nodeSrc.top - stage.top}px`;
@@ -800,11 +801,38 @@
                     switchMacTable[hosts[src].port] = hosts[src].mac;
                     renderMacTable();
 
-                    // 1.2 Move Switch to DST (Simulating ARP Request delivery)
-                    pkt.style.top = `${nodeDst.top - stage.top}px`;
-                    pkt.style.left = `${nodeDst.left - stage.left}px`;
+                    // 1.2 BROADCAST FLOOD: Send frame to ALL other hosts connected to the switch
+                    const otherHosts = Object.keys(hosts).filter(h => h !== src);
+                    const clones = [];
+
+                    otherHosts.forEach(h => {
+                        const nodeH = document.getElementById(`node-${h}`).getBoundingClientRect();
+                        if (h === dst) {
+                            // Original frame moves to target
+                            pkt.style.top = `${nodeH.top - stage.top}px`;
+                            pkt.style.left = `${nodeH.left - stage.left}px`;
+                        } else {
+                            // Cloned frame moves to non-target host
+                            const clone = pkt.cloneNode(true);
+                            clone.id = `pkt-clone-${h}`;
+                            pkt.parentNode.appendChild(clone);
+                            
+                            clone.style.top = `${nodeSw.top - stage.top}px`;
+                            clone.style.left = `${nodeSw.left - stage.left}px`;
+
+                            setTimeout(() => {
+                                clone.style.top = `${nodeH.top - stage.top}px`;
+                                clone.style.left = `${nodeH.left - stage.left}px`;
+                            }, 50);
+
+                            clones.push(clone);
+                        }
+                    });
 
                     setTimeout(() => {
+                        // Non-target hosts drop the packet (clean up clones)
+                        clones.forEach(c => c.remove());
+
                         // DST learns SRC in its ARP Table upon receiving Request
                         hostArpTables[dst][hosts[src].ip] = hosts[src].mac;
                         renderArpTables();
@@ -876,8 +904,13 @@
             hostArpTables = { A: {}, B: {}, C: {} };
             renderMacTable();
             renderArpTables();
+            
             const pkt = document.getElementById('animated-packet');
             pkt.classList.add('hidden');
+            
+            // Clean up any broadcast clones if reset during animation
+            document.querySelectorAll('[id^="pkt-clone-"]').forEach(el => el.remove());
+            
             document.getElementById('sim-status-banner').classList.add('hidden');
             document.getElementById('btn-start-sim').disabled = false;
         }
