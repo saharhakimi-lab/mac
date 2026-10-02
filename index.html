@@ -441,46 +441,44 @@ input[type=radio]{ accent-color:#ef4444; }
         <!-- CONTENT DISPLAY AREA -->
         <section class="lg:col-span-9 flex flex-col gap-6">
 
-            <!-- TAB 1: SHOUTING VS WHISPERING (LARGER FONTS) -->
-            <div id="tab-1" class="tab-content active space-y-6">
-                <div class="bg-white border border-stone-200 rounded-2xl p-6 md:p-10 shadow-sm space-y-6">
-                    <div>
-                        <span class="bg-sky-100 text-sky-700 border border-sky-300 text-base px-4 py-1.5 rounded-full font-bold uppercase tracking-widest">תרחיש פתיחה</span>
-                    </div>
+            <!-- TAB 1: SHOUTING VS WHISPERING (COMPACT SPACING) -->
+            <div id="tab-1" class="tab-content active space-y-4">
+                <div class="bg-white border border-stone-200 rounded-2xl p-4 md:p-6 shadow-sm space-y-4">
                     
-                    <h2 class="text-3xl md:text-4xl font-black text-slate-800 leading-tight">איך לחלוק סוד מבלי שכולם ישמעו?</h2>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-800 leading-tight">איך לחלוק סוד מבלי שכולם ישמעו?</h2>
                     
-                    <p class="text-slate-700 leading-relaxed text-xl md:text-2xl font-medium">
+                    <p class="text-slate-700 leading-relaxed text-lg md:text-xl font-medium">
                         תאר לעצמך שאתה רוצה להגיד משהו סודי לחבר שיושב בצד השני של הכיתה. אין לך מושג איפה הוא יושב היום, ואתה לא יודע איך הוא נראה. מה האפשרויות שלך?
                     </p>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-8">
-                        <div class="bg-amber-50/70 border-2 border-amber-200 p-6 rounded-2xl shadow-sm">
-                            <h3 class="text-amber-900 font-black text-xl md:text-2xl mb-3 flex items-center gap-3">
-                                <i data-lucide="megaphone" class="w-7 h-7 text-amber-600"></i>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                        <div class="bg-amber-50/70 border-2 border-amber-200 p-4 rounded-2xl shadow-sm">
+                            <h3 class="text-amber-900 font-black text-lg md:text-xl mb-2 flex items-center gap-2">
+                                <i data-lucide="megaphone" class="w-6 h-6 text-amber-600"></i>
                                 שיטת הצעקה <span class="ltr-text eng-tag">Broadcast / Flooding</span>
                             </h3>
-                            <p class="text-base md:text-lg text-slate-700 leading-relaxed">
+                            <p class="text-sm md:text-base text-slate-700 leading-relaxed">
                                 אתה צועק בקול רם: "דניאל! איפה אתה?". כל תלמיד בכיתה שומע את זה. חלקם מתעצבנים, אבל דניאל מרים את היד ומסמן לך איפה הוא.
                             </p>
                         </div>
-                        <div class="bg-emerald-50/70 border-2 border-emerald-200 p-6 rounded-2xl shadow-sm">
-                            <h3 class="text-emerald-900 font-black text-xl md:text-2xl mb-3 flex items-center gap-3">
-                                <i data-lucide="mic" class="w-7 h-7 text-emerald-600"></i>
+                        <div class="bg-emerald-50/70 border-2 border-emerald-200 p-4 rounded-2xl shadow-sm">
+                            <h3 class="text-emerald-900 font-black text-lg md:text-xl mb-2 flex items-center gap-2">
+                                <i data-lucide="mic" class="w-6 h-6 text-emerald-600"></i>
                                 שיטת הלחישה הישירה <span class="ltr-text eng-tag">Unicast</span>
                             </h3>
-                            <p class="text-base md:text-lg text-slate-700 leading-relaxed">
-                                בגלל שאתה כבר יודע שדניאל יושב בטור ג' שולחן 2, אתה הולך ישירות אליו ולוחש לו באוזן.                             </p>
+                            <p class="text-sm md:text-base text-slate-700 leading-relaxed">
+                                בגלל שאתה כבר יודע שדניאל יושב בטור ג' שולחן 2, אתה הולך ישירות אליו ולוחש לו באוזן.
+                            </p>
                         </div>
                     </div>
 
-                    <div class="mt-8 bg-stone-100 p-6 rounded-2xl border border-stone-300 shadow-inner">
-                        <p class="text-base md:text-xl text-slate-900 font-black mb-4">שאלה אסטרטגית: למה שמתג רשת <span class="ltr-text eng-tag">Switch</span> יעדיף בלחישה ישירה על פני צעקה?</p>
-                        <div class="flex flex-col gap-3">
-                            <button onclick="answerScenario(1)" class="bg-white hover:bg-stone-200 text-right border-2 border-stone-300 text-slate-800 text-base md:text-lg font-bold px-5 py-4 rounded-xl transition-all shadow-sm">מכיוון שצעקה <span class="ltr-text eng-tag">Flooding</span> מייצרת עומס מטורף ברשת ומאיטה את המחשבים האחרים.</button>
-                            <button onclick="answerScenario(2)" class="bg-white hover:bg-stone-200 text-right border-2 border-stone-300 text-slate-800 text-base md:text-lg font-bold px-5 py-4 rounded-xl transition-all shadow-sm">מכיוון שצעקה פשוט שורפת את החיווט הפיזי של כרטיסי הרשת.</button>
+                    <div class="mt-4 bg-stone-100 p-4 rounded-2xl border border-stone-300 shadow-inner">
+                        <p class="text-base md:text-lg text-slate-900 font-black mb-3">שאלה אסטרטגית: למה שמתג רשת <span class="ltr-text eng-tag">Switch</span> יעדיף בלחישה ישירה על פני צעקה?</p>
+                        <div class="flex flex-col gap-2.5">
+                            <button onclick="answerScenario(1)" class="bg-white hover:bg-stone-200 text-right border-2 border-stone-300 text-slate-800 text-sm md:text-base font-bold px-4 py-3 rounded-xl transition-all shadow-sm">מכיוון שצעקה <span class="ltr-text eng-tag">Flooding</span> מייצרת עומס מטורף ברשת ומאיטה את המחשבים האחרים.</button>
+                            <button onclick="answerScenario(2)" class="bg-white hover:bg-stone-200 text-right border-2 border-stone-300 text-slate-800 text-base md:text-base font-bold px-4 py-3 rounded-xl transition-all shadow-sm">מכיוון שצעקה פשוט שורפת את החיווט הפיזי של כרטיסי הרשת.</button>
                         </div>
-                        <div id="scenario-feedback" class="mt-5 hidden p-4 rounded-xl text-base md:text-lg font-bold"></div>
+                        <div id="scenario-feedback" class="mt-3 hidden p-3 rounded-xl text-sm md:text-base font-bold"></div>
                     </div>
                 </div>
             </div>
@@ -1244,11 +1242,11 @@ input[type=radio]{ accent-color:#ef4444; }
             const feedback = document.getElementById('scenario-feedback');
             feedback.classList.remove('hidden');
             if (choice === 1) {
-                feedback.className = 'mt-5 p-4 rounded-xl text-base md:text-lg font-bold bg-emerald-100 border-2 border-emerald-300 text-emerald-900';
+                feedback.className = 'mt-3 p-3 rounded-xl text-sm md:text-base font-bold bg-emerald-100 border-2 border-emerald-300 text-emerald-900';
                 feedback.innerHTML = '🌟 <b>תשובה נכונה!</b> הצפה (<span class="eng-tag">Flooding</span>) מיותרת מייצרת עומס כבד ברשת שנקרא <span class="eng-tag">Broadcast Storm</span>.';
                 addXP(25);
             } else {
-                feedback.className = 'mt-5 p-4 rounded-xl text-base md:text-lg font-bold bg-red-100 border-2 border-red-300 text-red-900';
+                feedback.className = 'mt-3 p-3 rounded-xl text-sm md:text-base font-bold bg-red-100 border-2 border-red-300 text-red-900';
                 feedback.innerHTML = '❌ לא מדויק, הבעיה היא עומס תקשורתי בלוגיקה ולא נזק פיזי לכבלים.';
             }
         }
