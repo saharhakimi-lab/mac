@@ -248,7 +248,7 @@
     </style>
 
     <style>
-        /* Smooth packet movement in the network simulator. */
+        /* Smooth packet movement in the network simulator */
         #animated-packet,
         [id^="pkt-clone-"] {
             transition: top 3.2s linear, left 3.2s linear;
@@ -271,8 +271,8 @@
                 </div>
                 <div>
                     <div class="flex items-center gap-2">
-                        <h1 class="font-black text-xl md:text-2xl text-[var(--ink)]">לומדים כתובת <span class="en-term">MAC</span> עם סהר</h1>
-                        <span class="en-term bg-sky-100 text-sky-800 border-sky-300">CLASS_03</span>
+                        <h1 class="font-black text-xl md:text-2xl text-[var(--ink)]">לומדים כתובת <span class="eng-tag">MAC</span> עם סהר</h1>
+                        <span class="eng-tag bg-sky-100 text-sky-800 border-sky-300">CLASS_03</span>
                     </div>
                     <div class="text-xs text-[var(--soft)] flex items-center gap-2 mt-1 font-semibold">
                         <span>כרטיס רשת:</span>
@@ -297,7 +297,7 @@
                 
                 <div class="flex items-center gap-2 bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800 px-3.5 py-1.5 rounded-xl text-amber-800 dark:text-amber-300">
                     <i data-lucide="zap" class="w-4 h-4 text-amber-500 animate-pulse"></i>
-                    <span class="text-xs font-bold"><span class="en-term !m-0 !py-0">XP</span>:</span>
+                    <span class="text-xs font-bold"><span class="eng-tag !m-0 !py-0">XP</span>:</span>
                     <span class="text-sm font-black num" id="xp-counter">0</span>
                 </div>
             </div>
@@ -323,7 +323,7 @@
                     <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn w-full text-right flex items-center justify-between p-3 text-sm font-bold">
                         <div class="flex items-center gap-3">
                             <span class="num text-xs opacity-70">02.</span>
-                            <span>תעודת הזהות <span class="en-term">MAC</span></span>
+                            <span>תעודת הזהות <span class="eng-tag">MAC</span></span>
                         </div>
                         <i data-lucide="fingerprint" class="w-4 h-4 opacity-70"></i>
                     </button>
@@ -331,7 +331,7 @@
                     <button id="tab-btn-3" onclick="switchTab(3)" class="tab-btn w-full text-right flex items-center justify-between p-3 text-sm font-bold">
                         <div class="flex items-center gap-3">
                             <span class="num text-xs opacity-70">03.</span>
-                            <span><span class="en-term">IP</span> קבוע מול <span class="en-term">MAC</span> משתנה</span>
+                            <span><span class="eng-tag">IP</span> קבוע מול <span class="eng-tag">MAC</span> משתנה</span>
                         </div>
                         <i data-lucide="route" class="w-4 h-4 opacity-70"></i>
                     </button>
@@ -339,7 +339,7 @@
                     <button id="tab-btn-4" onclick="switchTab(4)" class="tab-btn w-full text-right flex items-center justify-between p-3 text-sm font-bold">
                         <div class="flex items-center gap-3">
                             <span class="num text-xs opacity-70">04.</span>
-                            <span>עבודת הסוויטש עם <span class="en-term">MAC</span></span>
+                            <span>עבודת הסוויטש עם <span class="eng-tag">MAC</span></span>
                         </div>
                         <i data-lucide="cpu" class="w-4 h-4 opacity-70"></i>
                     </button>
@@ -388,7 +388,7 @@
                         <div class="bg-amber-50/80 dark:bg-amber-950/40 border-2 border-amber-300/60 p-5 rounded-2xl shadow-sm space-y-2">
                             <h3 class="text-amber-900 dark:text-amber-300 font-black text-lg flex items-center gap-2">
                                 <i data-lucide="megaphone" class="w-5 h-5 text-amber-600"></i>
-                                שיטת הצעקה <span class="en-term">Broadcast / Flooding</span>
+                                שיטת הצעקה <span class="eng-tag">Broadcast / Flooding</span>
                             </h3>
                             <p class="text-sm md:text-base text-[var(--soft)] leading-relaxed font-medium">
                                 אתה צועק בקול רם: "דניאל! איפה אתה?". כל תלמיד בכיתה שומע את זה. חלקם מתעצבנים, אבל דניאל מרים את היד ומסמן לך איפה הוא.
@@ -397,7 +397,7 @@
                         <div class="bg-emerald-50/80 dark:bg-emerald-950/40 border-2 border-emerald-300/60 p-5 rounded-2xl shadow-sm space-y-2">
                             <h3 class="text-emerald-900 dark:text-emerald-300 font-black text-lg flex items-center gap-2">
                                 <i data-lucide="mic" class="w-5 h-5 text-emerald-600"></i>
-                                שיטת הלחישה הישירה <span class="en-term">Unicast</span>
+                                שיטת הלחישה הישירה <span class="eng-tag">Unicast</span>
                             </h3>
                             <p class="text-sm md:text-base text-[var(--soft)] leading-relaxed font-medium">
                                 בגלל שאתה כבר יודע שדניאל יושב בטור ג' שולחן 2, אתה הולך ישירות אליו ולוחש לו באוזן.
@@ -406,9 +406,9 @@
                     </div>
 
                     <div class="mt-4 bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] shadow-inner space-y-3">
-                        <p class="text-base md:text-lg text-[var(--ink)] font-black">שאלה אסטרטגית: למה שמתג רשת <span class="en-term">Switch</span> יעדיף בלחישה ישירה על פני צעקה?</p>
+                        <p class="text-base md:text-lg text-[var(--ink)] font-black">שאלה אסטרטגית: למה שמתג רשת <span class="eng-tag">Switch</span> יעדיף בלחישה ישירה על פני צעקה?</p>
                         <div class="flex flex-col gap-2.5">
-                            <button onclick="answerScenario(1)" class="bg-[var(--paper)] hover:border-sky-500 text-right border-2 border-[var(--line)] text-[var(--ink)] text-sm md:text-base font-bold px-4 py-3 rounded-xl transition-all shadow-sm">מכיוון שצעקה <span class="en-term">Flooding</span> מייצרת עומס מטורף ברשת ומאיטה את המחשבים האחרים.</button>
+                            <button onclick="answerScenario(1)" class="bg-[var(--paper)] hover:border-sky-500 text-right border-2 border-[var(--line)] text-[var(--ink)] text-sm md:text-base font-bold px-4 py-3 rounded-xl transition-all shadow-sm">מכיוון שצעקה <span class="eng-tag">Flooding</span> מייצרת עומס מטורף ברשת ומאיטה את המחשבים האחרים.</button>
                             <button onclick="answerScenario(2)" class="bg-[var(--paper)] hover:border-sky-500 text-right border-2 border-[var(--line)] text-[var(--ink)] text-sm md:text-base font-bold px-4 py-3 rounded-xl transition-all shadow-sm">מכיוון שצעקה פשוט שורפת את החיווט הפיזי של כרטיסי הרשת.</button>
                         </div>
                         <div id="scenario-feedback" class="mt-3 hidden p-4 rounded-xl text-sm md:text-base font-bold"></div>
@@ -421,9 +421,9 @@
                 <div class="glass-card p-6 md:p-8 space-y-6">
                     <div>
                         <span class="text-sky-700 dark:text-sky-400 text-xs font-bold uppercase tracking-wider">תיאוריה חיונית ולומדה מעשית</span>
-                        <h2 class="text-2xl font-black text-[var(--ink)] mt-1 mb-2">כתובת <span class="en-term">MAC</span>: טביעת האצבע הפיזית של החומרה</h2>
+                        <h2 class="text-2xl font-black text-[var(--ink)] mt-1 mb-2">כתובת <span class="eng-tag">MAC</span>: טביעת האצבע הפיזית של החומרה</h2>
                         <p class="text-[var(--soft)] leading-relaxed text-base font-medium">
-                            בניגוד לכתובת <span class="en-term">IP</span> שמשתנה ברשתות שונות, כתובת <span class="en-term">MAC Media Access Control</span> נצרבת פיזית על כרטיס הרשת עוד במפעל.
+                            בניגוד לכתובת <span class="eng-tag">IP</span> שמשתנה ברשתות שונות, כתובת <span class="eng-tag">MAC Media Access Control</span> נצרבת פיזית על כרטיס הרשת עוד במפעל.
                         </p>
                     </div>
 
@@ -431,26 +431,26 @@
                     <div class="bg-gradient-to-r from-sky-900 via-blue-900 to-indigo-900 text-white p-6 rounded-2xl shadow-lg border-2 border-sky-400">
                         <div class="flex items-center gap-3 mb-2">
                             <i data-lucide="binary" class="w-6 h-6 text-amber-400"></i>
-                            <h3 class="text-xl font-black text-amber-300">כלל ברזל: גודל הכתובת הפיזית הוא <span class="num">48</span> סיביות <span class="en-term !text-white !bg-white/20 !border-white/40">Bits</span></h3>
+                            <h3 class="text-xl font-black text-amber-300">כלל ברזל: גודל הכתובת הפיזית הוא <span class="num">48</span> סיביות <span class="eng-tag !text-white !bg-white/20 !border-white/40">Bits</span></h3>
                         </div>
                         <p class="text-sm text-stone-200 leading-relaxed mb-4 font-medium">
-                            כתובת ה-<span class="en-term !text-white !bg-white/20 !border-white/40">MAC</span> מורכבת מ-<strong class="text-amber-300 num">48</strong> סיביות בינאריות (אחדות ואפסים) ברמת החומרה. כדי שלא נצטרך לקרוא רצף ארוך, אנו מייצגים אותה בשיטה ההקסדצימלית <span class="en-term !text-white !bg-white/20 !border-white/40">Hexadecimal</span>:
+                            כתובת ה-<span class="eng-tag !text-white !bg-white/20 !border-white/40">MAC</span> מורכבת מ-<strong class="text-amber-300 num">48</strong> סיביות בינאריות (אחדות ואפסים) ברמת החומרה. כדי שלא נצטרך לקרוא רצף ארוך, אנו מייצגים אותה בשיטה ההקסדצימלית <span class="eng-tag !text-white !bg-white/20 !border-white/40">Hexadecimal</span>:
                         </p>
 
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-center">
                             <div class="bg-white/10 p-3 rounded-xl border border-white/20">
                                 <span class="block text-amber-300 font-bold mb-1 text-xs">48 הסיביות הבינאריות</span>
-                                <span class="text-white text-base font-black en-term !bg-transparent !border-0">48 Bits</span>
+                                <span class="text-white text-base font-black eng-tag !bg-transparent !border-0">48 Bits</span>
                                 <span class="block text-xs text-stone-300 mt-1 font-medium">אחדות ואפסים ברכיב הפיזי</span>
                             </div>
                             <div class="bg-white/10 p-3 rounded-xl border border-white/20">
                                 <span class="block text-amber-300 font-bold mb-1 text-xs">חלוקה ל-6 בתים</span>
-                                <span class="text-white text-base font-black en-term !bg-transparent !border-0">6 Bytes</span>
-                                <span class="block text-xs text-stone-300 mt-1 font-medium">כל בית <span class="en-term !text-white !bg-white/20 !border-white/40">Byte</span> = <span class="num">8</span> סיביות</span>
+                                <span class="text-white text-base font-black eng-tag !bg-transparent !border-0">6 Bytes</span>
+                                <span class="block text-xs text-stone-300 mt-1 font-medium">כל בית <span class="eng-tag !text-white !bg-white/20 !border-white/40">Byte</span> = <span class="num">8</span> סיביות</span>
                             </div>
                             <div class="bg-white/10 p-3 rounded-xl border border-white/20">
                                 <span class="block text-amber-300 font-bold mb-1 text-xs">12 תווים הקסדצימליים</span>
-                                <span class="text-white text-base font-black en-term !bg-transparent !border-0">12 Hex Digits</span>
+                                <span class="text-white text-base font-black eng-tag !bg-transparent !border-0">12 Hex Digits</span>
                                 <span class="block text-xs text-stone-300 mt-1 font-medium">זוג תווים לכל בית <span class="num">0-9, A-F</span></span>
                             </div>
                         </div>
@@ -458,7 +458,7 @@
 
                     <!-- MAC format breakdown -->
                     <div class="bg-[var(--bg-base)] p-6 rounded-2xl border-2 border-[var(--line)] max-w-xl mx-auto space-y-4">
-                        <div class="text-center text-sm text-[var(--ink)] font-bold">מבנה כתובת <span class="en-term">MAC</span> (ייצוג הקסדצימלי של <span class="num">48</span> הסיביות):</div>
+                        <div class="text-center text-sm text-[var(--ink)] font-bold">מבנה כתובת <span class="eng-tag">MAC</span> (ייצוג הקסדצימלי של <span class="num">48</span> הסיביות):</div>
                         
                         <div class="flex justify-center items-center gap-2 text-2xl md:text-3xl font-bold tracking-widest num">
                             <span class="bg-amber-100 dark:bg-amber-950 border border-amber-300 dark:border-amber-700 px-3 py-1 rounded-xl text-amber-900 dark:text-amber-200">00:1A:2B</span>
@@ -468,11 +468,11 @@
 
                         <div class="grid grid-cols-2 gap-4 text-xs md:text-sm pt-4 border-t border-[var(--line)]">
                             <div>
-                                <span class="block text-amber-800 dark:text-amber-300 font-bold"><span class="num">24</span> סיביות ראשונות <span class="en-term">OUI</span>:</span>
-                                <span class="text-[var(--soft)] font-medium">מזהה היצרן שייצר את הכרטיס <span class="en-term">Intel, Cisco...</span>.</span>
+                                <span class="block text-amber-800 dark:text-amber-300 font-bold"><span class="num">24</span> סיביות ראשונות <span class="eng-tag">OUI</span>:</span>
+                                <span class="text-[var(--soft)] font-medium">מזהה היצרן שייצר את הכרטיס <span class="eng-tag">Intel, Cisco...</span>.</span>
                             </div>
                             <div>
-                                <span class="block text-sky-800 dark:text-sky-300 font-bold"><span class="num">24</span> סיביות אחרונות <span class="en-term">NIC</span>:</span>
+                                <span class="block text-sky-800 dark:text-sky-300 font-bold"><span class="num">24</span> סיביות אחרונות <span class="eng-tag">NIC</span>:</span>
                                 <span class="text-[var(--soft)] font-medium">מספר סידורי ייחודי של הרכיב הספציפי.</span>
                             </div>
                         </div>
@@ -485,7 +485,7 @@
                                 <i data-lucide="terminal" class="w-5 h-5"></i>
                             </div>
                             <div>
-                                <h3 class="font-black text-[var(--ink)] text-lg">לומדה מעשית: איך תזהה את כתובת ה-<span class="en-term">MAC</span> של המחשב שלך?</h3>
+                                <h3 class="font-black text-[var(--ink)] text-lg">לומדה מעשית: איך תזהה את כתובת ה-<span class="eng-tag">MAC</span> של המחשב שלך?</h3>
                                 <p class="text-xs md:text-sm text-[var(--soft)] font-medium">בצע את הצעדים הבאים במחשב האישי כדי לגלות את הכתובת הפיזית שלך!</p>
                             </div>
                         </div>
@@ -494,17 +494,17 @@
                             <div class="bg-[var(--bg-base)] p-4 rounded-xl border border-[var(--line)] space-y-1">
                                 <span class="bg-sky-100 dark:bg-sky-950 text-sky-800 dark:text-sky-300 font-bold px-2 py-0.5 rounded text-xs">שלב 1</span>
                                 <p class="text-[var(--ink)] font-bold">פתח את שורת הפקודות:</p>
-                                <p class="text-[var(--soft)] text-xs font-medium">לחץ במקלדת <span class="en-term">Win + R</span>, הקלד <span class="en-term">cmd</span> ולחץ <span class="en-term">Enter</span>.</p>
+                                <p class="text-[var(--soft)] text-xs font-medium">לחץ במקלדת <span class="eng-tag">Win + R</span>, הקלד <span class="eng-tag">cmd</span> ולחץ <span class="eng-tag">Enter</span>.</p>
                             </div>
                             <div class="bg-[var(--bg-base)] p-4 rounded-xl border border-[var(--line)] space-y-1">
                                 <span class="bg-sky-100 dark:bg-sky-950 text-sky-800 dark:text-sky-300 font-bold px-2 py-0.5 rounded text-xs">שלב 2</span>
                                 <p class="text-[var(--ink)] font-bold">הרצח את הפקודה המלאה:</p>
-                                <p class="text-[var(--soft)] text-xs font-medium">הקלד במסוף בחלון האנגלי: <span class="en-term">ipconfig /all</span> ולחץ <span class="en-term">Enter</span>.</p>
+                                <p class="text-[var(--soft)] text-xs font-medium">הקלד במסוף בחלון האנגלי: <span class="eng-tag">ipconfig /all</span> ולחץ <span class="eng-tag">Enter</span>.</p>
                             </div>
                             <div class="bg-[var(--bg-base)] p-4 rounded-xl border border-[var(--line)] space-y-1">
                                 <span class="bg-sky-100 dark:bg-sky-950 text-sky-800 dark:text-sky-300 font-bold px-2 py-0.5 rounded text-xs">שלב 3</span>
                                 <p class="text-[var(--ink)] font-bold">אתר את הכתובת הפיזית:</p>
-                                <p class="text-[var(--soft)] text-xs font-medium">חפש בשורה מתחת למתאם הרשת את השדה <span class="en-term">Physical Address</span>.</p>
+                                <p class="text-[var(--soft)] text-xs font-medium">חפש בשורה מתחת למתאם הרשת את השדה <span class="eng-tag">Physical Address</span>.</p>
                             </div>
                         </div>
 
@@ -534,7 +534,7 @@
                                 
                                 <div class="bg-amber-500/20 border-l-4 border-amber-400 p-1.5 my-1 rounded-r flex items-center justify-between">
                                     <span class="text-amber-300 font-bold">   Physical Address. . . . . . . . . : 00-1A-2B-3F-4A-8C</span>
-                                    <span class="bg-amber-400 text-black font-black text-xs px-2 py-0.5 rounded font-sans" dir="rtl">👈 זו כתובת ה-<span class="en-term !m-0 !bg-transparent !border-0">MAC</span>! <span class="num">48</span> הסיביות</span>
+                                    <span class="bg-amber-400 text-black font-black text-xs px-2 py-0.5 rounded font-sans" dir="rtl">👈 זו כתובת ה-<span class="eng-tag !m-0 !bg-transparent !border-0">MAC</span>! <span class="num">48</span> הסיביות</span>
                                 </div>
 
                                 <p class="text-gray-400">   DHCP Enabled. . . . . . . . . . . : Yes</p>
@@ -554,10 +554,10 @@
             <div id="tab-3" class="tab-content space-y-6">
                 <div class="glass-card p-6 md:p-8 space-y-6">
                     <div>
-                        <span class="en-term font-bold !bg-indigo-100 !text-indigo-800 !border-indigo-300">עקרון ברזל בתקשורת</span>
-                        <h2 class="text-2xl font-black text-[var(--ink)] mt-2 mb-2">מסע חבילת המידע: <span class="en-term">IP</span> קבוע vs כתובת <span class="en-term">MAC</span> משתנה</h2>
+                        <span class="eng-tag font-bold !bg-indigo-100 !text-indigo-800 !border-indigo-300">עקרון ברזל בתקשורת</span>
+                        <h2 class="text-2xl font-black text-[var(--ink)] mt-2 mb-2">מסע חבילת המידע: <span class="eng-tag">IP</span> קבוע vs כתובת <span class="eng-tag">MAC</span> משתנה</h2>
                         <p class="text-[var(--soft)] text-base leading-relaxed font-medium">
-                            כאשר חבילה נוסעת ליעד מרוחק: <strong class="text-sky-700 dark:text-sky-400">כתובת ה-<span class="en-term">IP</span> נשארת קבועה מתחילת הדרך ועד סופה</strong>, אך <strong class="text-amber-700 dark:text-amber-400">כתובת ה-<span class="en-term">MAC</span> משתנה בכל מעבר דרך ראוטר!</strong>
+                            כאשר חבילה נוסעת ליעד מרוחק: <strong class="text-sky-700 dark:text-sky-400">כתובת ה-<span class="eng-tag">IP</span> נשארת קבועה מתחילת הדרך ועד סופה</strong>, אך <strong class="text-amber-700 dark:text-amber-400">כתובת ה-<span class="eng-tag">MAC</span> משתנה בכל מעבר דרך ראוטר!</strong>
                         </p>
                     </div>
 
@@ -565,7 +565,7 @@
                         <div class="bg-[var(--bg-base)] border-2 border-[var(--line)] p-5 rounded-2xl space-y-2">
                             <h3 class="text-sky-800 dark:text-sky-300 font-bold text-base flex items-center gap-2">
                                 <i data-lucide="globe" class="w-5 h-5 text-sky-600"></i>
-                                כתובת <span class="en-term">IP</span> (שכבה <span class="num">3</span>) - <span class="en-term">End to End</span>
+                                כתובת <span class="eng-tag">IP</span> (שכבה <span class="num">3</span>) - <span class="eng-tag">End to End</span>
                             </h3>
                             <p class="text-sm text-[var(--soft)] leading-relaxed font-medium">
                                 מדמה את כתובת המגורים הסופית המודפסת על המכתב. לא משתנה לעולם לאורך כל המסלול!
@@ -574,10 +574,10 @@
                         <div class="bg-[var(--bg-base)] border-2 border-[var(--line)] p-5 rounded-2xl space-y-2">
                             <h3 class="text-amber-800 dark:text-amber-300 font-bold text-base flex items-center gap-2">
                                 <i data-lucide="truck" class="w-5 h-5 text-amber-600"></i>
-                                כתובת <span class="en-term">MAC</span> (שכבה <span class="num">2</span>) - <span class="en-term">Hop to Hop</span>
+                                כתובת <span class="eng-tag">MAC</span> (שכבה <span class="num">2</span>) - <span class="eng-tag">Hop to Hop</span>
                             </h3>
                             <p class="text-sm text-[var(--soft)] leading-relaxed font-medium">
-                                מדמה את כלי התחבורה המעביר מתחנה לתחנה. בכל מקטע פיזי, מעטפת ה-<span class="en-term">MAC</span> נמחקת ונכתבת מחדש!
+                                מדמה את כלי התחבורה המעביר מתחנה לתחנה. בכל מקטע פיזי, מעטפת ה-<span class="eng-tag">MAC</span> נמחקת ונכתבת מחדש!
                             </p>
                         </div>
                     </div>
@@ -586,7 +586,7 @@
                     <div class="border-t-2 border-[var(--line)] pt-6 space-y-3">
                         <h3 class="text-lg font-bold text-[var(--ink)] flex items-center gap-2">
                             <i data-lucide="image" class="w-5 h-5 text-indigo-600"></i>
-                            <span>דיאגרמה מסכמת: ראוטר <span class="en-term">Router</span> מול סוויטש <span class="en-term">Switch</span></span>
+                            <span>דיאגרמה מסכמת: ראוטר <span class="eng-tag">Router</span> מול סוויטש <span class="eng-tag">Switch</span></span>
                         </h3>
                         <p class="text-xs md:text-sm text-[var(--soft)] font-medium">לחץ על התמונה כדי להגדיל אותה לתצוגה מלאה:</p>
                         
@@ -608,9 +608,9 @@
             <div id="tab-4" class="tab-content space-y-6">
                 <div class="glass-card p-6 md:p-8 space-y-6">
                     <div>
-                        <span class="en-term font-bold !bg-sky-100 !text-sky-800 !border-sky-300">סימולטור למידה בלייב</span>
-                        <h2 class="text-2xl font-black text-[var(--ink)] mt-2">סימולטור המתג וטבלאות ה-<span class="en-term">ARP</span></h2>
-                        <p class="text-[var(--soft)] text-sm md:text-base mt-1 font-medium">בחר מקור ויעד לשליחת החבילה. במידה והיעד לא מוכר, תראה <span class="en-term">ARP Request</span> ברודקאסט, עליו יגיע <span class="en-term">ARP Reply</span> יוניקאסט, ורק אז תישלח חבילת המידע!</p>
+                        <span class="eng-tag font-bold !bg-sky-100 !text-sky-800 !border-sky-300">סימולטור למידה בלייב</span>
+                        <h2 class="text-2xl font-black text-[var(--ink)] mt-2">סימולטור המתג וטבלאות ה-<span class="eng-tag">ARP</span></h2>
+                        <p class="text-[var(--soft)] text-sm md:text-base mt-1 font-medium">בחר מקור ויעד לשליחת החבילה. במידה והיעד לא מוכר, תראה <span class="eng-tag">ARP Request</span> ברודקאסט, עליו יגיע <span class="eng-tag">ARP Reply</span> יוניקאסט, ורק אז תישלח חבילת המידע!</p>
                     </div>
 
                     <!-- CONTROLS -->
@@ -716,15 +716,15 @@
                         <div class="bg-[var(--bg-base)] p-4 rounded-2xl border-2 border-[var(--line)] space-y-3">
                             <h3 class="text-sm font-bold text-amber-800 dark:text-amber-300 flex items-center gap-2">
                                 <i data-lucide="table" class="w-4 h-4 text-amber-600"></i>
-                                <span class="en-term">Switch MAC Address Table CAM</span>
+                                <span class="eng-tag">Switch MAC Address Table CAM</span>
                             </h3>
                             <div class="overflow-x-auto">
                                 <table class="w-full text-right text-xs md:text-sm bg-[var(--paper)] rounded-xl border border-[var(--line)]">
                                     <thead>
                                         <tr class="border-b border-[var(--line)] text-[var(--soft)] bg-stone-100 dark:bg-stone-900">
-                                            <th class="p-2.5"><span class="en-term">Port</span></th>
-                                            <th class="p-2.5"><span class="en-term">MAC Address</span></th>
-                                            <th class="p-2.5"><span class="en-term">Type</span></th>
+                                            <th class="p-2.5"><span class="eng-tag">Port</span></th>
+                                            <th class="p-2.5"><span class="eng-tag">MAC Address</span></th>
+                                            <th class="p-2.5"><span class="eng-tag">Type</span></th>
                                         </tr>
                                     </thead>
                                     <tbody id="mac-table-body" class="font-mono text-[var(--ink)]">
@@ -737,20 +737,20 @@
                         <div class="bg-[var(--bg-base)] p-4 rounded-2xl border-2 border-[var(--line)] space-y-3">
                             <h3 class="text-sm font-bold text-sky-800 dark:text-sky-300 flex items-center gap-2">
                                 <i data-lucide="layers" class="w-4 h-4 text-sky-600"></i>
-                                טבלאות <span class="en-term">ARP</span> דינמיות של המארחים
+                                טבלאות <span class="eng-tag">ARP</span> דינמיות של המארחים
                             </h3>
                             
                             <div class="space-y-2 text-xs font-mono">
                                 <div class="bg-[var(--paper)] p-2.5 rounded-xl border border-[var(--line)]">
-                                    <span class="text-sky-700 dark:text-sky-300 font-bold block mb-1 num">Host A <span class="en-term">ARP Table</span>:</span>
+                                    <span class="text-sky-700 dark:text-sky-300 font-bold block mb-1 num">Host A <span class="eng-tag">ARP Table</span>:</span>
                                     <div id="arp-table-A" class="text-[var(--soft)] italic num">Empty</div>
                                 </div>
                                 <div class="bg-[var(--paper)] p-2.5 rounded-xl border border-[var(--line)]">
-                                    <span class="text-sky-700 dark:text-sky-300 font-bold block mb-1 num">Host B <span class="en-term">ARP Table</span>:</span>
+                                    <span class="text-sky-700 dark:text-sky-300 font-bold block mb-1 num">Host B <span class="eng-tag">ARP Table</span>:</span>
                                     <div id="arp-table-B" class="text-[var(--soft)] italic num">Empty</div>
                                 </div>
                                 <div class="bg-[var(--paper)] p-2.5 rounded-xl border border-[var(--line)]">
-                                    <span class="text-sky-700 dark:text-sky-300 font-bold block mb-1 num">Host C <span class="en-term">ARP Table</span>:</span>
+                                    <span class="text-sky-700 dark:text-sky-300 font-bold block mb-1 num">Host C <span class="eng-tag">ARP Table</span>:</span>
                                     <div id="arp-table-C" class="text-[var(--soft)] italic num">Empty</div>
                                 </div>
                             </div>
@@ -764,8 +764,8 @@
                 <div class="glass-card p-6 md:p-8 space-y-6">
                     <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b-2 border-[var(--line)] pb-4 gap-4">
                         <div>
-                            <span class="en-term font-bold !bg-sky-100 !text-sky-800 !border-sky-300">מבדק ידע מורחב</span>
-                            <h2 class="text-2xl font-black text-[var(--ink)] mt-2">מבדק אמריקאי: 10 שאלות על <span class="en-term">MAC, Switch & ARP</span></h2>
+                            <span class="eng-tag font-bold !bg-sky-100 !text-sky-800 !border-sky-300">מבדק ידע מורחב</span>
+                            <h2 class="text-2xl font-black text-[var(--ink)] mt-2">מבדק אמריקאי: 10 שאלות על <span class="eng-tag">MAC, Switch & ARP</span></h2>
                         </div>
                         <div class="flex items-center gap-3">
                             <button id="teacher-btn" onclick="promptTeacherPassword()" class="bg-slate-800 hover:bg-slate-700 text-amber-300 border border-amber-400 text-xs md:text-sm font-bold px-3.5 py-2 rounded-xl transition-all flex items-center gap-2 shadow">
@@ -783,23 +783,23 @@
                         
                         <!-- Question 1 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">1. באיזו שכבה במודל <span class="en-term">OSI</span> פועלת כתובת ה-<span class="en-term">MAC</span>?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">1. באיזו שכבה במודל <span class="eng-tag">OSI</span> פועלת כתובת ה-<span class="eng-tag">MAC</span>?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q1" value="A">
-                                    <span>שכבה <span class="num">1</span> - השכבה הפיזית <span class="en-term">Physical Layer</span></span>
+                                    <span>שכבה <span class="num">1</span> - השכבה הפיזית <span class="eng-tag">Physical Layer</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q1" value="B">
-                                    <span>שכבה <span class="num">2</span> - שכבת קישור הנתונים <span class="en-term">Data Link Layer</span></span>
+                                    <span>שכבה <span class="num">2</span> - שכבת קישור הנתונים <span class="eng-tag">Data Link Layer</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q1" value="C">
-                                    <span>שכבה <span class="num">3</span> - שכבת הרשת <span class="en-term">Network Layer</span></span>
+                                    <span>שכבה <span class="num">3</span> - שכבת הרשת <span class="eng-tag">Network Layer</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q1" value="D">
-                                    <span>שכבה <span class="num">4</span> - שכבת התחבורה <span class="en-term">Transport Layer</span></span>
+                                    <span>שכבה <span class="num">4</span> - שכבת התחבורה <span class="eng-tag">Transport Layer</span></span>
                                 </label>
                             </div>
                             <div id="fb-q1" class="hidden text-sm p-3.5 rounded-xl font-bold leading-relaxed"></div>
@@ -807,11 +807,11 @@
 
                         <!-- Question 2 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">2. ממה מורכבות <span class="num">24</span> הסיביות הראשונות <span class="en-term">OUI</span> של כתובת ה-<span class="en-term">MAC</span>?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">2. ממה מורכבות <span class="num">24</span> הסיביות הראשונות <span class="eng-tag">OUI</span> של כתובת ה-<span class="eng-tag">MAC</span>?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q2" value="A">
-                                    <span>מזהה ייחודי של היצרן שייצר את כרטיס הרשת <span class="en-term">OUI</span></span>
+                                    <span>מזהה ייחודי של היצרן שייצר את כרטיס הרשת <span class="eng-tag">OUI</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q2" value="B">
@@ -819,11 +819,11 @@
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q2" value="C">
-                                    <span>כתובת ה-<span class="en-term">IP</span> הדינמית שמוקצית ע"י השרת</span>
+                                    <span>כתובת ה-<span class="eng-tag">IP</span> הדינמית שמוקצית ע"י השרת</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q2" value="D">
-                                    <span>מזהה רשת המשנה של הבית <span class="en-term">Subnet Mask</span></span>
+                                    <span>מזהה רשת המשנה של הבית <span class="eng-tag">Subnet Mask</span></span>
                                 </label>
                             </div>
                             <div id="fb-q2" class="hidden text-sm p-3.5 rounded-xl font-bold leading-relaxed"></div>
@@ -831,23 +831,23 @@
 
                         <!-- Question 3 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">3. מהו האורך הכולל של כתובת <span class="en-term">MAC</span> פיזית בסיביות <span class="en-term">Bits</span>?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">3. מהו האורך הכולל של כתובת <span class="eng-tag">MAC</span> פיזית בסיביות <span class="eng-tag">Bits</span>?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q3" value="A">
-                                    <span><span class="num">32</span> סיביות <span class="en-term">Bits</span></span>
+                                    <span><span class="num">32</span> סיביות <span class="eng-tag">Bits</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q3" value="B">
-                                    <span><span class="num">48</span> סיביות <span class="en-term">Bits</span></span>
+                                    <span><span class="num">48</span> סיביות <span class="eng-tag">Bits</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q3" value="C">
-                                    <span><span class="num">64</span> סיביות <span class="en-term">Bits</span></span>
+                                    <span><span class="num">64</span> סיביות <span class="eng-tag">Bits</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q3" value="D">
-                                    <span><span class="num">128</span> סיביות <span class="en-term">Bits</span></span>
+                                    <span><span class="num">128</span> סיביות <span class="eng-tag">Bits</span></span>
                                 </label>
                             </div>
                             <div id="fb-q3" class="hidden text-sm p-3.5 rounded-xl font-bold leading-relaxed"></div>
@@ -855,15 +855,15 @@
 
                         <!-- Question 4 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">4. מה עושה ה-<span class="en-term">Switch</span> כאשר מגיע אליו פריים המיועד לכתובת <span class="en-term">MAC</span> שלא קיימת בטבלה שלו?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">4. מה עושה ה-<span class="eng-tag">Switch</span> כאשר מגיע אליו פריים המיועד לכתובת <span class="eng-tag">MAC</span> שלא קיימת בטבלה שלו?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q4" value="A">
-                                    <span>מפיל את החבילה <span class="en-term">Drop</span> מיד</span>
+                                    <span>מפיל את החבילה <span class="eng-tag">Drop</span> מיד</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q4" value="B">
-                                    <span>מבצע הצפה <span class="en-term">Flooding</span> - משכפל לכל הפורטים חוץ מהפורט שנכנס דרכו</span>
+                                    <span>מבצע הצפה <span class="eng-tag">Flooding</span> - משכפל לכל הפורטים חוץ מהפורט שנכנס דרכו</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q4" value="C">
@@ -871,7 +871,7 @@
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q4" value="D">
-                                    <span>פונה לראוטר כדי שפרוטוקול <span class="en-term">Routing</span> ימצא את היעד</span>
+                                    <span>פונה לראוטר כדי שפרוטוקול <span class="eng-tag">Routing</span> ימצא את היעד</span>
                                 </label>
                             </div>
                             <div id="fb-q4" class="hidden text-sm p-3.5 rounded-xl font-bold leading-relaxed"></div>
@@ -879,19 +879,19 @@
 
                         <!-- Question 5 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">5. מהו התפקיד המרכזי של פרוטוקול <span class="en-term">ARP</span> ברשת המקומית?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">5. מהו התפקיד המרכזי של פרוטוקול <span class="eng-tag">ARP</span> ברשת המקומית?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q5" value="A">
-                                    <span>לתרגם כתובת <span class="en-term">IP</span> ידועה לכתובת <span class="en-term">MAC</span> פיזית שאינה ידועה</span>
+                                    <span>לתרגם כתובת <span class="eng-tag">IP</span> ידועה לכתובת <span class="eng-tag">MAC</span> פיזית שאינה ידועה</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q5" value="B">
-                                    <span>להקצות כתובות <span class="en-term">IP</span> אוטומטיות למחשבים</span>
+                                    <span>להקצות כתובות <span class="eng-tag">IP</span> אוטומטיות למחשבים</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q5" value="C">
-                                    <span>לתרגם שמות מתחם <span class="en-term">Domain</span> לכתובות <span class="en-term">IP</span></span>
+                                    <span>לתרגם שמות מתחם <span class="eng-tag">Domain</span> לכתובות <span class="eng-tag">IP</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q5" value="D">
@@ -903,7 +903,7 @@
 
                         <!-- Question 6 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">6. כיצד מוצגת כתובת ה-<span class="en-term">Broadcast</span> הפיזית בשכבה <span class="num">2</span> עבור כלל המחשבים ברשת?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">6. כיצד מוצגת כתובת ה-<span class="eng-tag">Broadcast</span> הפיזית בשכבה <span class="num">2</span> עבור כלל המחשבים ברשת?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors num">
                                     <input type="radio" name="q6" value="A">
@@ -927,19 +927,19 @@
 
                         <!-- Question 7 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">7. מה קורה לכתובות <span class="en-term">IP</span> ו-<span class="en-term">MAC</span> כאשר חבילה עוברת דרך נתב <span class="en-term">Router</span> לרשת אחרת?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">7. מה קורה לכתובות <span class="eng-tag">IP</span> ו-<span class="eng-tag">MAC</span> כאשר חבילה עוברת דרך נתב <span class="eng-tag">Router</span> לרשת אחרת?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q7" value="A">
-                                    <span>שתי הכתובות <span class="en-term">IP</span> ו-<span class="en-term">MAC</span> נשארות קבועות ולא משתנות כלל</span>
+                                    <span>שתי הכתובות <span class="eng-tag">IP</span> ו-<span class="eng-tag">MAC</span> נשארות קבועות ולא משתנות כלל</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q7" value="B">
-                                    <span>כתובת ה-<span class="en-term">IP</span> קבועה מקצה לקצה, אך כתובת ה-<span class="en-term">MAC</span> משתנה בכל מקטע <span class="en-term">Hop</span></span>
+                                    <span>כתובת ה-<span class="eng-tag">IP</span> קבועה מקצה לקצה, אך כתובת ה-<span class="eng-tag">MAC</span> משתנה בכל מקטע <span class="eng-tag">Hop</span></span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q7" value="C">
-                                    <span>כתובת ה-<span class="en-term">MAC</span> קבועה מקצה לקצה, אך כתובת ה-<span class="en-term">IP</span> משתנה בראוטר</span>
+                                    <span>כתובת ה-<span class="eng-tag">MAC</span> קבועה מקצה לקצה, אך כתובת ה-<span class="eng-tag">IP</span> משתנה בראוטר</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q7" value="D">
@@ -951,7 +951,7 @@
 
                         <!-- Question 8 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">8. איזו פקודה במסוף ה-<span class="en-term">Windows CMD</span> תציג לנו את טבלת ה-<span class="en-term">ARP</span> של המחשב שלנו?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">8. איזו פקודה במסוף ה-<span class="eng-tag">Windows CMD</span> תציג לנו את טבלת ה-<span class="eng-tag">ARP</span> של המחשב שלנו?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors num">
                                     <input type="radio" name="q8" value="A">
@@ -975,15 +975,15 @@
 
                         <!-- Question 9 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">9. כיצד ה-<span class="en-term">Switch</span> לומד כתובות <span class="en-term">MAC</span> חדשות ומכניס אותן לטבלת ה-<span class="en-term">CAM</span> שלו?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">9. כיצד ה-<span class="eng-tag">Switch</span> לומד כתובות <span class="eng-tag">MAC</span> חדשות ומכניס אותן לטבלת ה-<span class="eng-tag">CAM</span> שלו?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q9" value="A">
-                                    <span>לפי כתובת ה-<span class="en-term">MAC היעד</span> של פריים שנכנס לפורט</span>
+                                    <span>לפי כתובת ה-<span class="eng-tag">MAC היעד</span> של פריים שנכנס לפורט</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q9" value="B">
-                                    <span>לפי כתובת ה-<span class="en-term">MAC המקור</span> של פריים שנכנס לפורט מסוים</span>
+                                    <span>לפי כתובת ה-<span class="eng-tag">MAC המקור</span> של פריים שנכנס לפורט מסוים</span>
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q9" value="C">
@@ -991,7 +991,7 @@
                                 </label>
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q9" value="D">
-                                    <span>באמצעות שאלת שרת ה-<span class="en-term">DHCP</span> ברשת בלבד</span>
+                                    <span>באמצעות שאלת שרת ה-<span class="eng-tag">DHCP</span> ברשת בלבד</span>
                                 </label>
                             </div>
                             <div id="fb-q9" class="hidden text-sm p-3.5 rounded-xl font-bold leading-relaxed"></div>
@@ -999,7 +999,7 @@
 
                         <!-- Question 10 -->
                         <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-3">
-                            <p class="font-bold text-[var(--ink)] text-base">10. באיזה בסיס ספירה מוצגת כתובת ה-<span class="en-term">MAC</span> באופן שגרתי לנוחות האדם?</p>
+                            <p class="font-bold text-[var(--ink)] text-base">10. באיזה בסיס ספירה מוצגת כתובת ה-<span class="eng-tag">MAC</span> באופן שגרתי לנוחות האדם?</p>
                             <div class="space-y-2 text-sm font-medium">
                                 <label class="flex items-center gap-2 p-3 rounded-xl bg-[var(--paper)] border border-[var(--line)] cursor-pointer hover:border-sky-500 transition-colors">
                                     <input type="radio" name="q10" value="A">
@@ -1034,7 +1034,7 @@
                 <div class="glass-card p-6 md:p-8 space-y-6">
                     <div>
                         <span class="text-sky-700 dark:text-sky-400 text-xs font-bold uppercase tracking-wider">סגירת שיעור ורפלקציה</span>
-                        <h2 class="text-2xl font-black text-[var(--ink)] mt-1 mb-2">מסוף פקודות <span class="en-term">WINDOWS CMD</span> וסיכום</h2>
+                        <h2 class="text-2xl font-black text-[var(--ink)] mt-1 mb-2">מסוף פקודות <span class="eng-tag">WINDOWS CMD</span> וסיכום</h2>
                     </div>
 
                     <!-- WINDOWS CMD EXACT REPLICA -->
@@ -1070,11 +1070,11 @@
                     <div class="bg-[var(--bg-base)] p-5 rounded-2xl border-2 border-[var(--line)] space-y-4">
                         <h3 class="font-bold text-[var(--ink)] text-lg">שאלות רפלקציה למורה סהר</h3>
                         <div class="space-y-1">
-                            <label class="block text-sm text-[var(--ink)] font-bold">1. מה קורה למתג כאשר מתקבל פריים לכתובת <span class="en-term">MAC</span> שאינה קיימת בטבלה?</label>
+                            <label class="block text-sm text-[var(--ink)] font-bold">1. מה קורה למתג כאשר מתקבל פריים לכתובת <span class="eng-tag">MAC</span> שאינה קיימת בטבלה?</label>
                             <textarea id="reflection-q1" class="w-full bg-[var(--paper)] border-2 border-[var(--line)] rounded-xl p-3 text-sm text-[var(--ink)] focus:outline-none focus:border-sky-500 transition-all font-medium" rows="2" placeholder="הקלד את תשובתך..."></textarea>
                         </div>
                         <div class="space-y-1">
-                            <label class="block text-sm text-[var(--ink)] font-bold">2. למה כתובת ה-<span class="en-term">IP</span> נשארת קבועה לאורך מסע החבילה בעוד כתובת ה-<span class="en-term">MAC</span> משתנה בראוטר?</label>
+                            <label class="block text-sm text-[var(--ink)] font-bold">2. למה כתובת ה-<span class="eng-tag">IP</span> נשארת קבועה לאורך מסע החבילה בעוד כתובת ה-<span class="eng-tag">MAC</span> משתנה בראוטר?</label>
                             <textarea id="reflection-q2" class="w-full bg-[var(--paper)] border-2 border-[var(--line)] rounded-xl p-3 text-sm text-[var(--ink)] focus:outline-none focus:border-sky-500 transition-all font-medium" rows="2" placeholder="הקלד את תשובתך..."></textarea>
                         </div>
                         <button onclick="exportTeacherReport()" class="w-full bg-sky-600 hover:bg-sky-700 text-white font-bold py-3.5 rounded-xl text-base transition-all flex items-center justify-center gap-2 shadow-md">
@@ -1116,7 +1116,7 @@
             </div>
             <div class="p-4 space-y-3">
                 <p class="text-xs md:text-sm text-[var(--ink)] leading-relaxed font-medium">
-                    ייפייי! תקוע בתרגיל? צריך עזרה להבין איך <span class="en-term">Switch</span> לומד או מה זה <span class="en-term">ARP</span>? לחץ למטה ונעוף על זה! 🚀
+                    ייפייי! תקוע בתרגיל? צריך עזרה להבין איך <span class="eng-tag">Switch</span> לומד או מה זה <span class="eng-tag">ARP</span>? לחץ למטה ונעוף על זה! 🚀
                 </p>
                 <a href="https://gemini.google.com/gem/13FFjtbW5S3yg0EE1qBEQiP8GEMwoepKu?usp=sharing" target="_blank" class="block text-center bg-sky-600 hover:bg-sky-700 text-white font-black text-xs md:text-sm py-3 rounded-xl transition-all shadow-md">
                     פתח צ'אט עזרה בלייב 🔥
@@ -1193,7 +1193,7 @@
             
             if (choice === 1) {
                 feedback.className = 'mt-3 p-4 rounded-xl text-sm md:text-base font-bold bg-emerald-100 border-2 border-emerald-400 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-200';
-                feedback.innerHTML = '🌟 <b>תשובה נכונה!</b> הצפה (<span class="en-term">Flooding</span>) מיותרת מייצרת עומס כבד ברשת שנקרא <span class="en-term">Broadcast Storm</span>.';
+                feedback.innerHTML = '🌟 <b>תשובה נכונה!</b> הצפה (<span class="eng-tag">Flooding</span>) מיותרת מייצרת עומס כבד ברשת שנקרא <span class="eng-tag">Broadcast Storm</span>.';
                 addXP(25);
             } else {
                 feedback.className = 'mt-3 p-4 rounded-xl text-sm md:text-base font-bold bg-rose-100 border-2 border-rose-400 text-rose-900 dark:bg-rose-950/80 dark:text-rose-200';
@@ -1285,8 +1285,6 @@
             }
         }
 
-        // Move a packet smoothly and remember its destination so Pause/Resume
-        // can freeze and continue the current motion without a visual jump.
         function moveSimPacket(el, top, left, duration = 3200) {
             el.dataset.targetTop = top;
             el.dataset.targetLeft = left;
@@ -1309,8 +1307,6 @@
             if (!el || el.classList.contains('hidden')) return;
             el.style.transition = '';
             if (el.dataset.targetTop && el.dataset.targetLeft) {
-                // Force the browser to commit the frozen position before starting
-                // the transition back to the saved destination.
                 void el.offsetWidth;
                 el.style.top = el.dataset.targetTop;
                 el.style.left = el.dataset.targetLeft;
@@ -1490,9 +1486,9 @@
                 count++;
                 body.innerHTML += `
                     <tr class="border-b border-[var(--line)]">
-                        <td class="p-2.5 text-amber-800 dark:text-amber-300 font-bold num"><span class="en-term">Port ${port}</span></td>
+                        <td class="p-2.5 text-amber-800 dark:text-amber-300 font-bold num"><span class="eng-tag">Port ${port}</span></td>
                         <td class="p-2.5 num">${switchMacTable[port]}</td>
-                        <td class="p-2.5 text-emerald-700 dark:text-emerald-300 font-semibold num"><span class="en-term">DYNAMIC</span></td>
+                        <td class="p-2.5 text-emerald-700 dark:text-emerald-300 font-semibold num"><span class="eng-tag">DYNAMIC</span></td>
                     </tr>
                 `;
             }
@@ -1545,15 +1541,15 @@
 
         function checkQuizAnswers() {
             const explanations = {
-                q1: 'כתובת ה-<span class="en-term">MAC</span> היא כתובת פיזית הפועלת בשכבה <span class="num">2</span> (<span class="en-term">Data Link Layer</span>) של מודל <span class="en-term">OSI</span>.',
-                q2: '<span class="num">24</span> הסיביות הראשונות נקראות <span class="en-term">OUI</span> והן מוקצות ע"י ארגון <span class="en-term">IEEE</span> ליצרן החומרה.',
-                q3: 'גודלה של כתובת <span class="en-term">MAC</span> הוא בדיוק <span class="num">48</span> סיביות (<span class="en-term">Bits</span>), המיוצגות כ-<span class="num">6</span> בתים (<span class="en-term">Bytes</span>).',
-                q4: 'כאשר היעד אינו מוכר בטבלת ה-<span class="en-term">MAC</span>, ה-<span class="en-term">Switch</span> מבצע <span class="en-term">Flooding</span> (הצפה) לכל היציאות.',
-                q5: 'תפקידו המרכזי של <span class="en-term">ARP</span> הוא לגלות כתובת <span class="en-term">MAC</span> שאינה ידועה בהינתן כתובת <span class="en-term">IP</span> לוגית.',
-                q6: 'כתובת ה-<span class="en-term">Broadcast</span> הפיזית בשכבה <span class="num">2</span> שבה כל הסיביות מופעלות היא <span class="en-term">FF:FF:FF:FF:FF:FF</span>.',
-                q7: 'כתובת ה-<span class="en-term">IP</span> נשארת קבועה מקצה לקצה, בעוד כתובות ה-<span class="en-term">MAC</span> מוחלפות בכל מקטע (<span class="en-term">Hop-to-Hop</span>).',
-                q8: 'הפקודה <span class="en-term">arp -a</span> מציגה את טבלת ה-<span class="en-term">ARP</span> הדינמית והסטטית השמורה בזכרון המחשב.',
-                q9: 'המתג לומד בצורה פאסיבית ע"י הסתכלות בכתובת ה-<span class="en-term">Source MAC</span> של פריים שנכנס לפורט.',
+                q1: 'כתובת ה-<span class="eng-tag">MAC</span> היא כתובת פיזית הפועלת בשכבה <span class="num">2</span> (<span class="eng-tag">Data Link Layer</span>) של מודל <span class="eng-tag">OSI</span>.',
+                q2: '<span class="num">24</span> הסיביות הראשונות נקראות <span class="eng-tag">OUI</span> והן מוקצות ע"י ארגון <span class="eng-tag">IEEE</span> ליצרן החומרה.',
+                q3: 'גודלה של כתובת <span class="eng-tag">MAC</span> הוא בדיוק <span class="num">48</span> סיביות (<span class="eng-tag">Bits</span>), המיוצגות כ-<span class="num">6</span> בתים (<span class="eng-tag">Bytes</span>).',
+                q4: 'כאשר היעד אינו מוכר בטבלת ה-<span class="eng-tag">MAC</span>, ה-<span class="eng-tag">Switch</span> מבצע <span class="eng-tag">Flooding</span> (הצפה) לכל היציאות.',
+                q5: 'תפקידו המרכזי של <span class="eng-tag">ARP</span> הוא לגלות כתובת <span class="eng-tag">MAC</span> שאינה ידועה בהינתן כתובת <span class="eng-tag">IP</span> לוגית.',
+                q6: 'כתובת ה-<span class="eng-tag">Broadcast</span> הפיזית בשכבה <span class="num">2</span> שבה כל הסיביות מופעלות היא <span class="eng-tag">FF:FF:FF:FF:FF:FF</span>.',
+                q7: 'כתובת ה-<span class="eng-tag">IP</span> נשארת קבועה מקצה לקצה, בעוד כתובות ה-<span class="eng-tag">MAC</span> מוחלפות בכל מקטע (<span class="eng-tag">Hop-to-Hop</span>).',
+                q8: 'הפקודה <span class="eng-tag">arp -a</span> מציגה את טבלת ה-<span class="eng-tag">ARP</span> הדינמית והסטטית השמורה בזכרון המחשב.',
+                q9: 'המתג לומד בצורה פאסיבית ע"י הסתכלות בכתובת ה-<span class="eng-tag">Source MAC</span> של פריים שנכנס לפורט.',
                 q10: 'נוח לייצג <span class="num">48</span> סיביות בינאריות בבסיס הקסדצימלי (בסיס <span class="num">16</span>).'
             };
 
