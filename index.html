@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>שיעור 3: לומדים כתובת MAC עם סהר | האקדמיה לרשתות</title>
+    <title>לומדים כתובת MAC עם סהר</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -90,42 +90,6 @@
 
         body .container { width: 100%; max-width: 1280px; margin: 0 auto; padding: 0 16px; }
 
-        /* ---------- סטרייפים עליונים ---------- */
-        .top-stripe {
-            background: var(--red);
-            color: #ffffff;
-            padding: 8px 20px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            flex-wrap: wrap;
-        }
-
-        .stripe-group { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-
-        .stripe-badge {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-family: var(--font-code);
-            font-size: 0.7rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .pulse-green {
-            width: 8px; height: 8px; border-radius: 50%;
-            background: #4ade80;
-            box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.4);
-            animation: pulse 1.8s infinite;
-        }
-
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
         /* ---------- כותרת עליונה ---------- */
         header {
             background: var(--paper);
@@ -148,12 +112,6 @@
         }
 
         .header-badges { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; align-items: center; }
-        .badge {
-            background: var(--paper); border: 2px solid var(--line); color: var(--ink);
-            font-size: 0.85rem; font-weight: 700; padding: 4px 16px; border-radius: 12px; line-height: 1.7;
-        }
-        .badge-success { border-color: var(--ok-edge); color: var(--ok-edge); }
-        body.dark .badge-success { color: #6ee7b7; border-color: #6ee7b7; }
 
         .mode-btn {
             min-height: 48px; padding: 0 18px; border-radius: 12px;
@@ -322,20 +280,56 @@
             background: var(--aside-bg); border: 1px solid var(--aside-edge); color: var(--aside-ink);
             font-weight: 600; font-size: 0.92em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
         }
+
+/* ---------- חלק 4: סימולטור משודרג ---------- */
+#sim-stage{display:block;height:470px;min-height:0;padding:0;background-image:radial-gradient(var(--line) 1.2px,transparent 1.2px);background-size:22px 22px}
+.sim-links{position:absolute;inset:0;width:100%;height:100%}
+.sim-links line{stroke:var(--line);stroke-width:4;stroke-linecap:round;vector-effect:non-scaling-stroke;transition:stroke .2s}
+.sim-links line.hot{stroke:var(--c-sky);stroke-dasharray:8 8;animation:simdash .5s linear infinite}
+@keyframes simdash{to{stroke-dashoffset:-16}}
+.sim-node{position:absolute;transform:translate(-50%,-50%);z-index:5;text-align:center}
+#node-SW svg{display:block;margin:0 auto;filter:drop-shadow(0 6px 10px rgba(0,0,0,.35))}
+.led{fill:#334155;transition:fill .2s}.led.on{fill:#4ade80}.led.flash{animation:ledblink .3s 4}
+@keyframes ledblink{50%{fill:#fde047}}
+.sw-cap{margin-top:2px;font-size:.7rem;font-weight:800;color:var(--c-amber);background:var(--c-amber-bg);border-radius:999px;padding:0 10px;display:inline-block}
+.host-card{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:8px 6px;width:29%;min-width:96px;transition:border-color .2s,box-shadow .2s}
+.host-card.accept{border-color:var(--ok-edge);box-shadow:0 0 0 4px var(--ok-bg)}
+.host-card.drop{border-color:var(--bad-edge);box-shadow:0 0 0 4px var(--bad-bg)}
+.hbub{position:absolute;left:50%;transform:translateX(-50%);bottom:-30px;white-space:nowrap;font-size:.62rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--paper);border:1.5px solid var(--line);display:none;z-index:6}
+.port-tag{display:inline-block;margin-top:3px;font-size:.6rem;font-weight:800;color:var(--c-amber);background:var(--c-amber-bg);border-radius:999px;padding:0 8px}
+#sim-status-banner{position:absolute;top:6px;left:50%;transform:translateX(-50%);z-index:40;white-space:nowrap;max-width:96%;overflow:hidden;text-overflow:ellipsis}
+.pkt{position:absolute;z-index:30;transform:translate(-50%,-50%);width:188px;background:#090d16;color:#e2e8f0;border:2px solid #38bdf8;border-radius:12px;padding:5px 7px 6px;font-family:var(--font-code);font-size:.56rem;line-height:1.45;direction:ltr;text-align:left;box-shadow:0 8px 20px rgba(0,0,0,.45);transition-property:left,top,transform,opacity;transition-timing-function:ease-in-out;pointer-events:none}
+.pkt.req{border-color:#f59e0b}.pkt.rep{border-color:#34d399}
+.pkt.in-sw{transform:translate(-50%,-50%) scale(.3);opacity:.3}
+.pkt-h{display:inline-block;font-weight:800;font-size:.6rem;padding:0 6px;border-radius:6px;margin-bottom:3px;color:#090d16;background:#38bdf8}
+.pkt.req .pkt-h{background:#fbbf24}.pkt.rep .pkt-h{background:#34d399}
+.pkt-r{display:flex;justify-content:space-between;gap:6px}.pkt-r b{color:#64748b;font-weight:700}.pkt-r .bc{color:#fbbf24;font-weight:800}
+.sim-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.stat{background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:8px;text-align:center;font-size:.7rem;font-weight:700}
+.stat .num{display:block;font-size:1.25rem}
+.tbl-box{background:var(--bg);border:2px solid var(--line);padding:12px;border-radius:14px;overflow-x:auto}
+.tbl-box h4{font-size:.85rem;margin-bottom:8px}
+.sim-table tbody tr.clk{cursor:pointer}.sim-table tbody tr.clk:hover{background:var(--c-sky-bg)}
+.sim-table tr.new{animation:rowflash 1.8s}
+@keyframes rowflash{0%,60%{background:var(--c-green-bg)}}
+.mini-btn{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:8px;padding:0 8px;font-weight:800;font-size:.7rem}
+.mini-btn:hover{border-color:var(--red)}
+.arp-chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.arp-chip{border:1.5px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:2px 12px;font-weight:800;font-size:.72rem}
+.arp-chip.on{background:var(--c-sky);border-color:var(--c-sky);color:#fff}.arp-chip.on .num{color:#fff}
+.insp-t{display:inline-block;font-family:var(--font-code);font-size:.75rem;padding:0 10px;border-radius:8px;background:#38bdf8;color:#090d16;margin-bottom:6px}
+.insp-t.req{background:#fbbf24}.insp-t.rep{background:#34d399}
+.insp-sec{font-size:.7rem;font-weight:800;color:var(--muted);margin:6px 0 2px}
+.insp-grid{display:grid;grid-template-columns:auto 1fr;gap:2px 12px;font-size:.72rem;direction:ltr;text-align:left}
+.insp .chg{background:var(--c-amber-bg);color:var(--c-amber);border-radius:4px;padding:0 5px}
+#sim-log{max-height:230px;overflow-y:auto;font-size:.75rem}
+.log-i{padding:5px 8px;border-radius:8px;margin-bottom:5px;border-right:5px solid var(--c-sky);background:var(--c-sky-bg);line-height:1.6}
+.log-i.warn{border-color:var(--c-amber);background:var(--c-amber-bg)}.log-i.ok{border-color:var(--c-green);background:var(--c-green-bg)}
+@media(max-width:600px){.sim-stats{grid-template-columns:repeat(2,1fr)}}
+
     </style>
 </head>
 <body>
-
-    <!-- 🔴 הסטרייפ העליון -->
-    <div class="top-stripe">
-        <div class="stripe-group">
-            <span class="stripe-badge"><span class="pulse-green"></span> CLASS_03 ACTIVE</span>
-            <span>📅 <b>תאריך עדכון:</b> <span id="current-date"></span></span>
-        </div>
-        <div class="stripe-group">
-            <span class="stripe-badge">⚡ XP נצבר: <span class="num" id="xp-counter">110</span></span>
-        </div>
-    </div>
 
     <!-- Header -->
     <header>
@@ -343,13 +337,11 @@
             <div class="header-title-area">
                 <img src="https://lh3.googleusercontent.com/d/1oIkZlLHZWtFgoDblyxziTALQZwsyxAOo" alt="אווטאר" class="crazy-avatar">
                 <div>
-                    <h1>לומדים כתובת <span class="eng-tag">MAC</span> עם סהר <span class="aside">שיעור 03</span></h1>
+                    <h1>לומדים כתובת <span class="eng-tag">MAC</span> עם סהר</h1>
                     <p>טביעת האצבע הפיזית של החומרה ופענוח פרוטוקול <span class="eng-tag">ARP</span></p>
                 </div>
             </div>
             <div class="header-badges">
-                <span class="badge">האקדמיה לרשתות</span>
-                <span class="badge badge-success">רמה: שוליית נתבים</span>
                 <button class="mode-btn" id="darkToggleBtn" onclick="toggleDark()">🌙 מצב לילה</button>
             </div>
         </div>
@@ -501,11 +493,11 @@
 
                     <div class="grid-2" style="margin-bottom: 20px;">
                         <div class="section-box">
-                            <h4>כתובת <span class="eng-tag">IP</span> (שכבה <span class="num">3</span>) - <span class="eng-tag">End to End</span></h4>
+                            <h4>כתובת <span class="eng-tag">IP</span> שחולצת משכבה <span class="num">3</span> - <span class="eng-tag">End to End</span></h4>
                             <p>מדמה את כתובת המגורים הסופית המודפסת על המכתב. לא משתנה לעולם לאורך כל המסלול!</p>
                         </div>
                         <div class="section-box" style="border-right-color: var(--c-amber); background: var(--c-amber-bg);">
-                            <h4 style="color: var(--c-amber);">כתובת <span class="eng-tag">MAC</span> (שכבה <span class="num">2</span>) - <span class="eng-tag">Hop to Hop</span></h4>
+                            <h4 style="color: var(--c-amber);">כתובת <span class="eng-tag">MAC</span> שחולצת משכבה <span class="num">2</span> - <span class="eng-tag">Hop to Hop</span></h4>
                             <p>מדמה את כלי התחבורה המעביר מתחנה לתחנה. בכל מקטע פיזי, מעטפת ה-<span class="eng-tag">MAC</span> נמחקת ונכתבת מחדש!</p>
                         </div>
                     </div>
@@ -531,96 +523,116 @@
 
                     <!-- CONTROLS -->
                     <div style="background: var(--bg); border: 2px solid var(--line); padding: 14px; border-radius: 14px; margin-bottom: 16px; display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between;">
-                        <div style="display: flex; gap: 10px; align-items: center;">
+                        <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                             <label style="font-weight: 700; font-size: 0.85rem;">מקור:</label>
                             <select id="sim-source" style="padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--line); font-weight: 700;" class="num">
                                 <option value="A">Host A 192.168.1.10</option>
                                 <option value="B">Host B 192.168.1.20</option>
                                 <option value="C">Host C 192.168.1.30</option>
                             </select>
-
                             <label style="font-weight: 700; font-size: 0.85rem;">יעד:</label>
                             <select id="sim-target" style="padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--line); font-weight: 700;" class="num">
                                 <option value="B">Host B 192.168.1.20</option>
                                 <option value="A">Host A 192.168.1.10</option>
                                 <option value="C">Host C 192.168.1.30</option>
                             </select>
+                            <label style="font-weight: 700; font-size: 0.85rem;">מהירות:</label>
+                            <select id="sim-speed" style="padding: 6px 10px; border-radius: 8px; border: 1.5px solid var(--line); font-weight: 700;">
+                                <option value="slow">איטית</option>
+                                <option value="normal" selected>רגילה</option>
+                                <option value="fast">מהירה</option>
+                            </select>
+                            <label style="font-weight: 700; font-size: 0.8rem; display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" id="sim-step" onchange="setPauseBtn()"> צעד-צעד
+                            </label>
                         </div>
-
-                        <div style="display: flex; gap: 8px;">
-                            <button id="btn-start-sim" onclick="runPacketSimulation()" style="background: var(--c-sky); color: #fff; border: none; padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem;">
-                                ▶ שלח חבילה
-                            </button>
-                            <button id="btn-pause-sim" onclick="togglePauseSimulation()" disabled style="background: var(--line); color: var(--muted); border: none; padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem;">
-                                ⏸ השהה
-                            </button>
-                            <button onclick="resetSimulationTables()" style="background: var(--c-amber-bg); color: var(--c-amber); border: 1px solid var(--c-amber); padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem;">
-                                🔄 אפס
-                            </button>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <button id="btn-start-sim" onclick="runPacketSimulation()" style="background: var(--c-sky); color: #fff; border: none; padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem;">▶ שלח חבילה</button>
+                            <button id="btn-pause-sim" onclick="togglePauseSimulation()" disabled style="background: var(--line); color: var(--muted); border: none; padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem;">⏸ השהה</button>
+                            <button onclick="clearSwitchTable()" style="background: var(--c-violet-bg); color: var(--c-violet); border: 1px solid var(--c-violet); padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem;">🧹 נקה זיכרון Switch</button>
+                            <button onclick="resetSimulationTables()" style="background: var(--c-amber-bg); color: var(--c-amber); border: 1px solid var(--c-amber); padding: 8px 16px; border-radius: 10px; font-weight: 800; font-size: 0.85rem;">🔄 אפס</button>
                         </div>
                     </div>
 
                     <!-- VISUAL TOPOLOGY -->
                     <div id="sim-stage">
-                        <div id="sim-status-banner" style="display: none; text-align: center; background: var(--c-sky); color: #fff; padding: 6px; border-radius: 8px; font-weight: 800; font-size: 0.8rem; margin-bottom: 10px;">
-                            שלב: <span id="sim-status-text">ARP Request</span>
+                        <div id="sim-status-banner" style="display: none; text-align: center; background: var(--c-sky); color: #fff; padding: 4px 14px; border-radius: 8px; font-weight: 800; font-size: 0.8rem;">
+                            <span id="sim-status-text">ARP Request</span>
                         </div>
 
-                        <div id="animated-packet" class="tab-content" style="display: none;">
-                            <div><b>TYPE:</b> <span id="pkt-type" style="color: var(--c-amber);">ARP REQ</span></div>
-                            <div>SRC IP: <span id="pkt-src-ip">192.168.1.10</span></div>
-                            <div>DST IP: <span id="pkt-dst-ip">192.168.1.20</span></div>
-                            <div>SRC MAC: <span id="pkt-src-mac">AA:AA:AA:AA:11</span></div>
-                            <div>DST MAC: <span id="pkt-dst-mac">FF:FF:FF:FF:FF</span></div>
+                        <svg class="sim-links" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                            <line id="link-A" x1="50" y1="32" x2="17" y2="66"/>
+                            <line id="link-B" x1="50" y1="32" x2="50" y2="66"/>
+                            <line id="link-C" x1="50" y1="32" x2="83" y2="66"/>
+                        </svg>
+
+                        <div id="node-SW" class="sim-node" style="left: 50%; top: 18%;">
+                            <svg id="sw-svg" viewBox="0 0 170 74" width="160" role="img" aria-label="Switch"></svg>
+                            <div class="sw-cap">Switch · <span id="sw-count" class="num" style="color: inherit;">0</span> MAC</div>
                         </div>
 
-                        <div class="grid-2" style="align-items: center; text-align: center; margin: auto 0;">
-                            <div id="node-container-A" style="background: var(--paper); padding: 10px; border-radius: 12px; border: 1px solid var(--line);">
-                                <div id="node-A" style="font-weight: 800; color: var(--c-sky);" class="num">Host A</div>
-                                <div style="font-size: 0.75rem;" class="num">IP: 192.168.1.10</div>
-                                <div style="font-size: 0.7rem;" class="num">MAC: AA:AA:AA:AA:11</div>
-                            </div>
-
-                            <div id="node-SW" style="background: var(--paper); padding: 14px; border-radius: 50%; border: 2px solid var(--c-amber); width: 80px; height: 80px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-weight: 800;" class="num">
-                                Switch
-                            </div>
-
-                            <div style="display: flex; flex-direction: column; gap: 10px;">
-                                <div id="node-container-B" style="background: var(--paper); padding: 10px; border-radius: 12px; border: 1px solid var(--line);">
-                                    <div id="node-B" style="font-weight: 800;" class="num">Host B</div>
-                                    <div style="font-size: 0.75rem;" class="num">IP: 192.168.1.20</div>
-                                    <div style="font-size: 0.7rem;" class="num">MAC: BB:BB:BB:BB:22</div>
-                                </div>
-                                <div id="node-container-C" style="background: var(--paper); padding: 10px; border-radius: 12px; border: 1px solid var(--line);">
-                                    <div id="node-C" style="font-weight: 800;" class="num">Host C</div>
-                                    <div style="font-size: 0.75rem;" class="num">IP: 192.168.1.30</div>
-                                    <div style="font-size: 0.7rem;" class="num">MAC: CC:CC:CC:CC:33</div>
-                                </div>
-                            </div>
+                        <div id="node-container-A" class="sim-node host-card" style="left: 17%; top: 78%;">
+                            <div class="hbub" id="hb-A"></div>
+                            <div style="font-size: 1.3rem; line-height: 1;">💻</div>
+                            <div id="node-A" style="font-weight: 800; color: var(--c-sky);" class="num">Host A</div>
+                            <div style="font-size: 0.7rem;" class="num">IP 192.168.1.10</div>
+                            <div style="font-size: 0.6rem; word-break: break-all;" class="num">MAC AA:AA:AA:AA:AA:11</div>
+                            <div class="port-tag">⇄ Port 1</div>
                         </div>
+                        <div id="node-container-B" class="sim-node host-card" style="left: 50%; top: 78%;">
+                            <div class="hbub" id="hb-B"></div>
+                            <div style="font-size: 1.3rem; line-height: 1;">💻</div>
+                            <div id="node-B" style="font-weight: 800; color: var(--c-sky);" class="num">Host B</div>
+                            <div style="font-size: 0.7rem;" class="num">IP 192.168.1.20</div>
+                            <div style="font-size: 0.6rem; word-break: break-all;" class="num">MAC BB:BB:BB:BB:BB:22</div>
+                            <div class="port-tag">⇄ Port 2</div>
+                        </div>
+                        <div id="node-container-C" class="sim-node host-card" style="left: 83%; top: 78%;">
+                            <div class="hbub" id="hb-C"></div>
+                            <div style="font-size: 1.3rem; line-height: 1;">💻</div>
+                            <div id="node-C" style="font-weight: 800; color: var(--c-sky);" class="num">Host C</div>
+                            <div style="font-size: 0.7rem;" class="num">IP 192.168.1.30</div>
+                            <div style="font-size: 0.6rem; word-break: break-all;" class="num">MAC CC:CC:CC:CC:CC:33</div>
+                            <div class="port-tag">⇄ Port 3</div>
+                        </div>
+                    </div>
+
+                    <!-- STATS -->
+                    <div class="sim-stats">
+                        <div class="stat">📦 פריימים שנשלחו<span class="num" id="st-frames">0</span></div>
+                        <div class="stat">📢 הצפות (Flooding)<span class="num" id="st-flood">0</span></div>
+                        <div class="stat">🎯 שליחות ישירות<span class="num" id="st-uni">0</span></div>
+                        <div class="stat">📝 רשומות ARP שנלמדו<span class="num" id="st-arp">0</span></div>
                     </div>
 
                     <!-- TABLES -->
                     <div class="grid-2" style="margin-top: 20px;">
-                        <div style="background: var(--bg); border: 2px solid var(--line); padding: 12px; border-radius: 14px;">
-                            <h4 style="font-size: 0.85rem; color: var(--c-amber); margin-bottom: 8px;">Switch MAC Table (CAM)</h4>
+                        <div class="tbl-box">
+                            <h4 style="color: var(--c-amber);">Switch MAC Table (CAM) <span style="font-weight: 500; color: var(--muted);">· לחץ על שורה לסימון המחשב, 🗑 למחיקה</span></h4>
                             <table class="sim-table">
-                                <thead>
-                                    <tr><th>Port</th><th>MAC Address</th><th>Type</th></tr>
-                                </thead>
-                                <tbody id="mac-table-body">
-                                    <tr id="empty-mac-row"><td colspan="3" style="text-align: center; color: var(--muted);">הטבלה ריקה</td></tr>
-                                </tbody>
+                                <thead><tr><th>Port</th><th>MAC Address</th><th>Host</th><th>Hits</th><th></th></tr></thead>
+                                <tbody id="mac-table-body"></tbody>
                             </table>
                         </div>
+                        <div class="tbl-box">
+                            <h4 style="color: var(--c-sky);">טבלאות ARP של המחשבים <span style="font-weight: 500; color: var(--muted);">· בחר מחשב, ✕ למחיקת רשומה</span></h4>
+                            <div class="arp-chips" id="arp-chips"></div>
+                            <table class="sim-table">
+                                <thead><tr><th>IP Address</th><th>MAC Address</th><th>Type</th><th></th></tr></thead>
+                                <tbody id="arp-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
 
-                        <div style="background: var(--bg); border: 2px solid var(--line); padding: 12px; border-radius: 14px;">
-                            <h4 style="font-size: 0.85rem; color: var(--c-sky); margin-bottom: 8px;">טבלאות ARP של המחשבים</h4>
-                            <div style="font-size: 0.75rem;" class="num">
-                                <div><b>Host A ARP Table:</b> <span id="arp-table-A">Empty</span></div>
-                                <div style="margin: 6px 0;"><b>Host B ARP Table:</b> <span id="arp-table-B">Empty</span></div>
-                                <div><b>Host C ARP Table:</b> <span id="arp-table-C">Empty</span></div>
-                            </div>
+                    <!-- INSPECTOR + LOG -->
+                    <div class="grid-2" style="margin-top: 18px;">
+                        <div class="tbl-box insp">
+                            <h4 style="color: var(--red-text);">🔬 מבנה הפריים הנוכחי <span style="font-weight: 500; color: var(--muted);">· שדות שהשתנו מסומנים</span></h4>
+                            <div id="sim-inspect"></div>
+                        </div>
+                        <div class="tbl-box">
+                            <h4 style="color: var(--red-text);">📜 יומן אירועים - מה קורה עכשיו ולמה</h4>
+                            <div id="sim-log"></div>
                         </div>
                     </div>
                 </div>
@@ -828,10 +840,6 @@
 
     <!-- JavaScript Logic -->
     <script>
-        document.getElementById('current-date').textContent = new Date().toLocaleDateString('he-IL', {
-            day: '2-digit', month: '2-digit', year: 'numeric'
-        });
-
         let xp = 110;
         let hostArpTables = { A: {}, B: {}, C: {} };
         let switchMacTable = {};
@@ -899,123 +907,276 @@
 
         function addXP(amount) {
             xp += amount;
-            document.getElementById('xp-counter').innerText = xp;
         }
 
         /* --- SIMULATOR LOGIC --- */
-        function updatePacketBox(type, srcIp, dstIp, srcMac, dstMac) {
-            document.getElementById('pkt-type').innerText = type;
-            document.getElementById('pkt-src-ip').innerText = srcIp;
-            document.getElementById('pkt-dst-ip').innerText = dstIp;
-            document.getElementById('pkt-src-mac').innerText = srcMac;
-            document.getElementById('pkt-dst-mac').innerText = dstMac;
+        const HOSTS = {
+            A: { k: 'A', n: 'Host A', ip: '192.168.1.10', mac: 'AA:AA:AA:AA:AA:11', port: 1 },
+            B: { k: 'B', n: 'Host B', ip: '192.168.1.20', mac: 'BB:BB:BB:BB:BB:22', port: 2 },
+            C: { k: 'C', n: 'Host C', ip: '192.168.1.30', mac: 'CC:CC:CC:CC:CC:33', port: 3 }
+        };
+        const BC = 'FF:FF:FF:FF:FF:FF', ZERO = '00:00:00:00:00:00';
+        const INSP_EMPTY = '<span style="color: var(--muted); font-size: 0.8rem;">שלח חבילה כדי לראות את שדות הפריים בכל שלב.</span>';
+        const LOG_EMPTY = '<div class="empty" style="color: var(--muted);">היומן יתמלא בזמן הסימולציה...</div>';
+        let simToken = 0, simBusy = false, logN = 0, arpView = 'A', lastFields = {};
+        let simStats = { frames: 0, flood: 0, uni: 0, arp: 0 };
+
+        const $ = id => document.getElementById(id);
+        const m = v => `<span class="num">${v}</span>`;
+        const spd = () => ({ slow: 1.7, normal: 1, fast: 0.45 })[$('sim-speed').value] || 1;
+
+        function sleep(ms) {
+            const t = simToken;
+            return new Promise((res, rej) => {
+                setTimeout(async () => {
+                    while (isSimPaused && t === simToken) await new Promise(r => setTimeout(r, 80));
+                    t === simToken ? res() : rej('abort');
+                }, ms * spd());
+            });
+        }
+        async function gate() {
+            if ($('sim-step').checked) { isSimPaused = true; setPauseBtn(); }
+            await sleep(0);
         }
 
-        function updateStatusBanner(text) {
-            const banner = document.getElementById('sim-status-banner');
-            const txt = document.getElementById('sim-status-text');
-            banner.style.display = 'block';
-            txt.innerText = text;
+        function setPauseBtn() {
+            $('btn-pause-sim').textContent = isSimPaused ? ($('sim-step').checked ? '⏭ צעד הבא' : '▶ המשך') : '⏸ השהה';
+        }
+        function togglePauseSimulation() { isSimPaused = !isSimPaused; setPauseBtn(); }
+        function setBusy(on) {
+            simBusy = on;
+            if (!on) isSimPaused = false;
+            const s = $('btn-start-sim'), p = $('btn-pause-sim');
+            s.disabled = on; s.style.opacity = on ? '0.5' : '1';
+            p.disabled = !on;
+            p.style.background = on ? 'var(--c-violet)' : 'var(--line)';
+            p.style.color = on ? '#fff' : 'var(--muted)';
+            setPauseBtn();
         }
 
-        function runPacketSimulation() {
-            const src = document.getElementById('sim-source').value;
-            const dst = document.getElementById('sim-target').value;
+        function log(msg, type = '') {
+            logN++;
+            const box = $('sim-log');
+            if (box.querySelector('.empty')) box.innerHTML = '';
+            const d = document.createElement('div');
+            d.className = 'log-i ' + type;
+            d.innerHTML = `<b class="num">#${logN}</b> ${msg}`;
+            box.appendChild(d);
+            box.scrollTop = box.scrollHeight;
+        }
+        function banner(text) { $('sim-status-banner').style.display = 'block'; $('sim-status-text').innerText = text; }
 
-            if (src === dst) {
-                alert("בחר מקור ויעד שונים!");
-                return;
+        /* --- packet movement --- */
+        function anchor(id) {
+            const s = $('sim-stage').getBoundingClientRect();
+            const r = $(id === 'SW' ? 'node-SW' : 'node-container-' + id).getBoundingClientRect();
+            return { x: r.left - s.left + r.width / 2, y: id === 'SW' ? r.top - s.top + r.height / 2 : r.top - s.top - 54 };
+        }
+        function place(el, p) { el.style.left = p.x + 'px'; el.style.top = p.y + 'px'; }
+        function mkPkt(f, from) {
+            const el = document.createElement('div');
+            el.className = 'pkt ' + f.cls;
+            const row = (l, v, bc) => `<div class="pkt-r"><b>${l}</b><span class="${bc ? 'bc' : ''}">${v}</span></div>`;
+            el.innerHTML = `<div class="pkt-h">${f.type}</div>` + row('DST MAC', f.dstMac, f.dstMac === BC) + row('SRC MAC', f.srcMac) + row('SRC IP', f.srcIp) + row('DST IP', f.dstIp);
+            el.style.transitionDuration = '0s';
+            $('sim-stage').appendChild(el);
+            place(el, anchor(from));
+            el.offsetWidth;
+            return el;
+        }
+        function travel(el, to, ms, link) {
+            el.style.transitionDuration = (ms * spd() / 1000) + 's';
+            place(el, anchor(to));
+            const l = $('link-' + link);
+            l.classList.add('hot');
+            setTimeout(() => l.classList.remove('hot'), ms * spd() + 150);
+            return sleep(ms);
+        }
+
+        /* --- frames --- */
+        const arpFrame = (op, from, to) => ({
+            kind: 'arp', op, cls: op === 1 ? 'req' : 'rep', type: op === 1 ? 'ARP REQUEST' : 'ARP REPLY',
+            srcMac: from.mac, dstMac: op === 1 ? BC : to.mac, srcIp: from.ip, dstIp: to.ip
+        });
+        const dataFrame = (from, to) => ({
+            kind: 'ip', cls: 'data', type: 'ICMP PING', srcMac: from.mac, dstMac: to.mac, srcIp: from.ip, dstIp: to.ip
+        });
+
+        function inspect(f) {
+            const arp = f.kind === 'arp';
+            const rows = [['dst', 'Destination MAC', f.dstMac], ['src', 'Source MAC', f.srcMac], ['et', 'EtherType', arp ? '0x0806 (ARP)' : '0x0800 (IPv4)']];
+            if (arp) rows.push(['op', 'Opcode', f.op === 1 ? '1 · Request' : '2 · Reply'], ['smac', 'Sender MAC', f.srcMac], ['sip', 'Sender IP', f.srcIp], ['tmac', 'Target MAC', f.op === 1 ? ZERO + ' (?)' : f.dstMac], ['tip', 'Target IP', f.dstIp]);
+            else rows.push(['sip', 'Source IP', f.srcIp], ['tip', 'Destination IP', f.dstIp], ['pr', 'Protocol', 'ICMP Echo'], ['ttl', 'TTL', '64']);
+            let h = `<b class="insp-t ${f.cls}">${f.type}</b><div class="insp-sec">Ethernet · שכבה 2</div><div class="insp-grid">`;
+            rows.forEach((r, i) => {
+                if (i === 3) h += `</div><div class="insp-sec">${arp ? 'ARP' : 'IPv4'} · שכבה 3</div><div class="insp-grid">`;
+                const c = (lastFields[r[0]] !== undefined && lastFields[r[0]] !== r[2]) ? 'chg' : '';
+                h += `<span>${r[1]}</span><span class="num ${c}">${r[2]}</span>`;
+                lastFields[r[0]] = r[2];
+            });
+            $('sim-inspect').innerHTML = h + '</div>';
+        }
+
+        /* --- switch brain --- */
+        function initSwitch() {
+            let s = `<rect x="4" y="8" width="162" height="48" rx="10" fill="#0f172a" stroke="var(--c-amber)" stroke-width="3"/>
+                <rect x="4" y="8" width="162" height="13" rx="10" fill="#1e293b"/>
+                <text x="14" y="18" fill="#fcd34d" font-size="8" font-weight="800" font-family="monospace">SWITCH · L2</text>
+                <circle cx="153" cy="14" r="3" fill="#4ade80"/>`;
+            for (let i = 0; i < 8; i++) {
+                const x = 14 + i * 19.5, on = i < 3;
+                s += `<rect x="${x}" y="34" width="15" height="13" rx="2" fill="#020617" stroke="${on ? '#fcd34d' : '#475569'}" stroke-width="1.5"/>`;
+                if (on) s += `<circle id="sw-led-${i + 1}" class="led" cx="${x + 7.5}" cy="28" r="3"/><text x="${x + 7.5}" y="68" fill="var(--c-amber)" font-size="9" font-weight="800" text-anchor="middle" font-family="monospace">${i + 1}</text>`;
             }
+            $('sw-svg').innerHTML = s;
+        }
+        function learn(h) {
+            const old = switchMacTable[h.port];
+            const isNew = !old || old.mac !== h.mac;
+            switchMacTable[h.port] = { k: h.k, mac: h.mac, port: h.port, hits: old ? old.hits : 0 };
+            renderMacTable(isNew ? h.port : null);
+            if (isNew) log(`🧠 Switch לומד: ${m(h.mac)} נמצא בפורט ${h.port} (לפי כתובת ה<b>מקור</b> של הפריים)`, 'ok');
+        }
+        function flashHost(k, ok, txt) {
+            const c = $('node-container-' + k), b = $('hb-' + k);
+            c.classList.remove('accept', 'drop');
+            c.classList.add(ok ? 'accept' : 'drop');
+            b.textContent = txt; b.style.display = 'block';
+            setTimeout(() => { c.classList.remove('accept', 'drop'); b.style.display = 'none'; }, 2200);
+        }
+        function pulseHost(k) { flashHost(k, true, '📍 Port ' + HOSTS[k].port); }
+        function ageOut(p) {
+            delete switchMacTable[p]; renderMacTable();
+            log(`🗑 נמחקה רשומת פורט ${p} מהזיכרון של ה-Switch ← פריים לכתובת הזו יוצף (Unknown Unicast)`, 'warn');
+        }
+        function clearSwitchTable() {
+            switchMacTable = {}; renderMacTable();
+            log('🧹 זיכרון ה-Switch נוקה. כעת הוא "לא מכיר" אף אחד ויצטרך ללמוד מחדש', 'warn');
+        }
+        function delArp(h, ip) {
+            delete hostArpTables[h][ip]; renderArpTables();
+            log(`✕ נמחקה רשומת ${m(ip)} מה-ARP Cache של Host ${h} ← בשליחה הבאה יהיה צורך ב-ARP Request חדש`, 'warn');
+        }
 
-            const hosts = {
-                A: { ip: '192.168.1.10', mac: 'AA:AA:AA:AA:11', port: '1' },
-                B: { ip: '192.168.1.20', mac: 'BB:BB:BB:BB:22', port: '2' },
-                C: { ip: '192.168.1.30', mac: 'CC:CC:CC:CC:33', port: '3' }
-            };
+        async function transmit(S, f) {
+            inspect(f);
+            const pk = mkPkt(f, S.k);
+            simStats.frames++; renderStats();
+            await travel(pk, 'SW', 1100, S.k);
+            pk.classList.add('in-sw');
+            const led = $('sw-led-' + S.port);
+            led.classList.add('flash'); setTimeout(() => led.classList.remove('flash'), 1300);
+            learn(S);
+            await sleep(800);
 
-            const pkt = document.getElementById('animated-packet');
-            const btn = document.getElementById('btn-start-sim');
-            btn.disabled = true;
-
-            const isArpKnown = !!hostArpTables[src][hosts[dst].ip];
-
-            if (isArpKnown) {
-                updateStatusBanner("שליחת נתונים ביוניקאסט (MAC כבר מוכר במחשב)");
-                updatePacketBox("UNICAST DATA", hosts[src].ip, hosts[dst].ip, hosts[src].mac, hosts[dst].mac);
-                pkt.style.display = 'block';
-
-                setTimeout(() => {
-                    switchMacTable[hosts[src].port] = hosts[src].mac;
-                    switchMacTable[hosts[dst].port] = hosts[dst].mac;
-                    renderMacTable();
-                    pkt.style.display = 'none';
-                    document.getElementById('sim-status-banner').style.display = 'none';
-                    btn.disabled = false;
-                    addXP(15);
-                }, 2000);
-                return;
-            }
-
-            // ARP Request & Reply
-            updateStatusBanner("שלב 1/2: ARP Request (Broadcast מופץ לכל המחשבים)");
-            updatePacketBox("ARP REQUEST (BROADCAST)", hosts[src].ip, hosts[dst].ip, hosts[src].mac, "FF:FF:FF:FF:FF");
-            pkt.style.display = 'block';
-
-            setTimeout(() => {
-                switchMacTable[hosts[src].port] = hosts[src].mac;
+            const ent = Object.values(switchMacTable).find(e => e.mac === f.dstMac);
+            const flood = f.dstMac === BC || !ent;
+            let targets;
+            if (flood) {
+                simStats.flood++;
+                targets = Object.values(HOSTS).filter(h => h !== S);
+                log(f.dstMac === BC
+                    ? `📢 היעד הוא ${m(BC)} (Broadcast) ← ה-Switch <b>מציף</b> לכל הפורטים חוץ מהנכנס`
+                    : `❓ ${m(f.dstMac)} לא נמצא בטבלה (Unknown Unicast) ← ה-Switch <b>מציף</b> לכל הפורטים חוץ מהנכנס`, 'warn');
+            } else {
+                simStats.uni++; ent.hits++;
+                targets = [HOSTS[ent.k]];
+                log(`🎯 ${m(f.dstMac)} נמצא בטבלה בפורט ${ent.port} ← שליחה <b>ישירה</b> בלבד, שאר המחשבים לא שומעים`, 'ok');
                 renderMacTable();
+            }
+            renderStats();
 
-                updateStatusBanner("שלב 2/2: ARP Reply (Unicast נשלח בחזרה מהיעד)");
-                updatePacketBox("ARP REPLY (UNICAST)", hosts[dst].ip, hosts[src].ip, hosts[dst].mac, hosts[src].mac);
+            const pkts = [pk, ...targets.slice(1).map(() => { const c = mkPkt(f, 'SW'); c.classList.add('in-sw'); return c; })];
+            pkts.forEach(p => p.classList.remove('in-sw'));
+            await Promise.all(pkts.map((p, i) => travel(p, targets[i].k, 1100, targets[i].k)));
 
-                setTimeout(() => {
-                    switchMacTable[hosts[dst].port] = hosts[dst].mac;
-                    hostArpTables[src][hosts[dst].ip] = hosts[dst].mac;
-                    hostArpTables[dst][hosts[src].ip] = hosts[src].mac;
-                    renderMacTable();
-                    renderArpTables();
+            let hit = null;
+            targets.forEach(h => {
+                const ok = f.dstMac === BC ? f.dstIp === h.ip : f.dstMac === h.mac;
+                flashHost(h.k, ok, ok ? '✔ קיבל' : '✖ התעלם');
+                if (ok) hit = h;
+                else log(`${h.n} מתעלם: ${f.dstMac === BC ? 'ה-Target IP בבקשה אינו שלו' : 'כתובת ה-MAC ביעד אינה שלו (כרטיס הרשת זורק)'}`);
+            });
+            await sleep(1100);
+            pkts.forEach(p => p.remove());
+            return hit;
+        }
 
-                    pkt.style.display = 'none';
-                    document.getElementById('sim-status-banner').style.display = 'none';
-                    btn.disabled = false;
-                    addXP(40);
-                }, 2000);
-            }, 2000);
+        async function runPacketSimulation() {
+            if (simBusy) return;
+            const s = $('sim-source').value, d = $('sim-target').value;
+            if (s === d) { alert("בחר מקור ויעד שונים!"); return; }
+            const S = HOSTS[s], D = HOSTS[d], t = simToken;
+            setBusy(true);
+            log(`━━ ${S.n} (${m(S.ip)}) רוצה לשלוח נתונים אל ${D.n} (${m(D.ip)})`);
+            try {
+                const needArp = !hostArpTables[s][D.ip];
+                if (needArp) {
+                    arpView = s; renderArpTables();
+                    banner('שלב 1/3 · ARP Request (Broadcast)');
+                    log(`🔍 ${S.n} בודק ב-ARP Cache: אין רשומה עבור ${m(D.ip)} ← חייבים לשאול את כל הרשת "מי הכתובת הזו?"`, 'warn');
+                    await gate();
+                    await transmit(S, arpFrame(1, S, D));
+                    hostArpTables[d][S.ip] = S.mac; simStats.arp++; renderArpTables(); renderStats();
+                    log(`📝 ${D.n} זיהה את ה-IP שלו: שומר ב-Cache (${m(S.ip)} ← ${m(S.mac)}) ומשיב ב-ARP Reply ביוניקאסט`, 'ok');
+                    await gate();
+                    banner('שלב 2/3 · ARP Reply (Unicast)');
+                    await transmit(D, arpFrame(2, D, S));
+                    hostArpTables[s][D.ip] = D.mac; simStats.arp++; arpView = s; renderArpTables(); renderStats();
+                    log(`✅ ${S.n} למד: ${m(D.ip)} ← ${m(D.mac)} ונשמר ב-ARP Cache`, 'ok');
+                    await gate();
+                } else {
+                    log(`⚡ ${S.n} כבר מכיר את ה-MAC של ${m(D.ip)} ב-Cache ← מדלגים על ARP`, 'ok');
+                }
+                banner((needArp ? 'שלב 3/3' : 'שליחה') + ' · נתונים (Unicast)');
+                await transmit(S, dataFrame(S, D));
+                log(`🏁 ${D.n} קיבל את החבילה! כתובת ה-IP נשארה ${m(D.ip)}, וה-MAC הוביל אותה פיזית ברשת המקומית`, 'ok');
+                addXP(needArp ? 40 : 15);
+                await sleep(600);
+                $('sim-status-banner').style.display = 'none';
+            } catch (e) { if (e !== 'abort') console.error(e); }
+            finally { if (t === simToken) setBusy(false); }
         }
 
         function resetSimulationTables() {
-            switchMacTable = {};
-            hostArpTables = { A: {}, B: {}, C: {} };
-            renderMacTable();
-            renderArpTables();
-            document.getElementById('animated-packet').style.display = 'none';
-            document.getElementById('sim-status-banner').style.display = 'none';
-            document.getElementById('btn-start-sim').disabled = false;
+            simToken++; isSimPaused = false;
+            switchMacTable = {}; hostArpTables = { A: {}, B: {}, C: {} };
+            simStats = { frames: 0, flood: 0, uni: 0, arp: 0 };
+            lastFields = {}; logN = 0; arpView = 'A';
+            $('sim-stage').querySelectorAll('.pkt').forEach(p => p.remove());
+            document.querySelectorAll('.host-card').forEach(c => c.classList.remove('accept', 'drop'));
+            document.querySelectorAll('.hbub').forEach(b => b.style.display = 'none');
+            document.querySelectorAll('.sim-links line').forEach(l => l.classList.remove('hot'));
+            $('sim-status-banner').style.display = 'none';
+            $('sim-log').innerHTML = LOG_EMPTY;
+            $('sim-inspect').innerHTML = INSP_EMPTY;
+            setBusy(false);
+            renderMacTable(); renderArpTables(); renderStats();
         }
 
-        function renderMacTable() {
-            const body = document.getElementById('mac-table-body');
-            body.innerHTML = '';
-            let count = 0;
-            for (let port in switchMacTable) {
-                count++;
-                body.innerHTML += `<tr><td class="num">Port ${port}</td><td class="num">${switchMacTable[port]}</td><td>DYNAMIC</td></tr>`;
-            }
-            if (count === 0) {
-                body.innerHTML = '<tr id="empty-mac-row"><td colspan="3" style="text-align: center; color: var(--muted);">הטבלה ריקה</td></tr>';
-            }
+        /* --- renderers --- */
+        function renderMacTable(np) {
+            const ents = Object.values(switchMacTable).sort((a, b) => a.port - b.port);
+            $('mac-table-body').innerHTML = ents.length ? ents.map(e =>
+                `<tr class="clk ${e.port === np ? 'new' : ''}" onclick="pulseHost('${e.k}')"><td class="num">Port ${e.port}</td><td class="num">${e.mac}</td><td class="num">${e.k}</td><td class="num">${e.hits}</td><td><button class="mini-btn" title="מחק רשומה" onclick="event.stopPropagation();ageOut(${e.port})">🗑</button></td></tr>`
+            ).join('') : '<tr><td colspan="5" style="text-align: center; color: var(--muted);">הטבלה ריקה - ה-Switch עוד לא למד אף אחד</td></tr>';
+            [1, 2, 3].forEach(p => $('sw-led-' + p).classList.toggle('on', !!switchMacTable[p]));
+            $('sw-count').textContent = ents.length;
         }
-
         function renderArpTables() {
-            ['A', 'B', 'C'].forEach(h => {
-                const el = document.getElementById(`arp-table-${h}`);
-                let html = '';
-                for (let ip in hostArpTables[h]) {
-                    html += `${ip} ➔ ${hostArpTables[h][ip]} `;
-                }
-                el.innerText = html || 'Empty';
-            });
+            $('arp-chips').innerHTML = ['A', 'B', 'C'].map(h =>
+                `<button class="arp-chip ${h === arpView ? 'on' : ''}" onclick="arpView='${h}';renderArpTables()">Host ${h} <span class="num">(${Object.keys(hostArpTables[h]).length})</span></button>`
+            ).join('');
+            const e = Object.entries(hostArpTables[arpView]);
+            $('arp-table-body').innerHTML = e.length ? e.map(([ip, mac]) =>
+                `<tr><td class="num">${ip}</td><td class="num">${mac}</td><td>dynamic</td><td><button class="mini-btn" title="מחק רשומה" onclick="delArp('${arpView}','${ip}')">✕</button></td></tr>`
+            ).join('') : '<tr><td colspan="4" style="text-align: center; color: var(--muted);">Empty - אין רשומות</td></tr>';
         }
+        function renderStats() {
+            $('st-frames').textContent = simStats.frames; $('st-flood').textContent = simStats.flood;
+            $('st-uni').textContent = simStats.uni; $('st-arp').textContent = simStats.arp;
+        }
+        document.addEventListener('DOMContentLoaded', () => { initSwitch(); resetSimulationTables(); });
 
         /* --- QUIZ --- */
         const correctAnswers = {
@@ -1076,7 +1237,6 @@
             if (confirm("האם לאפס את השיעור?")) {
                 xp = 0;
                 resetSimulationTables();
-                document.getElementById('xp-counter').innerText = '0';
                 document.getElementById('quiz-form').reset();
                 document.getElementById('quiz-score-badge').style.display = 'none';
                 switchTab(1);
