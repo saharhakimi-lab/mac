@@ -356,7 +356,7 @@
                 <div class="sidebar-title">חלקי השיעור</div>
                 <div class="nav-list">
                     <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active">
-                        <span>01. משבר השמועה בכיתה</span>
+                        <span>01. מהי כתובת <span class="eng-tag">MAC</span></span>
                         <i data-lucide="message-square" style="width: 16px; height: 16px;"></i>
                     </button>
                     <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn">
@@ -393,36 +393,20 @@
         <!-- Content Display Area -->
         <section style="display: flex; flex-direction: column; gap: 20px;">
 
-            <!-- TAB 1: SHOUTING VS WHISPERING -->
+            <!-- TAB 1: WHAT IS MAC ADDRESS -->
             <div id="tab-1" class="tab-content active">
                 <div class="card">
-                    <h2 class="card-title">איך לחלוק סוד מבלי שכולם ישמעו?</h2>
+                    <h2 class="card-title">מהי כתובת <span class="eng-tag">MAC</span>?</h2>
                     <p style="font-size: 0.95rem; line-height: 1.7; margin-bottom: 16px;">
-                        תאר לעצמך שאתה רוצה להגיד משהו סודי לחבר שיושב בצד השני של הכיתה. אין לך מושג איפה הוא יושב היום, ואתה לא יודע איך הוא נראה. מה האפשרויות שלך?
+                        כתובת <span class="eng-tag">MAC</span> (Media Access Control) היא הכתובת הפיזית של רכיב הרשת (כמו כרטיס רשת או מתאם אלחוטי). היא צרובה בחומרה עוד במפעל ומשמשת לזיהוי ייחודי ברשת המקומית (LAN).
                     </p>
 
-                    <div class="grid-2" style="margin-bottom: 20px;">
-                        <div class="section-box" style="border-right-color: var(--c-amber); background: var(--c-amber-bg);">
-                            <h4 style="color: var(--c-amber);"><i data-lucide="megaphone" style="width: 18px; height: 18px; vertical-align: middle;"></i> שיטת הצעקה <span class="eng-tag">Broadcast / Flooding</span></h4>
-                            <p>אתה צועק בקול רם: "דניאל! איפה אתה?". כל תלמיד בכיתה שומע את זה. חלקם מתעצבנים, אבל דניאל מרים את היד ומסמן לך איפה הוא.</p>
+                    <div style="border-top: 2px solid var(--line); padding-top: 16px; text-align: center;">
+                        <h3 style="font-size: 1rem; color: var(--red-text); margin-bottom: 10px;">דיאגרמה להמחשה:</h3>
+                        <div style="text-align: center; cursor: pointer; display: inline-block;" onclick="openImageModal('https://lh3.googleusercontent.com/d/1mxB-9MHxs6R-zg9-IFuHI4Hzpql30dHs')">
+                            <img src="https://lh3.googleusercontent.com/d/1mxB-9MHxs6R-zg9-IFuHI4Hzpql30dHs" alt="מהי כתובת MAC" class="comp-img" style="max-width: 100%; height: auto; max-height: 450px; border-radius: 14px; border: 2px solid var(--line);">
+                            <p style="font-size: 0.75rem; color: var(--muted); margin-top: 6px;">🔍 לחץ על התמונה להגדלה למסך מלא</p>
                         </div>
-                        <div class="section-box" style="border-right-color: var(--c-green); background: var(--c-green-bg);">
-                            <h4 style="color: var(--c-green);"><i data-lucide="mic" style="width: 18px; height: 18px; vertical-align: middle;"></i> שיטת הלחישה הישירה <span class="eng-tag">Unicast</span></h4>
-                            <p>בגלל שאתה כבר יודע שדניאל יושב בטור ג' שולחן 2, אתה הולך ישירות אליו ולוחש לו באוזן.</p>
-                        </div>
-                    </div>
-
-                    <div class="section-box">
-                        <p><b>שאלה אסטרטגית:</b> למה שמתג רשת <span class="eng-tag">Switch</span> יעדיף לחישה ישירה על פני צעקה?</p>
-                        <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 12px;">
-                            <button onclick="answerScenario(1)" style="text-align: right; padding: 12px; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; font-weight: 700; font-size: 0.85rem;">
-                                מכיוון שצעקה <span class="eng-tag">Flooding</span> מייצרת עומס מטורף ברשת ומאיטה את המחשבים האחרים.
-                            </button>
-                            <button onclick="answerScenario(2)" style="text-align: right; padding: 12px; background: var(--paper); border: 2px solid var(--line); border-radius: 12px; font-weight: 700; font-size: 0.85rem;">
-                                מכיוון שצעקה פשוט שורפת את החיווט הפיזי של כרטיסי הרשת.
-                            </button>
-                        </div>
-                        <div id="scenario-feedback" style="margin-top: 12px; padding: 12px; border-radius: 12px; font-weight: 700; font-size: 0.85rem; display: none;"></div>
                     </div>
                 </div>
             </div>
@@ -887,24 +871,6 @@
             }
         }
 
-        function answerScenario(choice) {
-            const feedback = document.getElementById('scenario-feedback');
-            feedback.style.display = 'block';
-            
-            if (choice === 1) {
-                feedback.style.background = 'var(--ok-bg)';
-                feedback.style.color = 'var(--ok-edge)';
-                feedback.style.border = '2px solid var(--ok-edge)';
-                feedback.innerHTML = '🌟 <b>תשובה נכונה!</b> הצפה (Flooding) מיותרת מייצרת עומס כבד ברשת שנקרא Broadcast Storm.';
-                addXP(25);
-            } else {
-                feedback.style.background = 'var(--bad-bg)';
-                feedback.style.color = 'var(--bad-edge)';
-                feedback.style.border = '2px solid var(--bad-edge)';
-                feedback.innerHTML = '❌ לא מדויק, הבעיה היא עומס תקשורתי בלוגיקה ולא נזק פיזי לכבלים.';
-            }
-        }
-
         function addXP(amount) {
             xp += amount;
         }
@@ -946,7 +912,7 @@
         function setBusy(on) {
             simBusy = on;
             if (!on) isSimPaused = false;
-            const s = $('btn-start-sim'), p = $('btn-pause-sim');
+            const s = $('btn-start-sim'), p =$('btn-pause-sim');
             s.disabled = on; s.style.opacity = on ? '0.5' : '1';
             p.disabled = !on;
             p.style.background = on ? 'var(--c-violet)' : 'var(--line)';
@@ -964,7 +930,7 @@
             box.appendChild(d);
             box.scrollTop = box.scrollHeight;
         }
-        function banner(text) { $('sim-status-banner').style.display = 'block'; $('sim-status-text').innerText = text; }
+        function banner(text) { $('sim-status-banner').style.display = 'block';$('sim-status-text').innerText = text; }
 
         /* --- packet movement --- */
         function anchor(id) {
@@ -1038,7 +1004,7 @@
             if (isNew) log(`🧠 Switch לומד: ${m(h.mac)} נמצא בפורט ${h.port} (לפי כתובת ה<b>מקור</b> של הפריים)`, 'ok');
         }
         function flashHost(k, ok, txt) {
-            const c = $('node-container-' + k), b = $('hb-' + k);
+            const c = $('node-container-' + k), b =$('hb-' + k);
             c.classList.remove('accept', 'drop');
             c.classList.add(ok ? 'accept' : 'drop');
             b.textContent = txt; b.style.display = 'block';
@@ -1055,7 +1021,7 @@
         }
         function delArp(h, ip) {
             delete hostArpTables[h][ip]; renderArpTables();
-            log(`✕ נמחקה רשומת ${m(ip)} מה-ARP Cache של Host ${h} ← בשליחה הבאה יהיה צורך ב-ARP Request חדש`, 'warn');
+            log(`✕ נמחקה רשומה ${m(ip)} מה-ARP Cache של Host ${h} ← בשליחה הבאה יהיה צורך ב-ARP Request חדש`, 'warn');
         }
 
         async function transmit(S, f) {
@@ -1104,7 +1070,7 @@
 
         async function runPacketSimulation() {
             if (simBusy) return;
-            const s = $('sim-source').value, d = $('sim-target').value;
+            const s = $('sim-source').value, d =$('sim-target').value;
             if (s === d) { alert("בחר מקור ויעד שונים!"); return; }
             const S = HOSTS[s], D = HOSTS[d], t = simToken;
             setBusy(true);
@@ -1147,8 +1113,7 @@
             document.querySelectorAll('.host-card').forEach(c => c.classList.remove('accept', 'drop'));
             document.querySelectorAll('.hbub').forEach(b => b.style.display = 'none');
             document.querySelectorAll('.sim-links line').forEach(l => l.classList.remove('hot'));
-            $('sim-status-banner').style.display = 'none';
-            $('sim-log').innerHTML = LOG_EMPTY;
+            $('sim-status-banner').style.display = 'none';$('sim-log').innerHTML = LOG_EMPTY;
             $('sim-inspect').innerHTML = INSP_EMPTY;
             setBusy(false);
             renderMacTable(); renderArpTables(); renderStats();
@@ -1160,8 +1125,7 @@
             $('mac-table-body').innerHTML = ents.length ? ents.map(e =>
                 `<tr class="clk ${e.port === np ? 'new' : ''}" onclick="pulseHost('${e.k}')"><td class="num">Port ${e.port}</td><td class="num">${e.mac}</td><td class="num">${e.k}</td><td class="num">${e.hits}</td><td><button class="mini-btn" title="מחק רשומה" onclick="event.stopPropagation();ageOut(${e.port})">🗑</button></td></tr>`
             ).join('') : '<tr><td colspan="5" style="text-align: center; color: var(--muted);">הטבלה ריקה - ה-Switch עוד לא למד אף אחד</td></tr>';
-            [1, 2, 3].forEach(p => $('sw-led-' + p).classList.toggle('on', !!switchMacTable[p]));
-            $('sw-count').textContent = ents.length;
+            [1, 2, 3].forEach(p => $('sw-led-' + p).classList.toggle('on', !!switchMacTable[p]));$('sw-count').textContent = ents.length;
         }
         function renderArpTables() {
             $('arp-chips').innerHTML = ['A', 'B', 'C'].map(h =>
