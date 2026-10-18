@@ -241,35 +241,41 @@
         }
         .gemini-bot-btn:hover { background: #991b1b; }
 
-        /* ---------- LIGHTBOX (משודרג עם זום ושיטוט) ---------- */
+        /* ---------- LIGHTBOX (זום ושיטוט חופשי על כל התמונה) ---------- */
         .lightbox-modal {
             display: none; position: fixed; z-index: 100000; inset: 0;
-            background-color: rgba(0, 0, 0, 0.9); backdrop-filter: blur(8px);
+            background-color: rgba(0, 0, 0, 0.92); backdrop-filter: blur(8px);
             justify-content: center; align-items: center; padding: 20px;
-            overflow: hidden;
+            overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none;
         }
         .lightbox-modal.active { display: flex; }
-        .lightbox-container {
-            position: relative; max-width: 95vw; max-height: 90vh; overflow: auto;
-            display: flex; justify-content: center; align-items: center; border-radius: 14px;
-        }
         .lightbox-content {
-            max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 12px;
-            border: 2px solid var(--line); transition: transform 0.25s ease;
-            cursor: zoom-in; user-select: none;
+            max-width: 92vw; max-height: 82vh; object-fit: contain; border-radius: 12px;
+            border: 2px solid var(--line); background: #fff;
+            transform-origin: center center; will-change: transform;
+            cursor: zoom-in; -webkit-user-drag: none; user-select: none;
         }
-        .lightbox-content.zoomed {
-            max-width: none; max-height: none; transform: scale(1.8);
-            cursor: grab;
-        }
-        .lightbox-content.zoomed:active { cursor: grabbing; }
+        .lightbox-content.zoomed { cursor: grab; }
+        .lightbox-modal.dragging .lightbox-content { cursor: grabbing; }
         .lightbox-close {
             position: absolute; top: 20px; left: 20px; color: #fff; font-size: 32px;
             cursor: pointer; background: rgba(255,255,255,0.2); width: 44px; height: 44px;
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100001;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 100002;
         }
+        .lb-controls {
+            position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+            display: flex; gap: 8px; direction: ltr; z-index: 100002;
+        }
+        .lb-controls button {
+            min-width: 44px; height: 44px; padding: 0 14px; border: none; border-radius: 22px;
+            background: rgba(255,255,255,0.22); color: #fff; font-size: 1.2rem; font-weight: 800;
+            cursor: pointer; font-family: inherit;
+        }
+        .lb-controls button:hover { background: rgba(255,255,255,0.38); }
         .lightbox-hint {
-            position: absolute; bottom: 20px; color: #fff; background: rgba(0,0,0,0.6);
+            position: absolute; bottom: 76px; left: 50%; transform: translateX(-50%); white-space: nowrap;
+            max-width: 94vw; overflow: hidden; text-overflow: ellipsis;
+            color: #fff; background: rgba(0,0,0,0.6);
             padding: 6px 16px; border-radius: 20px; font-size: 0.8rem; pointer-events: none;
         }
 
@@ -826,13 +832,16 @@
         </button>
     </div>
 
-    <!-- LIGHTBOX MODAL (משודרג) -->
-    <div id="lightbox" class="lightbox-modal" onclick="closeLightbox(event)">
-        <span class="lightbox-close" onclick="closeLightbox(event)">&times;</span>
-        <div class="lightbox-container" id="lightbox-container">
-            <img id="lightbox-img" class="lightbox-content" src="" alt="תמונה מוגדלת" onclick="toggleZoomImage(event)">
+    <!-- LIGHTBOX MODAL (זום ושיטוט חופשי) -->
+    <div id="lightbox" class="lightbox-modal">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-img" class="lightbox-content" src="" alt="תמונה מוגדלת" draggable="false">
+        <div class="lightbox-hint">🔍 לחיצה על התמונה: זום | גרירה: שיטוט בכל התמונה | גלגלת / צביטה: שינוי זום</div>
+        <div class="lb-controls">
+            <button type="button" onclick="lbZoomBy(1/1.5)" aria-label="הקטנה">−</button>
+            <button type="button" onclick="lbReset()" aria-label="איפוס">100%</button>
+            <button type="button" onclick="lbZoomBy(1.5)" aria-label="הגדלה">+</button>
         </div>
-        <div class="lightbox-hint">🔍 בלחיצה על התמונה: זום להגדלה ושיטוט | בלחיצה שוב: הקטנה</div>
     </div>
 
     <!-- Footer -->
@@ -878,55 +887,122 @@
         }
 
         /* --- LIGHTBOX LOGIC --- */
-        let isDragging = false, startX, startY, scrollLeft, scrollTop;
+        const lb = { scale: 1, x: 0, y: 0, MIN: 1, MAX: 6, pointers: new Map(),
+                     moved: 0, multi: false, downTarget: null, pinchDist: 0, pinchScale: 1 };
+        const lbModal = document.getElementById('lightbox');
+        const lbImg = document.getElementById('lightbox-img');
+
+        function lbApply(animate) {
+            // הגבלת הגרירה: אפשר להגיע לכל קצה של התמונה, אבל לא לברוח ממנה
+            const vw = lbModal.clientWidth, vh = lbModal.clientHeight;
+            const halfW = lbImg.offsetWidth * lb.scale / 2;
+            const halfH = lbImg.offsetHeight * lb.scale / 2;
+            const maxX = Math.max(0, halfW - vw / 2 + 30);
+            const maxY = Math.max(0, halfH - vh / 2 + 30);
+            lb.x = Math.min(maxX, Math.max(-maxX, lb.x));
+            lb.y = Math.min(maxY, Math.max(-maxY, lb.y));
+            lbImg.style.transition = animate ? 'transform 0.2s ease' : 'none';
+            lbImg.style.transform = `translate(${lb.x}px, ${lb.y}px) scale(${lb.scale})`;
+            lbImg.classList.toggle('zoomed', lb.scale > 1.01);
+        }
+
+        // זום סביב נקודה (קואורדינטות מסך) כך שהנקודה נשארת במקומה
+        function lbZoomTo(newScale, cx, cy) {
+            newScale = Math.min(lb.MAX, Math.max(lb.MIN, newScale));
+            const px = cx - lbModal.clientWidth / 2;
+            const py = cy - lbModal.clientHeight / 2;
+            const r = newScale / lb.scale;
+            lb.x = px - (px - lb.x) * r;
+            lb.y = py - (py - lb.y) * r;
+            lb.scale = newScale;
+            if (lb.scale <= 1.001) { lb.x = 0; lb.y = 0; }
+        }
+
+        function lbZoomBy(f) {
+            lbZoomTo(lb.scale * f, lbModal.clientWidth / 2, lbModal.clientHeight / 2);
+            lbApply(true);
+        }
+        function lbReset() { lb.scale = 1; lb.x = 0; lb.y = 0; lbApply(true); }
 
         function openImageModal(src) {
-            const lightbox = document.getElementById('lightbox');
-            const img = document.getElementById('lightbox-img');
-            img.src = src;
-            img.classList.remove('zoomed');
-            lightbox.classList.add('active');
+            lbImg.src = src;
+            lb.scale = 1; lb.x = 0; lb.y = 0; lb.pointers.clear();
+            lbApply(false);
+            lbModal.classList.add('active');
         }
 
-        function toggleZoomImage(evt) {
-            evt.stopPropagation();
-            const img = document.getElementById('lightbox-img');
-            img.classList.toggle('zoomed');
+        function closeLightbox() {
+            lbModal.classList.remove('active', 'dragging');
+            lb.pointers.clear();
+            lbReset();
         }
 
-        function closeLightbox(evt) {
-            if (evt.target.id === 'lightbox' || evt.target.classList.contains('lightbox-close') || evt.target.id === 'lightbox-container') {
-                const lightbox = document.getElementById('lightbox');
-                const img = document.getElementById('lightbox-img');
-                img.classList.remove('zoomed');
-                lightbox.classList.remove('active');
+        lbModal.addEventListener('pointerdown', (e) => {
+            if (e.target.closest('.lightbox-close, .lb-controls')) return;
+            lbModal.setPointerCapture(e.pointerId);
+            lb.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+            if (lb.pointers.size === 1) {
+                lb.moved = 0; lb.multi = false; lb.downTarget = e.target;
+            } else if (lb.pointers.size === 2) {
+                lb.multi = true;
+                const [a, b] = [...lb.pointers.values()];
+                lb.pinchDist = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+                lb.pinchScale = lb.scale;
             }
-        }
-
-        // אפשרות גרירה ושיטוט בתמונה כשהיא בזום
-        const container = document.getElementById('lightbox-container');
-        container.addEventListener('mousedown', (e) => {
-            const img = document.getElementById('lightbox-img');
-            if (!img.classList.contains('zoomed')) return;
-            isDragging = true;
-            startX = e.pageX - container.offsetLeft;
-            startY = e.pageY - container.offsetTop;
-            scrollLeft = container.scrollLeft;
-            scrollTop = container.scrollTop;
         });
 
-        container.addEventListener('mouseleave', () => { isDragging = false; });
-        container.addEventListener('mouseup', () => { isDragging = false; });
+        lbModal.addEventListener('pointermove', (e) => {
+            const prev = lb.pointers.get(e.pointerId);
+            if (!prev) return;
+            const cur = { x: e.clientX, y: e.clientY };
+            lb.pointers.set(e.pointerId, cur);
+            if (lb.pointers.size === 1) {
+                const dx = cur.x - prev.x, dy = cur.y - prev.y;
+                lb.moved += Math.abs(dx) + Math.abs(dy);
+                if (lb.moved > 6 && lb.scale > 1.01) {
+                    lb.x += dx; lb.y += dy;
+                    lbModal.classList.add('dragging');
+                    lbApply(false);
+                }
+            } else if (lb.pointers.size >= 2) {
+                const [a, b] = [...lb.pointers.values()];
+                const dist = Math.hypot(a.x - b.x, a.y - b.y) || 1;
+                lbZoomTo(lb.pinchScale * dist / lb.pinchDist, (a.x + b.x) / 2, (a.y + b.y) / 2);
+                lbApply(false);
+            }
+        });
 
-        container.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
+        function lbPointerEnd(e) {
+            if (!lb.pointers.has(e.pointerId)) return;
+            lb.pointers.delete(e.pointerId);
+            lbModal.classList.remove('dragging');
+            if (lb.pointers.size === 0 && !lb.multi && lb.moved <= 6 && e.type === 'pointerup') {
+                // לחיצה רגילה (בלי גרירה)
+                if (lb.downTarget === lbImg) {
+                    if (lb.scale > 1.01) lbReset();
+                    else { lbZoomTo(2.5, e.clientX, e.clientY); lbApply(true); }
+                } else if (lb.downTarget === lbModal) {
+                    closeLightbox();
+                }
+            }
+        }
+        lbModal.addEventListener('pointerup', lbPointerEnd);
+        lbModal.addEventListener('pointercancel', lbPointerEnd);
+
+        // גלגלת עכבר = זום סביב הסמן
+        lbModal.addEventListener('wheel', (e) => {
             e.preventDefault();
-            const x = e.pageX - container.offsetLeft;
-            const y = e.pageY - container.offsetTop;
-            const walkX = (x - startX) * 2;
-            const walkY = (y - startY) * 2;
-            container.scrollLeft = scrollLeft - walkX;
-            container.scrollTop = scrollTop - walkY;
+            lbZoomTo(lb.scale * Math.exp(-e.deltaY * 0.0015), e.clientX, e.clientY);
+            lbApply(false);
+        }, { passive: false });
+
+        window.addEventListener('resize', () => { if (lbModal.classList.contains('active')) lbApply(false); });
+        document.addEventListener('keydown', (e) => {
+            if (!lbModal.classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            else if (e.key === '+' || e.key === '=') lbZoomBy(1.5);
+            else if (e.key === '-') lbZoomBy(1 / 1.5);
+            else if (e.key === '0') lbReset();
         });
 
         function addXP(amount) {
