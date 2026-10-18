@@ -121,18 +121,18 @@
         .mode-btn:hover { border-color: var(--red); }
 
         /* ---------- פריסה ראשית ---------- */
-        main.main-layout {
-            display: grid; grid-template-columns: 280px 1fr; gap: 24px; padding: 28px 0; flex-grow: 1;
-        }
-        @media (max-width: 992px) { main.main-layout { grid-template-columns: 1fr; } }
+        main.main-layout { display: block; padding: 24px 0 28px; flex-grow: 1; }
 
-        /* ---------- סרגל צד ---------- */
-        aside.sidebar-nav { display: flex; flex-direction: column; gap: 16px; }
-        .sidebar-card {
-            background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 16px;
+        /* ---------- סרגל טאבים מתחת לכותרת ---------- */
+        .tabs-bar { background: var(--paper); border-bottom: 2px solid var(--line); padding: 10px 0; }
+        .tabs-inner { display: flex; align-items: center; gap: 8px; overflow-x: auto; padding: 2px 2px 4px; scrollbar-width: thin; }
+        .tabs-inner .tab-btn { flex-shrink: 0; white-space: nowrap; }
+        .reset-btn {
+            flex-shrink: 0; white-space: nowrap; margin-inline-start: auto;
+            background: var(--red-soft); color: var(--red-text); border: 1.5px solid var(--red-edge);
+            padding: 10px 14px; border-radius: 12px; font-weight: 800; font-size: 0.8rem;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
-        .sidebar-title { font-size: 0.8rem; font-weight: 800; color: var(--red-text); margin-bottom: 12px; text-transform: uppercase; }
-        .nav-list { display: flex; flex-direction: column; gap: 8px; }
 
         .tab-btn {
             display: flex; align-items: center; justify-content: space-between; gap: 10px;
@@ -351,6 +351,20 @@
 .log-i.warn{border-color:var(--c-amber);background:var(--c-amber-bg)}.log-i.ok{border-color:var(--c-green);background:var(--c-green-bg)}
 @media(max-width:600px){.sim-stats{grid-template-columns:repeat(2,1fr)}}
 
+/* ---------- טאב 4: סימולטור + טבלאות חיות בצד ---------- */
+#tab-4.active{display:grid;grid-template-columns:minmax(300px,380px) minmax(0,1fr);gap:24px;align-items:start}
+#tab-4 .sim-side{position:sticky;top:112px;display:flex;flex-direction:column;gap:16px;max-height:calc(100vh - 128px);overflow-y:auto}
+#tab-4 .sim-main{min-width:0}
+#tab-4 .sim-side .tbl-box{padding:10px}
+#tab-4 .sim-side .sim-table{font-size:.72rem}
+#tab-4 .sim-side .sim-table th,#tab-4 .sim-side .sim-table td{padding:6px 5px}
+#tab-4 .sim-side .tbl-box h4 span{display:block;font-size:.7rem}
+@media(max-width:992px){
+  #tab-4.active{grid-template-columns:1fr}
+  #tab-4 .sim-side{position:static;max-height:none;overflow:visible;order:2}
+  #tab-4 .sim-main{order:1}
+}
+
     </style>
 </head>
 <body>
@@ -371,49 +385,45 @@
         </div>
     </header>
 
-    <!-- Main Content Layout -->
-    <main class="container main-layout">
-        
-        <!-- Sidebar Navigation -->
-        <aside class="sidebar-nav">
-            <div class="sidebar-card">
-                <div class="sidebar-title">חלקי השיעור</div>
-                <div class="nav-list">
-                    <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active">
-                        <span>מהי כתובת <span class="eng-tag">MAC</span></span>
-                        <i data-lucide="message-square" style="width: 16px; height: 16px;"></i>
-                    </button>
-                    <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn">
-                        <span>תעודת הזהות <span class="eng-tag">MAC</span></span>
-                        <i data-lucide="fingerprint" style="width: 16px; height: 16px;"></i>
-                    </button>
-                    <button id="tab-btn-3" onclick="switchTab(3)" class="tab-btn">
-                        <span><span class="eng-tag">IP</span> מול <span class="eng-tag">MAC</span></span>
-                        <i data-lucide="route" style="width: 16px; height: 16px;"></i>
-                    </button>
-                    <button id="tab-btn-4" onclick="switchTab(4)" class="tab-btn">
-                        <span>עבודת הסוויטש ו-<span class="eng-tag">ARP</span></span>
-                        <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
-                    </button>
-                    <button id="tab-btn-5" onclick="switchTab(5)" class="tab-btn">
-                        <span>מבדק ידע 10 שאלות</span>
-                        <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
-                    </button>
-                    <button id="tab-btn-6" onclick="switchTab(6)" class="tab-btn">
-                        <span>דוח סיום ורפלקציה</span>
-                        <i data-lucide="award" style="width: 16px; height: 16px;"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="sidebar-card">
-                <button onclick="resetProgress()" style="width: 100%; background: var(--red-soft); color: var(--red-text); border: 1.5px solid var(--red-edge); padding: 10px; border-radius: 12px; font-weight: 800; font-size: 0.8rem; display: flex; align-items: center; justify-content: center; gap: 8px;">
+    <!-- Tabs bar (מתחת לכותרת) -->
+    <nav class="tabs-bar" aria-label="חלקי השיעור">
+        <div class="container">
+            <div class="tabs-inner">
+        <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active">
+            <span>מהי כתובת <span class="eng-tag">MAC</span></span>
+            <i data-lucide="message-square" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn">
+            <span>תעודת הזהות <span class="eng-tag">MAC</span></span>
+            <i data-lucide="fingerprint" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button id="tab-btn-3" onclick="switchTab(3)" class="tab-btn">
+            <span><span class="eng-tag">IP</span> מול <span class="eng-tag">MAC</span></span>
+            <i data-lucide="route" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button id="tab-btn-4" onclick="switchTab(4)" class="tab-btn">
+            <span>עבודת הסוויטש ו-<span class="eng-tag">ARP</span></span>
+            <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button id="tab-btn-5" onclick="switchTab(5)" class="tab-btn">
+            <span>מבדק ידע 10 שאלות</span>
+            <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
+        </button>
+        <button id="tab-btn-6" onclick="switchTab(6)" class="tab-btn">
+            <span>דוח סיום ורפלקציה</span>
+            <i data-lucide="award" style="width: 16px; height: 16px;"></i>
+        </button>
+                <button onclick="resetProgress()" class="reset-btn">
                     <i data-lucide="refresh-cw" style="width: 16px; height: 16px;"></i>
                     <span>אפס התקדמות שיעור</span>
                 </button>
             </div>
-        </aside>
+        </div>
+    </nav>
 
+    <!-- Main Content Layout -->
+    <main class="container main-layout">
+        
         <!-- Content Display Area -->
         <section style="display: flex; flex-direction: column; gap: 20px;">
 
@@ -522,7 +532,26 @@
 
             <!-- TAB 4: ADVANCED SIMULATOR -->
             <div id="tab-4" class="tab-content">
-                <div class="card">
+                <!-- טבלאות חיות: MAC + ARP (בצד, תמיד גלויות בזמן הסימולציה) -->
+                <div class="sim-side">
+                        <div class="tbl-box">
+                            <h4 style="color: var(--c-amber);">Switch MAC Table (CAM) <span style="font-weight: 500; color: var(--muted);">· לחץ על שורה לסימון המחשב, 🗑 למחיקה</span></h4>
+                            <table class="sim-table">
+                                <thead><tr><th>Port</th><th>MAC Address</th><th>Host</th><th>Hits</th><th></th></tr></thead>
+                                <tbody id="mac-table-body"></tbody>
+                            </table>
+                        </div>
+                        <div class="tbl-box">
+                            <h4 style="color: var(--c-sky);">טבלאות ARP של המחשבים <span style="font-weight: 500; color: var(--muted);">· בחר מחשב, ✕ למחיקת רשומה</span></h4>
+                            <div class="arp-chips" id="arp-chips"></div>
+                            <table class="sim-table">
+                                <thead><tr><th>IP Address</th><th>MAC Address</th><th>Type</th><th></th></tr></thead>
+                                <tbody id="arp-table-body"></tbody>
+                            </table>
+                        </div>
+                </div>
+
+                <div class="card sim-main">
                     <h2 class="card-title">סימולטור המתג וטבלאות ה-<span class="eng-tag">ARP</span></h2>
                     <p style="font-size: 0.9rem; margin-bottom: 16px;">
                         בחר מקור ויעד לשליחת החבילה. במידה והיעד לא מוכר, תראה <span class="eng-tag">ARP Request</span> ברודקאסט, עליו יגיע <span class="eng-tag">ARP Reply</span> יוניקאסט, ורק אז תישלח חבילת המידע!
@@ -610,25 +639,6 @@
                         <div class="stat">📢 הצפות (Flooding)<span class="num" id="st-flood">0</span></div>
                         <div class="stat">🎯 שליחות ישירות<span class="num" id="st-uni">0</span></div>
                         <div class="stat">📝 רשומות ARP שנלמדו<span class="num" id="st-arp">0</span></div>
-                    </div>
-
-                    <!-- TABLES -->
-                    <div class="grid-2" style="margin-top: 20px;">
-                        <div class="tbl-box">
-                            <h4 style="color: var(--c-amber);">Switch MAC Table (CAM) <span style="font-weight: 500; color: var(--muted);">· לחץ על שורה לסימון המחשב, 🗑 למחיקה</span></h4>
-                            <table class="sim-table">
-                                <thead><tr><th>Port</th><th>MAC Address</th><th>Host</th><th>Hits</th><th></th></tr></thead>
-                                <tbody id="mac-table-body"></tbody>
-                            </table>
-                        </div>
-                        <div class="tbl-box">
-                            <h4 style="color: var(--c-sky);">טבלאות ARP של המחשבים <span style="font-weight: 500; color: var(--muted);">· בחר מחשב, ✕ למחיקת רשומה</span></h4>
-                            <div class="arp-chips" id="arp-chips"></div>
-                            <table class="sim-table">
-                                <thead><tr><th>IP Address</th><th>MAC Address</th><th>Type</th><th></th></tr></thead>
-                                <tbody id="arp-table-body"></tbody>
-                            </table>
-                        </div>
                     </div>
 
                     <!-- INSPECTOR + LOG -->
