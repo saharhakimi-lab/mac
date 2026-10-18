@@ -380,27 +380,27 @@
                 <div class="sidebar-title">חלקי השיעור</div>
                 <div class="nav-list">
                     <button id="tab-btn-1" onclick="switchTab(1)" class="tab-btn active">
-                        <span>01. מהי כתובת <span class="eng-tag">MAC</span></span>
+                        <span>מהי כתובת <span class="eng-tag">MAC</span></span>
                         <i data-lucide="message-square" style="width: 16px; height: 16px;"></i>
                     </button>
                     <button id="tab-btn-2" onclick="switchTab(2)" class="tab-btn">
-                        <span>02. תעודת הזהות <span class="eng-tag">MAC</span></span>
+                        <span>תעודת הזהות <span class="eng-tag">MAC</span></span>
                         <i data-lucide="fingerprint" style="width: 16px; height: 16px;"></i>
                     </button>
                     <button id="tab-btn-3" onclick="switchTab(3)" class="tab-btn">
-                        <span>03. <span class="eng-tag">IP</span> מול <span class="eng-tag">MAC</span></span>
+                        <span><span class="eng-tag">IP</span> מול <span class="eng-tag">MAC</span></span>
                         <i data-lucide="route" style="width: 16px; height: 16px;"></i>
                     </button>
                     <button id="tab-btn-4" onclick="switchTab(4)" class="tab-btn">
-                        <span>04. עבודת הסוויטש ו-<span class="eng-tag">ARP</span></span>
+                        <span>עבודת הסוויטש ו-<span class="eng-tag">ARP</span></span>
                         <i data-lucide="cpu" style="width: 16px; height: 16px;"></i>
                     </button>
                     <button id="tab-btn-5" onclick="switchTab(5)" class="tab-btn">
-                        <span>05. מבדק ידע 10 שאלות</span>
+                        <span>מבדק ידע 10 שאלות</span>
                         <i data-lucide="check-circle" style="width: 16px; height: 16px;"></i>
                     </button>
                     <button id="tab-btn-6" onclick="switchTab(6)" class="tab-btn">
-                        <span>06. דוח סיום ורפלקציה</span>
+                        <span>דוח סיום ורפלקציה</span>
                         <i data-lucide="award" style="width: 16px; height: 16px;"></i>
                     </button>
                 </div>
@@ -722,7 +722,7 @@
                         <div class="quiz-item">
                             <div class="quiz-title">7. מה קורה לכתובות IP ו-MAC במעבר דרך ראוטר לרשת אחרת?</div>
                             <div class="quiz-options">
-                                <label class="quiz-opt"><input type="radio" name="q7" value="A"> שתי הכתובות נשארות קבועות</label>
+                                <label class="quiz-opt"><input type="radio" name="q7" value="A"> שתי الכתובות נשארות קבועות</label>
                                 <label class="quiz-opt"><input type="radio" name="q7" value="B"> ה-IP קבוע, ה-MAC משתנה בכל מקטע (Hop)</label>
                             </div>
                             <div id="fb-q7" class="quiz-feedback"></div>
@@ -1023,7 +1023,9 @@
 
         const $ = id => document.getElementById(id);
         const m = v => `<span class="num">${v}</span>`;
-        const spd = () => ({ slow: 1.7, normal: 1, fast: 0.45 })[$('sim-speed').value] || 1;
+        
+        // הפחתת ה-speed ב-80% פירושה שהזמן של השהיה גדל פי 5 (80% איטי יותר)
+        const spd = () => ({ slow: 8.5, normal: 5, fast: 2.25 })[$('sim-speed').value] || 5;
 
         function sleep(ms) {
             const t = simToken;
